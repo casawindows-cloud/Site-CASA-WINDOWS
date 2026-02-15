@@ -80,11 +80,16 @@
         .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; position: relative; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
         .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); box-shadow: var(--shadow); }
         
+        /* 🖼️ EFEITO HOVER NAS IMAGENS */
         .img-container { position: relative; width: 100%; aspect-ratio: 1/1; margin-bottom: 15px; overflow: hidden; border-radius: 8px; background: #fff; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-        .product-card:hover .img-container img { transform: scale(1.05); }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s, opacity 0.3s; }
         
-        .tag-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; color: white; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .img-container img.hover-img { position: absolute; top: 0; left: 0; opacity: 0; z-index: 2; }
+        
+        .product-card:hover .img-container img.main-img { transform: scale(1.05); }
+        .product-card:hover .img-container img.hover-img { transform: scale(1.05); opacity: 1; }
+        
+        .tag-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; color: white; z-index: 3; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .tag-aluguer { background: #8b5cf6; }
         .tag-esgotado { background: var(--danger); left: auto; right: 10px; }
         
@@ -122,7 +127,7 @@
         .modal-stock { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; width: fit-content; }
         .stock-in { background: rgba(16, 185, 129, 0.1); color: var(--success); }
         .stock-out { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-        .modal-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-main); opacity: 0.8; margin-bottom: 25px; }
+        .modal-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-main); opacity: 0.8; margin-bottom: 25px; white-space: pre-line; } 
         .trust-badge { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--success); margin-top: 15px; font-weight: 500; }
 
         /* ==========================================================================
@@ -303,80 +308,64 @@
     </div>
 
     <script>
-        // 📞 1. COLOQUE O SEU NÚMERO DE WHATSAPP AQUI (Apenas números)
         const SEU_WHATSAPP = "258842785290"; 
 
         /* =======================================================================
-           📦 2. GESTÃO DE ESTOQUE E PRODUTOS (MANUAL DO ANFITRIÃO)
-           =======================================================================
-           INSTRUÇÕES PARA ESCONDER/MOSTRAR "ESGOTADO":
-           - Tem o produto para vender? Mude para -> disponivel: true,
-           - O produto acabou? Mude para -> disponivel: false,
-           
-           É simples assim! O site faz o resto automaticamente (bloqueia o botão,
-           fica cinzento e avisa que esgotou).
-        ======================================================================= */
+           📦 2. GESTÃO DE ESTOQUE E PRODUTOS (COM AS TUAS IMAGENS LOCAIS)
+           ======================================================================= */
         
         const bancoDeDados = [
-            // --- ÁUDIO (VENDA) ---
+            // --- ÁUDIO (NOVOS PACOTES DE ALUGUER) ---
             { 
                 id: 1, 
-                tag: 'audio-venda', 
-                disponivel: true,   // 🟢 MUDE AQUI (true = Tem / false = Acabou)
-                isAluguer: false, 
-                nome: 'Subwoofer Ativo JBL SRX828SP 18"', 
-                preco: 145000, 
-                descricao: 'Subwoofer profissional duplo de 18 polegadas com amplificação Crown integrada. Ideal para concertos ao ar livre e grandes eventos.', 
-                img: 'https://images.unsplash.com/photo-1545127398-14699f92334b?auto=format&fit=crop&w=500&q=80' 
+                tag: 'audio-aluguer', 
+                disponivel: true,   
+                isAluguer: true, 
+                nome: 'Pacote Básico (100 pessoas)', 
+                preco: 2500, 
+                descricao: 'Componentes do Pacote:\n• 1x Coluna Amplificada\n• 1x Coluna Passiva\n• 1x Microfone', 
+                img: 'Básico_100_pessoas1.jpg',
+                imgHover: '' 
             },
             { 
                 id: 2, 
-                tag: 'audio-venda', 
-                disponivel: false,  // 🔴 EXEMPLO DE ESGOTADO (false)
-                isAluguer: false, 
-                nome: 'Coluna Line Array Ativa Yamaha', 
-                preco: 65000, 
-                descricao: 'Sistema de Line Array compacto com excelente dispersão sonora e clareza vocal.', 
-                img: 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=500&q=80' 
+                tag: 'audio-aluguer', 
+                disponivel: true,   
+                isAluguer: true, 
+                nome: 'Pacote CLÁSSICA (200 pessoas)', 
+                preco: 3000, 
+                descricao: 'Componentes do Pacote:\n• 1x Bass única\n• 1x Top\n• 2x Microfones\n• 1x Mesa de som amplificada', 
+                img: 'CLÁSSICA (200 pessoas).jpg',
+                imgHover: ''
             },
             { 
                 id: 3, 
-                tag: 'audio-venda', 
-                disponivel: true,   // 🟢
-                isAluguer: false, 
-                nome: 'Mesa de Som Digital Behringer X32', 
-                preco: 180000, 
-                descricao: 'Console digital com 40 canais de entrada, 25 buses, pré-amplificadores Midas programáveis e interface USB.', 
-                img: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=500&q=80' 
-            },
-            
-            // --- ÁUDIO (ALUGUER) - (Geralmente sempre disponivel: true) ---
-            { 
-                id: 9, 
                 tag: 'audio-aluguer', 
-                disponivel: true,   // 🟢
-                isAluguer: true,    // Repare que aqui é TRUE porque é aluguer
-                nome: 'Aluguer: Pacote Casamento', 
-                preco: 10000, 
-                descricao: 'Inclui 2 Tops, 2 Subs, Mesa de Som analógica, 2 Microfones sem fio e serviço técnico para 8 horas de evento.', 
-                img: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=500&q=80' 
-            },
-            { 
-                id: 10, 
-                tag: 'audio-aluguer', 
-                disponivel: true,   // 🟢
+                disponivel: true,   
                 isAluguer: true, 
-                nome: 'Aluguer: Mega Evento', 
-                preco: 25000, 
-                descricao: 'Sistema Line Array completo com estrutura em Trussing, iluminação básica e técnicos de som dedicados.', 
-                img: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=500&q=80' 
+                nome: 'Pacote PRO (500 pessoas)', 
+                preco: 5000, 
+                descricao: 'Componentes do Pacote:\n• 1x Bass dupla\n• 2x Tops\n• 2x Microfones\n• 1x Mesa de som\n• 1x Crossover\n• 1x P.A', 
+                img: 'Pro(500 pessoas)1.jpg',
+                imgHover: 'PRO(500 pessoas)2.jpg' // Esta tem a segunda imagem para o Hover
+            },
+            { 
+                id: 4, 
+                tag: 'audio-aluguer', 
+                disponivel: true,   
+                isAluguer: true, 
+                nome: 'Pacote PRO (1000 pessoas)', 
+                preco: 10000, 
+                descricao: 'Componentes do Pacote:\n• 2x Bass dupla\n• 4x Tops\n• 4x Microfones\n• 1x Mesa de som\n• 1x Crossover\n• 1x P.A', 
+                img: 'PRO (1000 pessoas)1.jpg',
+                imgHover: ''
             },
 
             // --- COMPUTADORES ---
             { 
                 id: 13, 
                 tag: 'pc-laptop', 
-                disponivel: true,   // 🟢
+                disponivel: true,   
                 isAluguer: false, 
                 nome: 'Laptop HP Celeron 4GB 500GB', 
                 preco: 18500, 
@@ -386,7 +375,7 @@
             { 
                 id: 15, 
                 tag: 'pc-laptop', 
-                disponivel: true,  // 🔴 EXEMPLO DE ESGOTADO (false)
+                disponivel: true,  
                 isAluguer: false, 
                 nome: 'Laptop Dell Core i5 8GB 256GB SSD', 
                 preco: 42000, 
@@ -396,7 +385,7 @@
             { 
                 id: 18, 
                 tag: 'pc-desktop', 
-                disponivel: true,   // 🟢
+                disponivel: true,   
                 isAluguer: false, 
                 nome: 'PC Desktop Dell Core i5 8GB RAM', 
                 preco: 35000, 
@@ -408,7 +397,7 @@
             { 
                 id: 19, 
                 tag: 'moda-calcados', 
-                disponivel: true,   // 🟢
+                disponivel: true,   
                 isAluguer: false, 
                 nome: 'Sapatilhas Nike Air Force 1 "07', 
                 preco: 8500, 
@@ -418,7 +407,7 @@
         ];
 
         /* =======================================================================
-           FIM DA ÁREA DO ANFITRIÃO (O CÓDIGO ABAIXO FAZ A MÁGICA FUNCIONAR)
+           FIM DA ÁREA DO ANFITRIÃO
            ======================================================================= */
 
         let cart = [];
@@ -426,8 +415,10 @@
         function renderProducts(lista) {
             const grid = document.getElementById('productGrid');
             grid.innerHTML = lista.map(prod => {
-                // Se a variável "disponivel" for falsa, ativamos o modo esgotado
                 const esgotado = !prod.disponivel;
+                
+                // Se o produto tiver a propriedade imgHover preenchida, cria a tag da imagem
+                const hoverImgTag = prod.imgHover ? `<img src="${prod.imgHover}" alt="${prod.nome} hover" class="hover-img" loading="lazy">` : '';
                 
                 return `
                 <div class="product-card ${esgotado ? 'esgotado' : ''}" onclick="openModal(${prod.id})">
@@ -435,7 +426,8 @@
                     ${esgotado ? `<span class="tag-badge tag-esgotado">ESGOTADO</span>` : ''}
                     
                     <div class="img-container">
-                        <img src="${prod.img}" alt="${prod.nome}" loading="lazy">
+                        <img src="${prod.img}" alt="${prod.nome}" class="main-img" loading="lazy">
+                        ${hoverImgTag}
                     </div>
                     <h4 class="product-title">${prod.nome}</h4>
                     <p class="product-price">${prod.preco.toLocaleString('pt-MZ')} MT</p>
@@ -576,8 +568,6 @@
             if(body.getAttribute('data-theme') === 'dark') {
                 body.setAttribute('data-theme', 'light');
                 icon.className = 'fas fa-moon';
-                // ATENÇÃO ANFITRIÃO: Se a logo "sumir" no fundo branco, é porque ela é branca.
-                // Se isso acontecer, basta inverter os nomes abaixo.
                 logo.src = 'cw_logo_white.png';
             } else {
                 body.setAttribute('data-theme', 'dark');
