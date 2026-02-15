@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Windows | Store & Aluguer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==========================================================================
+           🎨 CORES E TEMAS (MODO ESCURO E CLARO)
+           ========================================================================== */
+        :root {
+            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
+            --primary-blue: #3b82f6; --whatsapp: #25d366; --whatsapp-dark: #128c7e;
+            --border: #1e293b; --shadow: 0 4px 12px rgba(0,0,0,0.3);
+            --danger: #ef4444; --success: #10b981;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #f8fafc; --bg-card: #ffffff; --text-main: #0f172a;
+            --primary-blue: #2563eb; --border: #e2e8f0; --shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); transition: background 0.3s, color 0.3s; padding-top: 95px; }
+
+        /* ==========================================================================
+           🖥️ CABEÇALHO (NAV) E MARCA
+           ========================================================================== */
+        nav {
+            position: fixed; top: 0; width: 100%; background: var(--bg-card); 
+            padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
+            z-index: 1000; height: 95px; border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+            transition: 0.3s;
+        }
+        .brand-container { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); }
+        .logo-img { height: 60px; width: auto; object-fit: contain; transition: 0.3s; }
+        
+        .brand-text { display: flex; flex-direction: column; justify-content: center; }
+        .main-name { font-family: 'Outfit'; font-weight: 800; font-size: 1.4rem; line-height: 1.1; }
+        .main-name span { color: var(--primary-blue); }
+        .slogan { font-size: 0.75rem; font-weight: 500; opacity: 0.9; margin-top: 2px; }
+
+        .search-container { flex: 1; max-width: 500px; margin: 0 30px; display: flex; }
+        .search-container input { width: 100%; padding: 12px 15px; border-radius: 8px 0 0 8px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); outline: none; transition: 0.3s; }
+        .search-container input:focus { border-color: var(--primary-blue); }
+        .search-container button { background: var(--primary-blue); border: none; padding: 0 20px; border-radius: 0 8px 8px 0; color: #fff; cursor: pointer; font-size: 1.1rem; }
+
+        .nav-tools { display: flex; align-items: center; gap: 20px; }
+        .cart-icon { position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-body); }
+        #cartCount { position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.7rem; font-weight: bold; }
+
+        /* Categorias Mobile Ocultas no Desktop */
+        .mobile-categories { display: none; }
+
+        /* ==========================================================================
+           📦 ESTRUTURA PRINCIPAL (SIDEBAR + PRODUTOS)
+           ========================================================================== */
+        .container { display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: 30px 4%; }
+
+        .sidebar { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); height: fit-content; position: sticky; top: 120px; box-shadow: var(--shadow); }
+        .sidebar-title { font-family: 'Outfit'; font-size: 1.2rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        .cat-group { margin-bottom: 10px; }
+        .cat-header { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg-body); border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.95rem; border: 1px solid transparent; transition: 0.2s; }
+        .cat-header:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+        .cat-header i { font-size: 1.2rem; color: var(--primary-blue); width: 25px; text-align: center; }
+        .sub-cat-list { margin-left: 15px; padding-left: 15px; border-left: 2px solid var(--border); display: none; margin-top: 5px; }
+        .sub-cat-list.active { display: block; }
+        .filter-btn { display: block; width: 100%; text-align: left; padding: 8px 10px; margin-bottom: 4px; border: none; background: none; color: var(--text-main); cursor: pointer; border-radius: 4px; font-size: 0.9rem; transition: 0.2s; }
+        .filter-btn:hover, .filter-btn.active { background: var(--primary-blue); color: white; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+        
+        /* Cartão do Produto */
+        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; position: relative; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); box-shadow: var(--shadow); }
+        
+        .img-container { position: relative; width: 100%; aspect-ratio: 1/1; margin-bottom: 15px; overflow: hidden; border-radius: 8px; background: #fff; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .product-card:hover .img-container img { transform: scale(1.05); }
+        
+        .tag-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; color: white; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .tag-aluguer { background: #8b5cf6; }
+        .tag-esgotado { background: var(--danger); left: auto; right: 10px; }
+        
+        /* Efeito visual quando o item está Esgotado */
+        .product-card.esgotado { opacity: 0.6; filter: grayscale(40%); }
+        .product-card.esgotado:hover { transform: none; border-color: var(--border); cursor: not-allowed; }
+
+        .product-title { font-size: 0.95rem; font-weight: 600; height: 42px; overflow: hidden; margin-bottom: 10px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .product-price { font-size: 1.4rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 15px; }
+
+        /* Botões */
+        .btn { width: 100%; padding: 12px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
+        .btn-cart { background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); margin-bottom: 8px; }
+        .btn-cart:hover:not(:disabled) { border-color: var(--primary-blue); color: var(--primary-blue); }
+        .btn-buy { background: var(--whatsapp); color: white; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3); }
+        .btn-buy:hover:not(:disabled) { background: var(--whatsapp-dark); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ==========================================================================
+           🪟 MODAL (PÁGINA DO PRODUTO AO CLICAR)
+           ========================================================================== */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 3000; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; padding: 20px; }
+        .modal-overlay.active { display: flex; opacity: 1; }
+        .modal-content { background: var(--bg-card); border-radius: 16px; width: 100%; max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative; transform: translateY(20px); transition: transform 0.3s; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .modal-overlay.active .modal-content { transform: translateY(0); }
+        
+        .close-modal { position: absolute; top: 15px; right: 15px; background: var(--bg-body); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.2rem; border: 1px solid var(--border); z-index: 10; }
+        
+        .modal-img-area { background: #fff; padding: 20px; display: flex; align-items: center; justify-content: center; }
+        .modal-img-area img { width: 100%; max-height: 400px; object-fit: contain; }
+        
+        .modal-info-area { padding: 30px; display: flex; flex-direction: column; justify-content: center; }
+        .modal-title { font-family: 'Outfit'; font-size: 1.6rem; margin-bottom: 10px; }
+        .modal-price { font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 15px; }
+        .modal-stock { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; margin-bottom: 20px; width: fit-content; }
+        .stock-in { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+        .stock-out { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+        .modal-desc { font-size: 0.95rem; line-height: 1.6; color: var(--text-main); opacity: 0.8; margin-bottom: 25px; }
+        .trust-badge { display: flex; align-items: center; gap: 8px; font-size: 0.8rem; color: var(--success); margin-top: 15px; font-weight: 500; }
+
+        /* ==========================================================================
+           🛒 CARRINHO LATERAL
+           ========================================================================== */
+        #cartSidebar { position: fixed; right: -400px; top: 0; width: 360px; height: 100%; background: var(--bg-card); z-index: 2000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -5px 0 25px rgba(0,0,0,0.5); padding: 25px; display: flex; flex-direction: column; border-left: 1px solid var(--border); }
+        #cartSidebar.active { right: 0; }
+        .cart-item { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--border); }
+        .cart-item img { width: 60px; height: 60px; object-fit: cover; background: #fff; border-radius: 8px; }
+
+        /* ==========================================================================
+           📱 RESPONSIVIDADE (MOBILE IMPECÁVEL)
+           ========================================================================== */
+        @media (max-width: 768px) {
+            body { padding-top: 125px; }
+            nav { height: 70px; padding: 0 15px; }
+            .logo-img { height: 45px; }
+            .brand-text .slogan { display: none; }
+            .main-name { font-size: 1.2rem; }
+            .search-container { display: none; } 
+            
+            .container { grid-template-columns: 1fr; padding: 15px; }
+            .sidebar { display: none; }
+            
+            /* Categorias Deslizantes Mobile - Chips Elegantes */
+            .mobile-categories { display: flex; position: fixed; top: 70px; left: 0; width: 100%; background: var(--bg-card); padding: 10px 15px; gap: 10px; overflow-x: auto; z-index: 990; border-bottom: 1px solid var(--border); scrollbar-width: none; }
+            .mobile-categories::-webkit-scrollbar { display: none; }
+            .chip { display: flex; align-items: center; gap: 6px; padding: 8px 16px; background: var(--bg-body); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; cursor: pointer; transition: 0.2s; }
+            .chip i { font-size: 1rem; color: var(--primary-blue); }
+            .chip.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
+            .chip.active i { color: white; }
+
+            /* Grelha 2 Produtos Perfeita Mobile */
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .product-card { padding: 10px; border-radius: 10px; }
+            .img-container { margin-bottom: 10px; border-radius: 6px; }
+            .product-title { font-size: 0.8rem; height: 36px; margin-bottom: 8px; }
+            .product-price { font-size: 1.1rem; margin-bottom: 10px; }
+            .btn { padding: 8px; font-size: 0.8rem; border-radius: 6px; }
+            .tag-badge { font-size: 0.6rem; padding: 3px 6px; }
+
+            /* Modal Ajustado para Mobile */
+            .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
+            .modal-img-area { padding: 15px; }
+            .modal-img-area img { max-height: 250px; }
+            .modal-info-area { padding: 20px; }
+            .modal-title { font-size: 1.3rem; }
+            .modal-price { font-size: 1.5rem; }
+            
+            #cartSidebar { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <nav>
+        <a href="#" class="brand-container">
+            <img src="cw_logo_black.png" id="mainLogo" alt="Casa Windows Logo" class="logo-img">
+            <div class="brand-text">
+                <div class="main-name">Casa<span>Windows</span></div>
+                <div class="slogan">Garantia & Nota Fiscal</div>
+            </div>
+        </a>
+
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Buscar mesas, laptops, aluguer..." onkeyup="search()">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="nav-tools">
+            <div style="cursor:pointer; width: 40px; height: 40px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body);" onclick="toggleTheme()">
+                <i class="fas fa-sun" id="themeIcon"></i>
+            </div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="mobile-categories">
+        <div class="chip active" onclick="filterBy('todos', this)"><i class="fas fa-th-large"></i> Tudo</div>
+        <div class="chip" onclick="filterBy('audio-venda', this)"><i class="fas fa-volume-up"></i> Venda Áudio</div>
+        <div class="chip" onclick="filterBy('audio-aluguer', this)"><i class="fas fa-handshake"></i> Aluguer</div>
+        <div class="chip" onclick="filterBy('pc-laptop', this)"><i class="fas fa-laptop"></i> Laptops</div>
+        <div class="chip" onclick="filterBy('pc-desktop', this)"><i class="fas fa-desktop"></i> Desktops</div>
+        <div class="chip" onclick="filterBy('moda-calcados', this)"><i class="fas fa-shoe-prints"></i> Calçados</div>
+    </div>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h3 class="sidebar-title">Catálogo</h3>
+            <button class="filter-btn active" style="font-weight: bold; margin-bottom: 15px;" onclick="filterBy('todos', this)">
+                <i class="fas fa-th-large" style="width: 20px;"></i> Mostrar Tudo
+            </button>
+
+            <div class="cat-group">
+                <div class="cat-header" onclick="toggleSubMenu('menu-audio')">
+                    <i class="fas fa-headphones"></i> Áudio Pro
+                </div>
+                <div class="sub-cat-list" id="menu-audio">
+                    <button class="filter-btn" onclick="filterBy('audio-venda', this)">Venda de Equipamento</button>
+                    <button class="filter-btn" onclick="filterBy('audio-aluguer', this)">Aluguer para Eventos</button>
+                </div>
+            </div>
+
+            <div class="cat-group">
+                <div class="cat-header" onclick="toggleSubMenu('menu-pc')">
+                    <i class="fas fa-laptop-code"></i> Computadores
+                </div>
+                <div class="sub-cat-list" id="menu-pc">
+                    <button class="filter-btn" onclick="filterBy('pc-laptop', this)">Laptops</button>
+                    <button class="filter-btn" onclick="filterBy('pc-desktop', this)">Desktops</button>
+                </div>
+            </div>
+
+            <div class="cat-group">
+                <div class="cat-header" onclick="toggleSubMenu('menu-moda')">
+                    <i class="fas fa-tshirt"></i> Moda & Estilo
+                </div>
+                <div class="sub-cat-list" id="menu-moda">
+                    <button class="filter-btn" onclick="filterBy('moda-calcados', this)">Calçados</button>
+                    <button class="filter-btn" onclick="filterBy('moda-vestuarios', this)">Vestuário</button>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <div class="products-grid" id="productGrid"></div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="productModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <div class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></div>
+            <div class="modal-img-area">
+                <img id="modalImg" src="" alt="Produto">
+            </div>
+            <div class="modal-info-area">
+                <h2 class="modal-title" id="modalTitle">Nome do Produto</h2>
+                <div id="modalStockBadge" class="modal-stock">Em Estoque</div>
+                <p class="modal-desc" id="modalDesc">Descrição do produto.</p>
+                <h3 class="modal-price" id="modalPrice">0,00 MT</h3>
+                
+                <div style="display:flex; flex-direction:column; gap:10px; margin-top:10px;">
+                    <button class="btn btn-buy" id="modalBtnWhatsApp"><i class="fab fa-whatsapp"></i> Comprar Seguro via WhatsApp</button>
+                    <button class="btn btn-cart" id="modalBtnCart"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+                </div>
+                
+                <div class="trust-badge">
+                    <i class="fas fa-shield-alt"></i> Atendimento Humano & Faturação Garantida
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="cartSidebar">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 style="font-family:'Outfit'; font-size:1.4rem;">O seu Pedido</h3>
+            <div style="cursor:pointer; width: 35px; height: 35px; background: var(--bg-body); display:flex; align-items:center; justify-content:center; border-radius:50%;" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div id="cartItemsList" style="flex:1; overflow-y:auto; padding-right:5px;"></div>
+        
+        <div style="border-top: 1px solid var(--border); padding-top:20px; margin-top:10px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                <span style="opacity:0.8;">Subtotal:</span>
+                <h3 id="cartTotal" style="color:var(--primary-blue);">0.00 MT</h3>
+            </div>
+            <button class="btn btn-buy" onclick="checkoutWhatsApp()" style="padding:15px; font-size:1rem;">
+                <i class="fab fa-whatsapp" style="font-size:1.2rem;"></i> Enviar Pedido via WhatsApp
+            </button>
+            <div style="text-align:center; margin-top:12px; font-size:0.75rem; opacity:0.7;">
+                <i class="fas fa-lock"></i> Negociação rápida e segura
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 📞 1. COLOQUE O SEU NÚMERO DE WHATSAPP AQUI (Apenas números)
+        const SEU_WHATSAPP = "258842785290"; 
+
+        /* =======================================================================
+           📦 2. GESTÃO DE ESTOQUE E PRODUTOS (MANUAL DO ANFITRIÃO)
+           =======================================================================
+           INSTRUÇÕES PARA ESCONDER/MOSTRAR "ESGOTADO":
+           - Tem o produto para vender? Mude para -> disponivel: true,
+           - O produto acabou? Mude para -> disponivel: false,
+           
+           É simples assim! O site faz o resto automaticamente (bloqueia o botão,
+           fica cinzento e avisa que esgotou).
+        ======================================================================= */
+        
+        const bancoDeDados = [
+            // --- ÁUDIO (VENDA) ---
+            { 
+                id: 1, 
+                tag: 'audio-venda', 
+                disponivel: true,   // 🟢 MUDE AQUI (true = Tem / false = Acabou)
+                isAluguer: false, 
+                nome: 'Subwoofer Ativo JBL SRX828SP 18"', 
+                preco: 145000, 
+                descricao: 'Subwoofer profissional duplo de 18 polegadas com amplificação Crown integrada. Ideal para concertos ao ar livre e grandes eventos.', 
+                img: 'https://images.unsplash.com/photo-1545127398-14699f92334b?auto=format&fit=crop&w=500&q=80' 
+            },
+            { 
+                id: 2, 
+                tag: 'audio-venda', 
+                disponivel: false,  // 🔴 EXEMPLO DE ESGOTADO (false)
+                isAluguer: false, 
+                nome: 'Coluna Line Array Ativa Yamaha', 
+                preco: 65000, 
+                descricao: 'Sistema de Line Array compacto com excelente dispersão sonora e clareza vocal.', 
+                img: 'https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=500&q=80' 
+            },
+            { 
+                id: 3, 
+                tag: 'audio-venda', 
+                disponivel: true,   // 🟢
+                isAluguer: false, 
+                nome: 'Mesa de Som Digital Behringer X32', 
+                preco: 180000, 
+                descricao: 'Console digital com 40 canais de entrada, 25 buses, pré-amplificadores Midas programáveis e interface USB.', 
+                img: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=500&q=80' 
+            },
+            
+            // --- ÁUDIO (ALUGUER) - (Geralmente sempre disponivel: true) ---
+            { 
+                id: 9, 
+                tag: 'audio-aluguer', 
+                disponivel: true,   // 🟢
+                isAluguer: true,    // Repare que aqui é TRUE porque é aluguer
+                nome: 'Aluguer: Pacote Casamento', 
+                preco: 10000, 
+                descricao: 'Inclui 2 Tops, 2 Subs, Mesa de Som analógica, 2 Microfones sem fio e serviço técnico para 8 horas de evento.', 
+                img: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=500&q=80' 
+            },
+            { 
+                id: 10, 
+                tag: 'audio-aluguer', 
+                disponivel: true,   // 🟢
+                isAluguer: true, 
+                nome: 'Aluguer: Mega Evento', 
+                preco: 25000, 
+                descricao: 'Sistema Line Array completo com estrutura em Trussing, iluminação básica e técnicos de som dedicados.', 
+                img: 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&w=500&q=80' 
+            },
+
+            // --- COMPUTADORES ---
+            { 
+                id: 13, 
+                tag: 'pc-laptop', 
+                disponivel: true,   // 🟢
+                isAluguer: false, 
+                nome: 'Laptop HP Celeron 4GB 500GB', 
+                preco: 18500, 
+                descricao: 'Computador ideal para trabalhos de escritório, estudantes e navegação. Windows 10 pré-instalado.', 
+                img: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=500&q=80' 
+            },
+            { 
+                id: 15, 
+                tag: 'pc-laptop', 
+                disponivel: true,  // 🔴 EXEMPLO DE ESGOTADO (false)
+                isAluguer: false, 
+                nome: 'Laptop Dell Core i5 8GB 256GB SSD', 
+                preco: 42000, 
+                descricao: 'Alta performance, inicialização rápida graças ao SSD NVMe. Perfeito para multi-tarefas pesadas.', 
+                img: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=80' 
+            },
+            { 
+                id: 18, 
+                tag: 'pc-desktop', 
+                disponivel: true,   // 🟢
+                isAluguer: false, 
+                nome: 'PC Desktop Dell Core i5 8GB RAM', 
+                preco: 35000, 
+                descricao: 'Torre robusta para escritórios que precisam de processamento contínuo sem aquecimento.', 
+                img: 'https://images.unsplash.com/photo-1626218174358-7769486c4b79?auto=format&fit=crop&w=500&q=80' 
+            },
+
+            // --- MODA ---
+            { 
+                id: 19, 
+                tag: 'moda-calcados', 
+                disponivel: true,   // 🟢
+                isAluguer: false, 
+                nome: 'Sapatilhas Nike Air Force 1 "07', 
+                preco: 8500, 
+                descricao: 'Clássico atemporal, cor branca. Diversos tamanhos disponíveis. Consulte-nos no WhatsApp.', 
+                img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=80' 
+            }
+        ];
+
+        /* =======================================================================
+           FIM DA ÁREA DO ANFITRIÃO (O CÓDIGO ABAIXO FAZ A MÁGICA FUNCIONAR)
+           ======================================================================= */
+
+        let cart = [];
+
+        function renderProducts(lista) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = lista.map(prod => {
+                // Se a variável "disponivel" for falsa, ativamos o modo esgotado
+                const esgotado = !prod.disponivel;
+                
+                return `
+                <div class="product-card ${esgotado ? 'esgotado' : ''}" onclick="openModal(${prod.id})">
+                    ${prod.isAluguer ? `<span class="tag-badge tag-aluguer">ALUGUER</span>` : ''}
+                    ${esgotado ? `<span class="tag-badge tag-esgotado">ESGOTADO</span>` : ''}
+                    
+                    <div class="img-container">
+                        <img src="${prod.img}" alt="${prod.nome}" loading="lazy">
+                    </div>
+                    <h4 class="product-title">${prod.nome}</h4>
+                    <p class="product-price">${prod.preco.toLocaleString('pt-MZ')} MT</p>
+                    
+                    <button class="btn btn-cart" onclick="addFromGrid(event, ${prod.id})" ${esgotado ? 'disabled' : ''}>
+                        <i class="fas fa-cart-plus"></i> Carrinho
+                    </button>
+                    <button class="btn btn-buy" onclick="buyFromGrid(event, ${prod.id})" ${esgotado ? 'disabled' : ''}>
+                        <i class="fab fa-whatsapp"></i> ${prod.isAluguer ? 'Reservar' : 'Comprar'}
+                    </button>
+                </div>
+            `}).join('');
+        }
+
+        // Sistema do Modal (Abre ao clicar no produto)
+        function openModal(id) {
+            const prod = bancoDeDados.find(p => p.id === id);
+            if(!prod) return;
+            
+            const esgotado = !prod.disponivel;
+
+            document.getElementById('modalImg').src = prod.img;
+            document.getElementById('modalTitle').innerText = prod.nome;
+            document.getElementById('modalPrice').innerText = prod.preco.toLocaleString('pt-MZ') + ' MT';
+            document.getElementById('modalDesc').innerText = prod.descricao;
+            
+            const badge = document.getElementById('modalStockBadge');
+            if(esgotado) {
+                badge.className = 'modal-stock stock-out';
+                badge.innerHTML = '<i class="fas fa-times-circle"></i> Estoque Esgotado';
+            } else {
+                badge.className = 'modal-stock stock-in';
+                badge.innerHTML = `<i class="fas fa-check-circle"></i> ${prod.isAluguer ? 'Disponível para Agendamento' : 'Em Estoque (Pronto a entregar)'}`;
+            }
+
+            document.getElementById('modalBtnCart').disabled = esgotado;
+            document.getElementById('modalBtnWhatsApp').disabled = esgotado;
+            
+            document.getElementById('modalBtnCart').onclick = () => addToCart(id);
+            document.getElementById('modalBtnWhatsApp').onclick = () => buyNow(id);
+
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(e) {
+            if(e && e.target !== document.getElementById('productModal') && !e.target.closest('.close-modal')) return;
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function addFromGrid(event, id) {
+            event.stopPropagation(); 
+            addToCart(id);
+        }
+        function buyFromGrid(event, id) {
+            event.stopPropagation();
+            buyNow(id);
+        }
+
+        // Menus e Filtros
+        function toggleSubMenu(menuId) {
+            document.getElementById(menuId).classList.toggle('active');
+        }
+
+        function filterBy(tag, el) {
+            document.querySelectorAll('.filter-btn, .chip').forEach(b => b.classList.remove('active'));
+            if(el) el.classList.add('active'); 
+
+            if(tag === 'todos') { renderProducts(bancoDeDados); } 
+            else { renderProducts(bancoDeDados.filter(p => p.tag === tag)); }
+        }
+
+        // Carrinho
+        function addToCart(id) {
+            const item = bancoDeDados.find(p => p.id === id);
+            cart.push(item);
+            updateCartUI();
+            closeModal();
+            toggleCart(true);
+        }
+
+        function toggleCart(open = false) {
+            const sidebar = document.getElementById('cartSidebar');
+            if(open) sidebar.classList.add('active');
+            else sidebar.classList.toggle('active');
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cartItemsList');
+            if(cart.length === 0) { list.innerHTML = '<div style="text-align:center; margin-top:50px; opacity:0.5;"><i class="fas fa-box-open" style="font-size:3rem; margin-bottom:10px;"></i><p>Seu carrinho está vazio</p></div>'; }
+            else {
+                list.innerHTML = cart.map((item, i) => `
+                    <div class="cart-item">
+                        <img src="${item.img}">
+                        <div style="flex:1">
+                            <p style="font-size:0.85rem; font-weight:600; line-height:1.2; margin-bottom:5px;">${item.nome}</p>
+                            <p style="color:var(--primary-blue); font-weight:800; font-size:1rem;">${item.preco.toLocaleString('pt-MZ')} MT</p>
+                            <small onclick="removeFromCart(${i})" style="color:var(--danger); cursor:pointer; font-weight:600;"><i class="fas fa-trash"></i> Remover</small>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            document.getElementById('cartCount').innerText = cart.length;
+            const total = cart.reduce((acc, item) => acc + item.preco, 0);
+            document.getElementById('cartTotal').innerText = total.toLocaleString('pt-MZ') + ' MT';
+        }
+
+        function removeFromCart(i) { cart.splice(i, 1); updateCartUI(); }
+
+        // Checkout via WhatsApp
+        function buyNow(id) {
+            const item = bancoDeDados.find(p => p.id === id);
+            const msg = `*Casa Windows - Pedido Direto* 🛒\n\nOlá, gostaria de adquirir/reservar:\n\n📌 *Produto:* ${item.nome}\n💰 *Valor:* ${item.preco.toLocaleString('pt-MZ')} MT\n\nAguardo as instruções de pagamento!`;
+            window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function checkoutWhatsApp() {
+            if(cart.length === 0) return alert("Adicione produtos ao carrinho primeiro.");
+            let msg = `*Casa Windows - Checkout* 🛒\n\nOlá, aqui está o resumo do meu carrinho:\n\n`;
+            cart.forEach(item => { msg += `🔹 ${item.nome} - *${item.preco.toLocaleString('pt-MZ')} MT*\n`; });
+            const total = cart.reduce((acc, item) => acc + item.preco, 0);
+            msg += `\n🧾 *TOTAL GERAL: ${total.toLocaleString('pt-MZ')} MT*\n\nComo procedemos com o pagamento?`;
+            
+            cart = []; // Limpa carrinho depois do checkout
+            updateCartUI();
+            toggleCart();
+            
+            window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // Alterar Tema (Claro/Escuro) e Logo
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('themeIcon');
+            const logo = document.getElementById('mainLogo');
+            
+            if(body.getAttribute('data-theme') === 'dark') {
+                body.setAttribute('data-theme', 'light');
+                icon.className = 'fas fa-moon';
+                // ATENÇÃO ANFITRIÃO: Se a logo "sumir" no fundo branco, é porque ela é branca.
+                // Se isso acontecer, basta inverter os nomes abaixo.
+                logo.src = 'cw_logo_white.png';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                icon.className = 'fas fa-sun';
+                logo.src = 'cw_logo_black.png';
+            }
+        }
+
+        function search() {
+            const termo = document.getElementById('searchInput').value.toLowerCase();
+            renderProducts(bancoDeDados.filter(p => p.nome.toLowerCase().includes(termo)));
+        }
+
+        // Inicia o site renderizando todos os produtos
+        renderProducts(bancoDeDados);
+    </script>
+</body>
+</html>
