@@ -3,42 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="cw_logo_white.png">
+    
+    <link rel="icon" type="image/png" href="cw_logo_black.png">
     <link rel="apple-touch-icon" href="cw_logo_black.png">
+    
     <title>CASA WINDOWS | Store & Aluguer</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ==========================================================================
+           🎨 CORES PRINCIPAIS (Altere aqui para mudar as cores do site todo)
+           ========================================================================== */
         :root {
-            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
-            --primary-blue: #3b82f6; --whatsapp: #25d366; --whatsapp-dark: #128c7e;
-            --border: #1e293b; --shadow: 0 4px 12px rgba(0,0,0,0.3);
-            --danger: #ef4444; --success: #22c55e;
+            --bg-body: #020617;        /* Cor de fundo principal do site (Escuro) */
+            --bg-card: #0f172a;        /* Cor de fundo dos cartões, menus e navbar */
+            --text-main: #f8fafc;      /* Cor do texto principal (Branco/Cinza claro) */
+            --primary-blue: #3b82f6;   /* Azul principal (Botões, ícones, destaques) */
+            --whatsapp: #25d366;       /* Cor verde do botão do WhatsApp */
+            --whatsapp-dark: #128c7e;  /* Cor verde escura para o efeito hover do WhatsApp */
+            --border: #1e293b;         /* Cor das linhas de borda e separadores */
+            --shadow: 0 4px 12px rgba(0,0,0,0.3); /* Sombra padrão dos elementos */
+            --danger: #ef4444;         /* Cor vermelha (Alertas, Esgotado, Carrinho) */
+            --success: #22c55e;        /* Cor verde do slogan "Garantia e Nota Fiscal" */
         }
 
-        [data-theme="light"] {
-            --bg-body: #f8fafc; --bg-card: #ffffff; --text-main: #0f172a;
-            --primary-blue: #2563eb; --border: #e2e8f0; --shadow: 0 4px 15px rgba(0,0,0,0.06);
-        }
-
+        /* ==========================================================================
+           ⚙️ CONFIGURAÇÕES GERAIS DE RESET E CORPO DO SITE
+           ========================================================================== */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); transition: background 0.3s, color 0.3s; padding-top: 105px; }
-
-        /* CABEÇALHO */
-        nav {
-            position: fixed; top: 0; width: 100%; background: var(--bg-card); 
-            padding: 0 4%; display: flex; align-items: center; justify-content: space-between;
-            z-index: 1000; height: 105px; border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            padding-top: 105px; /* Espaço para não esconder o conteúdo debaixo da barra fixa */
         }
+
+        /* ==========================================================================
+           🖥️ BARRA DE NAVEGAÇÃO NO TOPO (CABEÇALHO)
+           ========================================================================== */
+        nav {
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            background: var(--bg-card); /* Mantém sempre a cor escura */
+            padding: 0 4%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between;
+            z-index: 1000; 
+            height: 105px; 
+            border-bottom: 1px solid var(--border); 
+            box-shadow: var(--shadow);
+        }
+        
+        /* Container da Logo e Nome */
         .brand-container { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); }
         .logo-img { height: 65px; width: auto; object-fit: contain; }
         
+        /* Estilo do Nome e Slogan */
         .brand-text { display: flex; flex-direction: column; }
         .main-name { font-family: 'Outfit'; font-weight: 800; font-size: 1.6rem; line-height: 1; letter-spacing: 1px; }
-        .main-name span { color: var(--primary-blue); }
+        .main-name span { color: var(--primary-blue); } /* Dá cor azul à palavra WINDOWS */
         
-        /* DESTAQUE DO SLOGAN */
+        /* Slogan de destaque (Serviços Com Garantia e Nota Fiscal) */
         .slogan { 
             font-size: 0.9rem; 
             font-weight: 700; 
@@ -51,76 +80,104 @@
             gap: 5px;
         }
 
+        /* Barra de Pesquisa */
         .search-container { flex: 1; max-width: 280px; margin: 0 20px; display: flex; }
         .search-container input { width: 100%; padding: 10px 15px; border-radius: 8px 0 0 8px; border: 1px solid var(--border); background: var(--bg-body); color: var(--text-main); outline: none; font-size: 0.85rem; }
         .search-container button { background: var(--primary-blue); border: none; padding: 0 15px; border-radius: 0 8px 8px 0; color: #fff; cursor: pointer; }
 
+        /* Ferramentas do Menu (Botão de Carrinho) */
         .nav-tools { display: flex; align-items: center; gap: 15px; }
-        .theme-btn, .cart-icon { cursor:pointer; width: 42px; height: 42px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border); position: relative; }
+        .cart-icon { cursor:pointer; width: 42px; height: 42px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border); position: relative; }
         #cartCount { position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.7rem; font-weight: bold; }
 
-        /* CATEGORIAS MOBILE */
+        /* Oculta as categorias de telemóvel nos ecrãs grandes */
         .mobile-categories { display: none; }
 
-        /* ESTRUTURA */
+        /* ==========================================================================
+           📦 ESTRUTURA PRINCIPAL (Menu Lateral + Produtos)
+           ========================================================================== */
         .container { display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: 20px 4%; }
 
+        /* Estilo do Menu Lateral (Sidebar) */
         .sidebar { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); height: fit-content; position: sticky; top: 125px; }
         .sidebar-title { font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); opacity: 0.8; }
         .cat-group { margin-bottom: 10px; }
+        
+        /* Cabeçalhos das Categorias (Agora também mudam de cor com .active) */
         .cat-header { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg-body); border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: 0.2s; }
-        .cat-header:hover { color: var(--primary-blue); }
+        .cat-header:hover, .cat-header.active { color: var(--primary-blue); }
         .cat-header i { color: var(--primary-blue); width: 20px; }
+        
+        /* Botões dentro das categorias laterais */
         .sub-cat-list { margin-left: 15px; padding-left: 15px; border-left: 1px solid var(--border); display: none; margin-top: 5px; }
         .sub-cat-list.active { display: block; }
         .filter-btn { display: block; width: 100%; text-align: left; padding: 8px; margin-bottom: 2px; border: none; background: none; color: var(--text-main); cursor: pointer; border-radius: 4px; font-size: 0.85rem; opacity: 0.7; }
         .filter-btn:hover, .filter-btn.active { opacity: 1; color: var(--primary-blue); font-weight: 600; }
 
-        /* PRODUTOS */
+        /* ==========================================================================
+           🛍️ GRELHA DE PRODUTOS E CARTÕES
+           ========================================================================== */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; transition: 0.3s; position: relative; cursor: pointer; }
-        .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); }
+        .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); } /* Efeito ao passar o rato por cima */
+        
+        /* ADESIVOS (Tags) para produtos de Aluguer */
+        .tag-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; color: white; z-index: 3; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .tag-aluguer { background: #8b5cf6; } /* Cor roxa para o adesivo de aluguer */
+
+        /* Container da Imagem do Produto */
         .img-container { width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; overflow: hidden; border-radius: 8px; background: #fff; position: relative; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
         .img-container img.hover-img { position: absolute; top:0; left:0; opacity:0; transition: 0.3s; }
-        .product-card:hover .hover-img { opacity:1; }
+        .product-card:hover .hover-img { opacity:1; } /* Revela a 2ª imagem ao passar o rato */
         
+        /* Informação do Produto */
         .product-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; }
         .product-price { font-size: 1.3rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 15px; }
 
+        /* Botão Global */
         .btn { width: 100%; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-buy { background: var(--whatsapp); color: white; }
         
-        /* MODAL & CARRINHO (Simplificados para o exemplo) */
+        /* ==========================================================================
+           🪟 JANELA POPUP DO PRODUTO (MODAL) E CARRINHO LATERAL
+           ========================================================================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
         .modal-content { background: var(--bg-card); border-radius: 15px; width: 100%; max-width: 700px; display: grid; grid-template-columns: 1fr 1fr; position: relative; overflow: hidden; }
         
+        /* Menu do Carrinho que desliza do lado direito */
         #cartSidebar { position: fixed; right: -400px; top: 0; width: 350px; height: 100%; background: var(--bg-card); z-index: 2000; transition: 0.3s; padding: 25px; border-left: 1px solid var(--border); }
         #cartSidebar.active { right: 0; }
 
+        /* ==========================================================================
+           📱 RESPONSIVIDADE (Ajustes Automáticos para Telemóveis)
+           ========================================================================== */
         @media (max-width: 768px) {
-            body { padding-top: 130px; }
+            body { padding-top: 130px; } /* Ajuste de espaço para a barra móvel mais alta */
             nav { height: 90px; padding: 0 15px; flex-wrap: wrap; justify-content: space-between; }
             .brand-container { order: 1; }
             .nav-tools { order: 2; }
-            .search-container { display: none; }
+            .search-container { display: none; } /* Esconde barra de pesquisa em telas pequenas */
             
             .brand-text .slogan { font-size: 0.7rem; display: flex; }
             .main-name { font-size: 1.3rem; }
 
             .container { grid-template-columns: 1fr; padding: 10px; }
-            .sidebar { display: none; }
+            .sidebar { display: none; } /* Esconde o menu lateral no mobile */
+            
+            /* Mostra os botões arredondados (Chips) que rolam para o lado no Mobile */
             .mobile-categories { display: flex; position: fixed; top: 90px; left: 0; width: 100%; background: var(--bg-card); padding: 10px; gap: 10px; overflow-x: auto; border-bottom: 1px solid var(--border); z-index: 999; }
             .chip { padding: 8px 15px; background: var(--bg-body); border-radius: 20px; white-space: nowrap; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--border); }
             .chip.active { background: var(--primary-blue); color: white; }
 
+            /* Ajustes visuais da Grelha no Telemóvel */
             .products-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
             .modal-content { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
     <nav>
         <a href="#" class="brand-container">
@@ -137,9 +194,6 @@
         </div>
 
         <div class="nav-tools">
-            <div class="theme-btn" onclick="toggleTheme()">
-                <i class="fas fa-lightbulb" id="themeIcon"></i>
-            </div>
             <div class="cart-icon" onclick="toggleCart()">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cartCount">0</span>
@@ -149,11 +203,10 @@
 
     <div class="mobile-categories">
         <div class="chip active" onclick="filterBy('todos', this)">Tudo</div>
+        <div class="chip" onclick="filterBy('audio', this)">Todo o Som</div>
         <div class="chip" onclick="filterBy('audio-aluguer', this)">Aluguer de Som</div>
-        <div class="chip" onclick="filterBy('audio-venda', this)">Venda de Som</div>
-        <div class="chip" onclick="filterBy('pc-laptop', this)">Laptops</div>
-        <div class="chip" onclick="filterBy('pc-desktop', this)">Desktops</div>
-        <div class="chip" onclick="filterBy('moda-calcados', this)">Calçados</div>
+        <div class="chip" onclick="filterBy('pc', this)">Toda a Informática</div>
+        <div class="chip" onclick="filterBy('moda', this)">Toda a Moda</div>
     </div>
 
     <div class="container">
@@ -161,7 +214,7 @@
             <h3 class="sidebar-title">NOSSO CATÁLOGO</h3>
             
             <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m1')"><i class="fas fa-volume-up"></i> Áudio Profissional</div>
+                <div class="cat-header" onclick="toggleSubMenu('m1'); filterBy('audio', this)"><i class="fas fa-volume-up"></i> Áudio Profissional</div>
                 <div class="sub-cat-list active" id="m1">
                     <button class="filter-btn active" onclick="filterBy('audio-aluguer', this)">Aluguer para Eventos</button>
                     <button class="filter-btn" onclick="filterBy('audio-venda', this)">Venda de Equipamento</button>
@@ -169,7 +222,7 @@
             </div>
 
             <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m2')"><i class="fas fa-laptop"></i> Informática</div>
+                <div class="cat-header" onclick="toggleSubMenu('m2'); filterBy('pc', this)"><i class="fas fa-laptop"></i> Informática</div>
                 <div class="sub-cat-list" id="m2">
                     <button class="filter-btn" onclick="filterBy('pc-laptop', this)">Laptops / Notebooks</button>
                     <button class="filter-btn" onclick="filterBy('pc-desktop', this)">Computadores Desktop</button>
@@ -177,7 +230,7 @@
             </div>
 
             <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m3')"><i class="fas fa-tshirt"></i> Moda & Estilo</div>
+                <div class="cat-header" onclick="toggleSubMenu('m3'); filterBy('moda', this)"><i class="fas fa-tshirt"></i> Moda & Estilo</div>
                 <div class="sub-cat-list" id="m3">
                     <button class="filter-btn" onclick="filterBy('moda-calcados', this)">Calçados Originais</button>
                     <button class="filter-btn" onclick="filterBy('moda-vestuario', this)">Vestuário</button>
@@ -216,37 +269,90 @@
     </div>
 
     <script>
+        // O teu número de WhatsApp (código do país + número)
         const SEU_WHATSAPP = "258842785290";
 
+        // ======================= BASE DE DADOS (PRODUTOS) =======================
+        // Adiciona a tag isAluguer: true para que o adesivo "ALUGUER" apareça.
         const bancoDeDados = [
-            { id: 1, tag: 'audio-aluguer', nome: 'Pacote Básico (100 pessoas)', preco: 2500, img: 'Básico_100_pessoas1.jpg', imgHover: '', desc: '• 1 Coluna Amplificada\n• 1 Coluna Passiva\n• 1 Microfone' },
-            { id: 2, tag: 'audio-aluguer', nome: 'Pacote CLÁSSICA (200 pessoas)', preco: 3000, img: 'CLÁSSICA (200 pessoas).jpg', imgHover: '', desc: '• 1 Bass única\n• 1 Top\n• 2 Microfones\n• 1 Mesa amplificada' },
-            { id: 3, tag: 'audio-aluguer', nome: 'Pacote PRO (500 pessoas)', preco: 5000, img: 'Pro(500 pessoas)1.jpg', imgHover: 'PRO(500 pessoas)2.jpg', desc: '• 1 Bass dupla\n• 2 Tops\n• 2 Microfones\n• Mesa, Crossover e P.A' },
-            { id: 4, tag: 'audio-aluguer', nome: 'Pacote PREMIUM (1000 pessoas)', preco: 10000, img: 'PRO(1000 pessoas)1.jpg', imgHover: '', desc: '• 2 Bass dupla\n• 4 Tops\n• 4 Microfones\n• Mesa, Crossover e P.A' }
+            { 
+                id: 1, 
+                tag: 'audio-aluguer', 
+                isAluguer: true, // Propriedade que ativa o adesivo
+                nome: 'Pacote Básico (100 pessoas)', 
+                preco: 2500, 
+                img: 'Básico_100_pessoas1.jpg', 
+                imgHover: '', 
+                desc: '• 1 Coluna Amplificada\n• 1 Coluna Passiva\n• 1 Microfone' 
+            },
+            { 
+                id: 2, 
+                tag: 'audio-aluguer', 
+                isAluguer: true, 
+                nome: 'Pacote CLÁSSICA (200 pessoas)', 
+                preco: 3000, 
+                img: 'CLÁSSICA (200 pessoas).jpg', 
+                imgHover: '', 
+                desc: '• 1 Bass única\n• 1 Top\n• 2 Microfones\n• 1 Mesa amplificada' 
+            },
+            { 
+                id: 3, 
+                tag: 'audio-aluguer', 
+                isAluguer: true, 
+                nome: 'Pacote PRO (500 pessoas)', 
+                preco: 5000, 
+                img: 'Pro(500 pessoas)1.jpg', 
+                imgHover: 'PRO(500 pessoas)2.jpg', 
+                desc: '• 1 Bass dupla\n• 2 Tops\n• 2 Microfones\n• Mesa, Crossover e P.A' 
+            },
+            { 
+                id: 4, 
+                tag: 'audio-aluguer', 
+                isAluguer: true, 
+                nome: 'Pacote PREMIUM (1000 pessoas)', 
+                preco: 10000, 
+                img: 'PRO(1000 pessoas)1.jpg', 
+                imgHover: '', 
+                desc: '• 2 Bass dupla\n• 4 Tops\n• 4 Microfones\n• Mesa, Crossover e P.A' 
+            }
         ];
 
+        // Variável que guarda os itens adicionados ao carrinho
         let cart = [];
 
+        // ======================= FUNÇÃO DE RENDERIZAR PRODUTOS =======================
+        // Esta função pega nos produtos da base de dados e transforma-os em Cartões HTML
         function renderProducts(lista) {
             const grid = document.getElementById('productGrid');
+            
+            // Se a categoria estiver vazia, mostra mensagem amigável
             if(lista.length === 0) {
                 grid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:50px; opacity:0.5;">
                     <i class="fas fa-box-open" style="font-size:3rem;"></i><br><br>Brevemente teremos novidades nesta categoria.</div>`;
                 return;
             }
+
+            // Mapeia e desenha cada cartão de produto
             grid.innerHTML = lista.map(p => `
                 <div class="product-card" onclick="openModal(${p.id})">
+                    ${p.isAluguer ? `<span class="tag-badge tag-aluguer">ALUGUER</span>` : ''}
+                    
                     <div class="img-container">
                         <img src="${p.img}">
                         ${p.imgHover ? `<img src="${p.imgHover}" class="hover-img">` : ''}
                     </div>
                     <div class="product-title">${p.nome}</div>
+                    
                     <div class="product-price">${p.preco.toLocaleString('en-US')} MT</div>
+                    
                     <button class="btn btn-buy" onclick="event.stopPropagation(); buyNow(${p.id})">Reservar</button>
                 </div>
             `).join('');
         }
 
+        // ======================= FUNÇÕES DE INTERAÇÃO (MODAL E MENUS) =======================
+        
+        // Abre os detalhes grandes do produto ao clicar
         function openModal(id) {
             const p = bancoDeDados.find(x => x.id === id);
             document.getElementById('modalImg').src = p.img;
@@ -257,40 +363,43 @@
             document.getElementById('productModal').classList.add('active');
         }
 
-        function closeModal(e) { if(e.target.id === 'productModal') e.target.classList.remove('active'); }
-
-        function toggleSubMenu(id) { document.getElementById(id).classList.toggle('active'); }
-
-        function filterBy(tag, el) {
-            document.querySelectorAll('.filter-btn, .chip').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
-            if(tag === 'todos') renderProducts(bancoDeDados);
-            else renderProducts(bancoDeDados.filter(p => p.tag === tag));
+        // Fecha a janela grande se clicar fora dela
+        function closeModal(e) { 
+            if(e.target.id === 'productModal') e.target.classList.remove('active'); 
         }
 
-        function toggleCart() { document.getElementById('cartSidebar').classList.toggle('active'); }
+        // Abre e fecha as pastas do Menu Lateral
+        function toggleSubMenu(id) { 
+            document.getElementById(id).classList.toggle('active'); 
+        }
 
+        // Filtra os produtos dependendo da categoria clicada (Laptops, Áudio, etc)
+        function filterBy(tag, el) {
+            // Remove a classe "active" (cor de seleção) de todos os botões e cabeçalhos
+            document.querySelectorAll('.filter-btn, .chip, .cat-header').forEach(b => b.classList.remove('active'));
+            // Adiciona a classe "active" ao botão/cabeçalho que foi clicado
+            el.classList.add('active');
+            
+            // ALTERAÇÃO AQUI: Se a tag for "todos", mostra tudo. Senão, mostra produtos cuja tag COMECE com a palavra (ex: 'pc' puxa 'pc-laptop' e 'pc-desktop')
+            if(tag === 'todos') renderProducts(bancoDeDados);
+            else renderProducts(bancoDeDados.filter(p => p.tag.startsWith(tag)));
+        }
+
+        // ======================= FUNÇÕES DE CARRINHO E COMPRA =======================
+        
+        // Abre a janela do carrinho que desliza do lado direito
+        function toggleCart() { 
+            document.getElementById('cartSidebar').classList.toggle('active'); 
+        }
+
+        // Envia mensagem direta para o WhatsApp para reservar APENAS UM PRODUTO
         function buyNow(id) {
             const p = bancoDeDados.find(x => x.id === id);
             const msg = `Olá CASA WINDOWS! Tenho interesse no ${p.nome} (${p.preco.toLocaleString('en-US')} MT). Podem ajudar?`;
             window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(msg)}`);
         }
 
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('themeIcon');
-            const logo = document.getElementById('mainLogo');
-            if(body.getAttribute('data-theme') === 'dark') {
-                body.setAttribute('data-theme', 'light');
-                icon.className = 'fas fa-moon';
-                logo.src = 'cw_logo_black.png';
-            } else {
-                body.setAttribute('data-theme', 'dark');
-                icon.className = 'fas fa-lightbulb';
-                logo.src = 'cw_logo_white.png';
-            }
-        }
-
+        // Desenha todos os produtos no ecrã logo quando a página carrega pela primeira vez
         renderProducts(bancoDeDados);
     </script>
 </body>
