@@ -63,7 +63,7 @@
         .filter-btn { display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; color: var(--text-main); cursor: pointer; opacity: 0.7; font-size: 0.85rem; }
         .filter-btn:hover, .filter-btn.active { opacity: 1; color: var(--primary-blue); }
 
-        /* MENSAGEM DINÂMICA (INVISÍVEL POR PADRÃO) */
+        /* MENSAGEM DINÂMICA */
         .status-msg { background: rgba(59, 130, 246, 0.05); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 25px; display: none; align-items: center; gap: 15px; color: var(--text-main); justify-content: center; }
         .status-msg i { font-size: 1.5rem; color: var(--primary-blue); }
         .status-msg span { font-size: 0.9rem; font-weight: 500; }
@@ -83,7 +83,9 @@
         
         .product-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; }
         .product-price { font-size: 1.3rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 15px; }
-        .btn-buy { background: var(--whatsapp); color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; }
+        .btn-buy { background: var(--whatsapp); color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-bottom: 8px; }
+        .btn-cart-add { background: transparent; color: var(--text-main); width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .btn-cart-add:hover { background: var(--border); }
 
         /* ==========================================================================
            🪟 MODAL CARROSSEL
@@ -104,6 +106,8 @@
         .carousel-dots { position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: center; gap: 5px; }
         .dot { width: 8px; height: 8px; background: #ccc; border-radius: 50%; cursor: pointer; }
         .dot.active { background: var(--primary-blue); }
+
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; }
 
         /* ==========================================================================
            📱 MOBILE
@@ -128,11 +132,16 @@
             <img src="cw_logo_black.png" alt="CASA WINDOWS" class="logo-img">
             <div class="brand-text">
                 <div class="main-name">CASA<span>WINDOWS</span></div>
-                <div class="slogan"><i class="fas fa-shield-check"></i> Garantia e Nota Fiscal</div>
+                <div class="slogan"><i class="fas fa-shield-check"></i> Servicos Com Garantia e Nota Fiscal</div>
             </div>
         </a>
         <div class="search-container"><input type="text" placeholder="Pesquisar..." onkeyup="search()"><button><i class="fas fa-search"></i></button></div>
-        <div class="nav-tools"><div class="cart-icon"><i class="fas fa-shopping-cart"></i><span id="cartCount">0</span></div></div>
+        <div class="nav-tools">
+            <div class="cart-icon" onclick="openCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cartCount">0</span>
+            </div>
+        </div>
     </nav>
 
     <div class="mobile-categories">
@@ -161,8 +170,9 @@
             <div class="cat-group">
                 <div class="cat-header" onclick="toggleSubMenu('m2'); filterBy('pc', this)"><i class="fas fa-laptop"></i> Computadores</div>
                 <div class="sub-cat-list" id="m2">
-                    <button class="filter-btn" onclick="filterBy('pc-laptop', this)">Laptops</button>
-                    <button class="filter-btn" onclick="filterBy('pc-desktop', this)">Desktops</button>
+                    <button class="filter-btn" onclick="filterBy('pc-celeron', this)">Processadores Celeron</button>
+                    <button class="filter-btn" onclick="filterBy('pc-corei3', this)">Processadores Core i3</button>
+                    <button class="filter-btn" onclick="filterBy('pc-monitor', this)">Monitores</button>
                 </div>
             </div>
 
@@ -176,7 +186,7 @@
             <div class="cat-group">
                 <div class="cat-header" onclick="toggleSubMenu('m4'); filterBy('acessorios', this)"><i class="fas fa-gem"></i> Acessórios</div>
                 <div class="sub-cat-list" id="m4">
-                    <button class="filter-btn" onclick="filterBy('acessorios', this)">Relógios & Outros</button>
+                    <button class="filter-btn" onclick="filterBy('acessorios', this)">Tintas & Outros</button>
                 </div>
             </div>
         </aside>
@@ -184,7 +194,7 @@
         <main>
             <div class="status-msg" id="emptyMsg">
                 <i class="fas fa-box-open"></i>
-                <span>daqui ha poico teremos novidades aqui</span>
+                <span>Brevemente teremos novidades por aqui</span>
             </div>
 
             <div class="products-grid" id="productGrid"></div>
@@ -203,22 +213,33 @@
                 <h2 id="modalTitle" style="margin-bottom:10px;"></h2>
                 <p id="modalDesc" style="font-size:0.9rem; opacity:0.8; margin-bottom:20px; white-space:pre-line;"></p>
                 <h3 id="modalPrice" style="color:var(--primary-blue); font-size:1.8rem; margin-bottom:20px;"></h3>
-                <button class="btn-buy" id="modalBtnWA" style="padding:15px;"><i class="fab fa-whatsapp"></i> Reservar via WhatsApp</button>
+                <div class="modal-actions">
+                    <button class="btn-buy" id="modalBtnWA" style="padding:15px;"><i class="fab fa-whatsapp"></i> Reservar via WhatsApp</button>
+                    <button class="btn-cart-add" id="modalBtnCart" style="padding:12px;"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
         const SEU_WHATSAPP = "258842785290";
+        let cartItems = [];
 
         const bancoDeDados = [
+            // ÁUDIO
             { id: 6, tag: 'audio-aluguer', isAluguer: true, nome: 'Coluna Bluetooth Express Portátil', preco: 1000, imagens: ['EXPRESS _1000MT.jpg'], desc: '• Autonomia: 4-6h\n• USB/SD/Aux\n• LEDs' },
             { id: 1, tag: 'audio-aluguer', isAluguer: true, nome: 'Básico (100 pessoas)', preco: 2500, imagens: ['Básico_100_pessoas1.jpg'], desc: '• 1 Coluna Amplificada\n• 1 Coluna Passiva\n• 1 Microfone' },
-            { id: 2, tag: 'audio-aluguer', isAluguer: true, nome: 'CLÁSSICA (200 pessoas)', preco: 3000, imagens: ['CLÁSSICA (200 pessoas).jpg'], desc: '• 1 Bass única\n• 1 Top\n• 2 Microfones\n• Mesa' },
+            { id: 2, tag: 'audio-aluguer', isAluguer: true, nome: 'Classico', preco: 3000, imagens: ['CLÁSSICA (200 pessoas).jpg'], desc: '• 1 Bass única\n• 1 Top\n• 2 Microfones\n• Mesa' },
             { id: 3, tag: 'audio-aluguer', isAluguer: true, nome: 'PRO (500 pessoas)', preco: 5000, imagens: ['Pro(500 pessoas)1.jpg', 'PRO(500 pessoas)2.jpg'], desc: '• 1 Bass dupla\n• 2 Tops\n• 2 Microfones\n• Mesa/Crossover' },
-            { id: 4, tag: 'audio-aluguer', isAluguer: true, nome: 'PREMIUM (1000 pessoas)', preco: 10000, imagens: ['PRO(1000 pessoas)1.jpg'], desc: '• 2 Bass dupla\n• 4 Tops\n• 4 Microfones' },
-            { id: 5, tag: 'pc-desktop', isAluguer: false, nome: 'Desktop Standard', preco: 12000, imagens: ['DESKTOP_12,000MT.jpg'], desc: '• RAM: 8GB\n• SSD: 256GB\n• Monitor 19"' },
-            { id: 7, tag: 'pc-laptop', isAluguer: false, nome: 'Série Intel Celeron', preco: 15500, imagens: ['CELERON1.jpg', 'CELERON2.jpg', 'CELERON3.jpg', 'CELERON4.jpg'], desc: '• Processador Intel Celeron\n• Windows 11\n• Deslize para ver modelos.' }
+            { id: 4, tag: 'audio-aluguer', isAluguer: true, nome: 'Prémio', preco: 10000, imagens: ['PRO(1000 pessoas)1.jpg'], desc: '• 2 Bass dupla\n• 4 Tops\n• 4 Microfones' },
+            
+            // COMPUTADORES
+            { id: 7, tag: 'pc-celeron', isAluguer: false, nome: 'Laptops Série Intel Celeron', preco: 15000, imagens: ['CELERON1.jpg', 'CELERON2.jpg', 'CELERON3.jpg', 'CELERON4.jpg'], desc: 'Intel celeron\n\n4GB RAM\n256GB - 512GB SSD/HDD' },
+            { id: 9, tag: 'pc-corei3', isAluguer: false, nome: 'SÉRIE CORE i3', preco: 25000, imagens: ['CORE i3.jpg', 'CORE i3 4.webp', 'CORE i3 8.jpeg', 'CORE i3 9.jpg', 'CORE i3 222.jpeg'], desc: '10 geração Core i3\n\n4GB RAM\n256GB - 500GB SSD/HDD\n\nBateria Excelente' },
+            { id: 8, tag: 'pc-monitor', isAluguer: false, nome: 'Monitores 20" HDMI VGA DP', preco: 4500, imagens: ['MONITORES 4500MT2.jpg', 'MONITORES 4500MT.jpg', 'MONITORES 4500MT1.jpg', 'MONITORES 4500MT3.jpg'], desc: '• Tamanho: 20 Polegadas\n• Conexões: HDMI, VGA, DP\n• Alta Resolução' },
+            
+            // ACESSÓRIOS
+            { id: 10, tag: 'acessorios', isAluguer: false, nome: 'Tinta de Impressora Epson', preco: 150, imagens: ['TINTA EPSON 150MT3.png', 'TINTA EPSON 150MT1.jpg', 'TINTA EPSON 150MT.webp'], desc: '• Marca: Epson\n• Cores de alta fidelidade\n• Ideal para série L' }
         ];
 
         let currentSlide = 0;
@@ -241,6 +262,7 @@
                         <div class="product-title">${p.nome}</div>
                         <div class="product-price">${p.preco.toLocaleString('en-US')} MT</div>
                         <button class="btn-buy" onclick="event.stopPropagation(); buyNow(${p.id})">Reservar</button>
+                        <button class="btn-cart-add" onclick="event.stopPropagation(); addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
                     </div>
                 `).join('');
             }
@@ -258,13 +280,13 @@
             }
         }
 
-        // Funções de Modal e UI mantidas...
         function openModal(id) {
             const p = bancoDeDados.find(x => x.id === id);
             document.getElementById('modalTitle').innerText = p.nome;
             document.getElementById('modalDesc').innerText = p.desc;
             document.getElementById('modalPrice').innerText = p.preco.toLocaleString('en-US') + " MT";
             document.getElementById('modalBtnWA').onclick = () => buyNow(id);
+            document.getElementById('modalBtnCart').onclick = () => addToCart(id);
             const track = document.getElementById('carouselTrack');
             const dots = document.getElementById('carouselDots');
             track.innerHTML = ''; dots.innerHTML = '';
@@ -288,9 +310,24 @@
         }
         function closeModal(e) { if(e.target.id === 'productModal') e.target.classList.remove('active'); }
         function toggleSubMenu(id) { document.getElementById(id).classList.toggle('active'); }
+        
         function buyNow(id) {
             const p = bancoDeDados.find(x => x.id === id);
             window.open(`https://wa.me/${SEU_WHATSAPP}?text=Olá! Tenho interesse no ${p.nome}`);
+        }
+
+        function addToCart(id) {
+            const p = bancoDeDados.find(x => x.id === id);
+            cartItems.push(p);
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').innerText = cartItems.length;
+        }
+
+        function openCart() {
+            alert("Carrinho com " + cartItems.length + " item(ns).");
         }
 
         renderProducts(bancoDeDados);
