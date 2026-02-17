@@ -78,6 +78,10 @@
         
         .tag-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; color: white; z-index: 3; }
         .tag-aluguer { background: #8b5cf6; } 
+        .tag-venda { background: var(--danger); }
+
+        .btn-share-card { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .btn-share-card:hover { background: var(--primary-blue); transform: scale(1.1); }
 
         .img-container { width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; overflow: hidden; border-radius: 8px; background: #fff; position: relative; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
@@ -87,6 +91,9 @@
         .btn-buy { background: var(--whatsapp); color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-cart-add { background: transparent; color: var(--text-main); width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
         .btn-cart-add:hover { background: var(--border); } 
+
+        .btn-share-modal { background: var(--bg-body); color: var(--text-main); width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;}
+        .btn-share-modal:hover { background: var(--border); }
 
         /* ==========================================================================
            🪟 MODAIS (PRODUTO & CARRINHO)
@@ -161,7 +168,7 @@
         <div class="chip" onclick="filterBy('audio', this)">Som</div>
         <div class="chip" onclick="filterBy('pc', this)">Computadores</div>
         <div class="chip" onclick="filterBy('moda', this)">Moda</div>
-        <div class="chip" onclick="filterBy('acessorios', this)">Acessórios</div>
+        <div class="chip" onclick="filterBy('acessorios', this)">Outros</div>
     </div> 
 
     <div class="container">
@@ -180,12 +187,7 @@
             </div> 
 
             <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m2'); filterBy('pc', this)"><i class="fas fa-laptop"></i> Computadores</div>
-                <div class="sub-cat-list" id="m2">
-                    <button class="filter-btn" onclick="filterBy('pc-celeron', this)">Processadores Celeron</button>
-                    <button class="filter-btn" onclick="filterBy('pc-corei3', this)">Processadores Core i3</button>
-                    <button class="filter-btn" onclick="filterBy('pc-monitor', this)">Monitores</button>
-                </div>
+                <div class="cat-header" onclick="filterBy('pc', this)"><i class="fas fa-laptop"></i> Computadores</div>
             </div> 
 
             <div class="cat-group">
@@ -196,7 +198,7 @@
             </div> 
 
             <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m4'); filterBy('acessorios', this)"><i class="fas fa-gem"></i> Acessórios</div>
+                <div class="cat-header" onclick="toggleSubMenu('m4'); filterBy('acessorios', this)"><i class="fas fa-gem"></i> Outros</div>
                 <div class="sub-cat-list" id="m4">
                     <button class="filter-btn" onclick="filterBy('acessorios', this)">Tintas & Outros</button>
                 </div>
@@ -228,8 +230,9 @@
                 <p id="modalDesc" style="font-size:0.9rem; opacity:0.8; margin-bottom:20px; white-space:pre-line;"></p>
                 <h3 id="modalPrice" style="color:var(--primary-blue); font-size:1.8rem; margin-bottom:20px;"></h3>
                 <div class="modal-actions">
-                    <button class="btn-buy" id="modalBtnWA" style="padding:15px;"><i class="fab fa-whatsapp"></i> <span id="textBtnWA">Comprar por WhatsApp</span></button>
+                    <button class="btn-buy" id="modalBtnWA" style="padding:15px;"><i class="fab fa-whatsapp"></i> <span id="textBtnWA">Comprar</span></button>
                     <button class="btn-cart-add" id="modalBtnCart" style="padding:12px;"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+                    <button class="btn-share-modal" onclick="shareCurrentModalProduct()"><i class="fas fa-share-alt"></i> Partilhar Produto</button>
                 </div>
             </div>
         </div>
@@ -248,13 +251,14 @@
                 <span id="cartTotal" style="color: var(--primary-blue)">0 MT</span>
             </div>
             
-            <button class="btn-buy" onclick="checkoutCart()" style="padding: 15px;"><i class="fab fa-whatsapp"></i> Finalizar Compra por WhatsApp</button>
+            <button class="btn-buy" onclick="checkoutCart()" style="padding: 15px;"><i class="fab fa-whatsapp"></i> Finalizar Compra</button>
         </div>
     </div>
 
     <script>
         const SEU_WHATSAPP = "258842785290";
         let cartItems = []; 
+        let currentModalProductId = null;
 
         const bancoDeDados = [
             // ÁUDIO
@@ -269,8 +273,8 @@
             { id: 9, tag: 'pc-corei3', isAluguer: false, nome: 'SÉRIE CORE i3', preco: 25000, imagens: ['CORE i3.jpg', 'CORE i3 4.webp', 'CORE i3 8.jpeg', 'CORE i3 9.jpg', 'CORE i3 222.jpeg'], desc: '10 geração Core i3\n\n4GB RAM\n256GB - 500GB SSD/HDD\n\nBateria Excelente' },
             { id: 8, tag: 'pc-monitor', isAluguer: false, nome: 'Monitores 20" HDMI VGA DP', preco: 4500, imagens: ['MONITORES 4500MT2.jpg', 'MONITORES 4500MT.jpg', 'MONITORES 4500MT1.jpg', 'MONITORES 4500MT3.jpg'], desc: '• Tamanho: 20 Polegadas\n• Conexões: HDMI, VGA, DP\n• Alta Resolução' },
             
-            // ACESSÓRIOS & CARREGADORES (ATUALIZADO)
-            { id: 11, tag: 'acessorios', isAluguer: false, nome: 'Carregadores de Laptop Universais', preco: 1000, imagens: ['CARREGADORES 1000MT .jpg', 'CARREGADORES  1000MT 8.jpg', 'CARREGADORES 1000MT 66.jpg'], desc: 'Carregadores de alta qualidade para as marcas:\n\n• HP: Todas as pontas\n• DELL: Todas as pontas\n• ASUS: Todas as pontas\n• ACER: Todas as pontas\n• LENOVO: Todas as pontas\n• SAMSUNG: Todas as pontas\n• TOSHIBA: Todas as pontas\n• MECER: Todas as pontas\n• PROLINE: Todas as pontas' },
+            // ACESSÓRIOS & CARREGADORES
+            { id: 11, tag: 'pc-acessorios', isAluguer: false, nome: 'Carregadores de Laptop Universais', preco: 1000, imagens: ['CARREGADORES 1000MT .jpg', 'CARREGADORES  1000MT 8.jpg', 'CARREGADORES 1000MT 66.jpg'], desc: 'Carregadores de alta qualidade para as marcas:\n\n• HP: Todas as pontas\n• DELL: Todas as pontas\n• ASUS: Todas as pontas\n• ACER: Todas as pontas\n• LENOVO: Todas as pontas\n• SAMSUNG: Todas as pontas\n• TOSHIBA: Todas as pontas\n• MECER: Todas as pontas\n• PROLINE: Todas as pontas' },
             { id: 10, tag: 'acessorios', isAluguer: false, nome: 'Tinta de Impressora Epson', preco: 150, imagens: ['TINTA EPSON 150MT3.png', 'TINTA EPSON 150MT1.jpg', 'TINTA EPSON 150MT.webp'], desc: '• Marca: Epson\n• Cores de alta fidelidade\n• Ideal para série L' },
 
             // NOVOS PRODUTOS ADICIONADOS
@@ -285,8 +289,15 @@
             { id: 20, tag: 'pc-acessorios', isAluguer: false, nome: 'Cabos de Imagem (VGA e outros)', preco: 100, imagens: ['CABOS DE IMAGEM 100MT 1.jpg', 'CABOS DE IMAGEM 100MT 4.jpeg', 'CABOS DE IMAGEM 100MT5.jpeg'], desc: 'Cabos de vídeo VGA de alta resistência para ligação de monitores e projectores.' },
             { id: 21, tag: 'pc-acessorios', isAluguer: false, nome: 'Case para HDD 2.5"', preco: 400, imagens: ['CASE HDD 400MT.jpg', 'CASE HDD 400MT2.jpg', 'CASE HDD 400MT3.jpeg'], desc: 'Caixa externa para disco rígido de notebook.\n\n• Conexão USB\n• Transforme o seu disco interno em externo.' },
             { id: 22, tag: 'acessorios', isAluguer: false, nome: 'Aparelho de Pressão Digital', preco: 1000, imagens: ['APARELHO DE PRESSÃO 1000MT .jpg', 'APARELHO DE PRESSÃO 1000MT 2.jpg'], desc: 'Monitor de pressão arterial digital.\n\n• Fácil leitura no visor LCD\n• Alta precisão para cuidados de saúde em casa.' },
-            { id: 23, tag: 'pc-acessorios', isAluguer: false, nome: 'Teclado USB', preco: 400, imagens: ['TECLADOS 400MT .jpg'], desc: 'Teclado padrão com conexão USB.\n\n• Teclas macias\n• Plug and Play (não precisa instalar drivers).' },
-            { id: 24, tag: 'audio-venda', isAluguer: false, nome: 'Headphones JBL', preco: 1000, imagens: ['JBL HEADPHONE 1000MT .jpg', 'JBL HEADPHONE 1000MT .png', 'JBL HEADPHONE 1000MT 1.jpg', 'JBL HEADPHONE 1000MT 4.jpg'], desc: 'Auscultadores de alta qualidade.\n\n• Som imersivo e graves profundos\n• Design confortável para uso prolongado.' }
+            { id: 23, tag: 'pc-acessorios', isAluguer: false, nome: 'Teclado USB', preco: 400, imagens: ['TECLADOS 400MT .jpg'], desc: 'Teclado padrão com conexão USB.\n\n• Teclas macias\n• Plug and Play.' },
+            { id: 24, tag: 'audio-venda', isAluguer: false, nome: 'Headphones JBL', preco: 1000, imagens: ['JBL HEADPHONE 1000MT .jpg', 'JBL HEADPHONE 1000MT .png', 'JBL HEADPHONE 1000MT 1.jpg', 'JBL HEADPHONE 1000MT 4.jpg'], desc: 'Auscultadores de alta qualidade.\n\n• Som imersivo e graves profundos.' },
+            
+            // NOVOS EQUIPAMENTOS DE SOM (VENDA)
+            { id: 25, tag: 'audio-venda', isAluguer: false, nome: 'Bass Dupla Profissional', preco: 50000, imagens: ['BASS DUPLA 50,000MT.jpg'], desc: 'Subwoofer de alta potência com duplo alto-falante.\n\nIdeal para eventos de grande porte e som profissional.' },
+            { id: 26, tag: 'audio-venda', isAluguer: false, nome: 'Bass Mono Profissional', preco: 30000, imagens: ['BASS MONO 30,000MT.jpg'], desc: 'Subwoofer individual de alta fidelidade.\n\nPotência e clareza para sistemas de som.' },
+            { id: 27, tag: 'audio-venda', isAluguer: false, nome: 'Coluna Torre 15 Polegadas', preco: 30000, imagens: ['TORRE 30,000MT.jpg'], desc: 'Coluna de som tipo Torre.\n\nExcelente alcance e nitidez sonora.' },
+            { id: 28, tag: 'audio-venda', isAluguer: false, nome: 'Coluna Top 15 Polegadas', preco: 25000, imagens: ['TOP 15 POLEGADA 25,000MT.jpg'], desc: 'Coluna Top de alta performance.\n\nIdeal para frequências médias e altas.' },
+            { id: 29, tag: 'audio-venda', isAluguer: false, nome: 'Coluna de Retorno Stage', preco: 15000, imagens: ['RETORNO 15,000MT.jpg'], desc: 'Monitor de palco (Retorno).\n\nEssencial para monitorização em tempo real.' }
         ]; 
 
         let currentSlide = 0;
@@ -304,18 +315,39 @@
                 msg.style.display = 'none';
                 grid.innerHTML = lista.map(p => `
                     <div class="product-card" onclick="openModal(${p.id})">
-                        ${p.isAluguer ? `<span class="tag-badge tag-aluguer">ALUGUER</span>` : ''}
+                        <button class="btn-share-card" onclick="event.stopPropagation(); shareProduct(${p.id})"><i class="fas fa-share-alt"></i></button>
+                        ${p.isAluguer ? `<span class="tag-badge tag-aluguer">ALUGUER</span>` : `<span class="tag-badge tag-venda">A VENDA</span>`}
                         <div class="img-container"><img src="${p.imagens[0]}"></div>
                         <div class="product-title">${p.nome}</div>
                         <div class="product-price">${p.preco.toLocaleString('en-US')} MT</div>
                         <button class="btn-buy" onclick="event.stopPropagation(); buyNow(${p.id})">
-                            <i class="fab fa-whatsapp"></i> ${p.isAluguer ? 'Reservar por WhatsApp' : 'Comprar por WhatsApp'}
+                            <i class="fab fa-whatsapp"></i> ${p.isAluguer ? 'Reservar' : 'Comprar'}
                         </button>
                         ${!p.isAluguer ? `<button class="btn-cart-add" onclick="event.stopPropagation(); addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>` : ''}
                     </div>
                 `).join('');
             }
         } 
+
+        function shareProduct(id) {
+            const p = bancoDeDados.find(x => x.id === id);
+            if (!p) return;
+            const url = window.location.origin + window.location.pathname + '?id=' + id;
+            if (navigator.share) {
+                navigator.share({
+                    title: p.nome,
+                    text: `Veja este produto na Casa Windows: ${p.nome}`,
+                    url: url
+                }).catch(console.error);
+            } else {
+                navigator.clipboard.writeText(url);
+                alert("Link de partilha copiado: " + url);
+            }
+        }
+
+        function shareCurrentModalProduct() {
+            if(currentModalProductId) shareProduct(currentModalProductId);
+        }
 
         function filterBy(tag, el) {
             document.querySelectorAll('.filter-btn, .chip, .cat-header').forEach(b => b.classList.remove('active'));
@@ -331,15 +363,14 @@
 
         function openModal(id) {
             const p = bancoDeDados.find(x => x.id === id);
+            currentModalProductId = id;
             document.getElementById('modalTitle').innerText = p.nome;
             document.getElementById('modalDesc').innerText = p.desc;
             document.getElementById('modalPrice').innerText = p.preco.toLocaleString('en-US') + " MT";
             
-            // Alterar texto dinamicamente (Venda = Comprar / Aluguer = Reservar)
-            document.getElementById('textBtnWA').innerText = p.isAluguer ? "Reservar por WhatsApp" : "Comprar por WhatsApp";
+            document.getElementById('textBtnWA').innerText = p.isAluguer ? "Reservar" : "Comprar";
             document.getElementById('modalBtnWA').onclick = () => buyNow(id);
             
-            // Ocultar botão de carrinho se for aluguer
             document.getElementById('modalBtnCart').style.display = p.isAluguer ? 'none' : 'block';
             document.getElementById('modalBtnCart').onclick = () => addToCart(id);
             
@@ -440,7 +471,15 @@
             window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(text)}`);
         }
 
-        renderProducts(bancoDeDados);
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts(bancoDeDados);
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            if (productId) {
+                setTimeout(() => openModal(parseInt(productId)), 300);
+            }
+        });
     </script>
 </body>
 </html>
