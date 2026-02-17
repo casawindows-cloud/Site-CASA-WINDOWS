@@ -406,7 +406,7 @@
         
         function buyNow(id) {
             const p = bancoDeDados.find(x => x.id === id);
-            let msg = p.isAluguer ? "Olá! Gostaria de reservar o aluguer de: " : "Olá! Tenho interesse em comprar: ";
+            let msg = p.isAluguer ? "Olá! Gostaria de reservar o kit: " : "Olá! Tenho interesse em comprar: ";
             window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(msg + p.nome)}`);
         } 
 
@@ -459,7 +459,7 @@
         function checkoutCart() {
             if(cartItems.length === 0) return alert("O carrinho está vazio!");
             
-            let text = "Olá! Gostaria de finalizar a compra dos seguintes itens do meu carrinho:\n\n";
+            let text = "Olá! Gostaria de finalizar esta compra:\n\n";
             let total = 0;
             
             cartItems.forEach(item => {
