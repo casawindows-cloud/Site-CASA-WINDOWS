@@ -45,9 +45,14 @@
         .top-link { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .top-link:hover { color: var(--primary-blue); }
         
-        /* Ícone de Suporte */
-        .support-icon { cursor: pointer; font-size: 1.25rem; transition: 0.3s; color: var(--text-main); opacity: 0.9; }
-        .support-icon:hover { color: var(--primary-blue); transform: scale(1.1); }
+        /* Ícone de Suporte Elegante */
+        .support-btn { 
+            display: flex; align-items: center; gap: 8px; background: var(--bg-body); 
+            border: 1px solid var(--border); padding: 8px 15px; border-radius: 20px;
+            cursor: pointer; transition: 0.3s; color: var(--text-main); font-size: 0.85rem; font-weight: 500;
+        }
+        .support-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+        .support-btn i { font-size: 1rem; }
         
         .cart-icon { cursor:pointer; width: 42px; height: 42px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border); position: relative; }
         #cartCount { position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.7rem; } 
@@ -81,15 +86,12 @@
         .tag-aluguer { background: #8b5cf6; } 
         .tag-venda { background: var(--danger); }
 
-        .btn-share-card { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 10; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-        .btn-share-card:hover { background: var(--primary-blue); transform: scale(1.1); }
-
         .img-container { width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; overflow: hidden; border-radius: 8px; background: #fff; position: relative; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
         
         .product-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; }
         
-        /* Preço mais pequeno no catálogo */
+        /* Preço Pequeno */
         .product-price { font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 15px; }
         
         .btn-buy { background: var(--whatsapp); color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -185,7 +187,12 @@
         </a>
         <div class="nav-tools">
             <a href="talvez.html" class="top-link">Quem Somos</a>
-            <i class="fas fa-headset support-icon" onclick="contactSupport()" title="Contacto e Suporte"></i>
+            
+            <div class="support-btn" onclick="contactSupport()">
+                <i class="fas fa-headset"></i>
+                <span>Suporte</span>
+            </div>
+
             <div class="cart-icon" onclick="openCart()">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cartCount">0</span>
@@ -316,7 +323,7 @@
             { id: 8, tag: 'pc-monitor', isAluguer: false, nome: 'Monitores 20" HDMI VGA DP', preco: 4500, imagens: ['MONITORES 4500MT2.jpg', 'MONITORES 4500MT1.jpg'], desc: '• Tamanho: 20 Polegadas\n• Conexões: HDMI, VGA, DP\n• Alta Resolução' },
             { id: 12, tag: 'pc-desktop', isAluguer: false, nome: 'Computador Desktop', preco: 12000, imagens: ['DESKTOP_12,000MT.jpg'], desc: 'Computador Desktop de excelente performance.\nIdeal para escritórios e uso doméstico.' },
             { id: 15, tag: 'pc-projector', isAluguer: false, nome: 'Projector Standard', preco: 10000, imagens: ['PROJECTOR 10,000MT.jpg'], desc: 'Projector de vídeo para apresentações e filmes.' },
-            { id: 16, tag: 'pc-projector', isAluguer: false, nome: 'Projector Show Profissional', preco: 15000, imagens: ['SHOW 15,000MT .jpeg'], desc: 'Projector de alta luminosidade e resolução.' },
+            { id: 16, tag: 'pc-projector', isAluguer: false, nome: 'Projector Show Profissional', preco: 15000, imagens: ['SHOW 15,000MT .jpeg'], desc: 'Projector de alta luminosidade e resolution.' },
             { id: 43, tag: 'pc-corei5', isAluguer: false, nome: 'Laptop Série Core i5', preco: 35000, imagens: ['SÉRIE CORE I5 35,000MT.png', 'SÉRIE CORE I5 35,000MT1.jpg', 'SÉRIE CORE I5 35,000MT4.jpeg', 'SÉRIE CORE I5 35,000MT7.jpg'], desc: '• Processador Intel Core i5\n• Alta performance para trabalho e design\n• Design fino e elegante' },
             { id: 42, tag: 'pc-acessorios', isAluguer: false, nome: 'Macbook (Peças/Acessórios)', preco: 2000, imagens: ['MACBOOK 2,000MT.jpeg', 'MACBOOK 2,000MT43.png', 'MACBOOK 2,000MT.jpg'], desc: 'Acessórios e componentes para Macbook.' },
             { id: 17, tag: 'pc-acessorios', isAluguer: false, nome: 'Mouse Óptico', preco: 200, imagens: ['MOUSE 200MT1.png'], desc: 'Mouse prático e ergonómico.' },
@@ -388,7 +395,6 @@
                 msg.style.display = 'none';
                 grid.innerHTML = lista.map(p => `
                     <div class="product-card" onclick="openModal(${p.id})">
-                        <button class="btn-share-card" onclick="event.stopPropagation(); shareProduct(${p.id})"><i class="fas fa-share-alt"></i></button>
                         ${p.isAluguer ? `<span class="tag-badge tag-aluguer">ALUGUER</span>` : `<span class="tag-badge tag-venda">A VENDA</span>`}
                         <div class="img-container"><img src="${p.imagens[0]}"></div>
                         <div class="product-title">${p.nome}</div>
@@ -459,7 +465,7 @@
         function closeModal(e) { if(e.target.id === 'productModal' || e.target.id === 'cartModal') { e.target.classList.remove('active'); } }
         function toggleSubMenu(id) { document.getElementById(id).classList.toggle('active'); }
 
-        // Nova função de suporte via WhatsApp
+        // Função de suporte via WhatsApp com ícone elegante no Header
         function contactSupport() {
             const msg = "Olá Casa Windows! Gostaria de obter suporte ou informações sobre os vossos serviços.";
             window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(msg)}`);
