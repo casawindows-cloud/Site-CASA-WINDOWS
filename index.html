@@ -75,25 +75,30 @@
         .status-msg span { font-size: 0.9rem; font-weight: 500; } 
 
         /* ==========================================================================
-           🛍️ GRELHA DE PRODUTOS
+           🛍️ GRELHA DE PRODUTOS (AJUSTADA)
            ========================================================================== */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; transition: 0.3s; position: relative; cursor: pointer; }
+        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 12px; transition: 0.3s; position: relative; cursor: pointer; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); } 
         
         .tag-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; color: white; z-index: 3; }
         .tag-aluguer { background: #8b5cf6; } 
         .tag-venda { background: var(--danger); }
 
-        .img-container { width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; overflow: hidden; border-radius: 8px; background: #fff; position: relative; }
+        /* Aumento do tamanho externo das imagens */
+        .img-container { width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; overflow: hidden; border-radius: 10px; background: #fff; position: relative; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
         
-        .product-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; }
-        .product-price { font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 15px; }
+        .product-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .product-price { font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 12px; }
         
-        .btn-buy { background: var(--whatsapp); color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .btn-cart-add { background: transparent; color: var(--text-main); width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
-        .btn-cart-add:hover { background: var(--border); } 
+        /* Layout de botões lado a lado */
+        .product-actions { display: flex; gap: 8px; margin-top: auto; }
+        
+        .btn-buy { background: var(--whatsapp); color: white; flex: 1; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; }
+        
+        .btn-cart-add { background: var(--bg-body); color: var(--text-main); width: 42px; height: 42px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
+        .btn-cart-add:hover { background: var(--border); color: var(--primary-blue); } 
 
         .btn-share-modal { background: var(--bg-body); color: var(--text-main); width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;}
         .btn-share-modal:hover { background: var(--border); }
@@ -171,6 +176,8 @@
             .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
             .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
             #cartModal .modal-content { max-width: 85%; }
+            
+            .btn-buy { font-size: 0.75rem; padding: 10px 5px; }
         }
     </style>
 </head>
@@ -285,8 +292,8 @@
                 <p id="modalDesc" style="font-size:0.9rem; opacity:0.8; margin-bottom:20px; white-space:pre-line;"></p>
                 <h3 id="modalPrice" style="color:var(--primary-blue); font-size:1.4rem; margin-bottom:20px;"></h3>
                 <div class="modal-actions" style="display: flex; flex-direction: column; gap: 10px;">
-                    <button class="btn-buy" id="modalBtnWA" style="padding:15px;"><i class="fab fa-whatsapp"></i> <span id="textBtnWA">Comprar</span></button>
-                    <button class="btn-cart-add" id="modalBtnCart" style="padding:12px;"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+                    <button class="btn-buy" id="modalBtnWA" style="padding:15px; flex: initial; width: 100%;"><i class="fab fa-whatsapp"></i> <span id="textBtnWA">Comprar</span></button>
+                    <button class="btn-cart-add" id="modalBtnCart" style="padding:12px; width: 100%; height: auto;"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
                     <button class="btn-share-modal" onclick="shareCurrentModalProduct()"><i class="fas fa-share-alt"></i> Partilhar Produto</button>
                 </div>
             </div>
@@ -302,7 +309,7 @@
                 <span>Total:</span>
                 <span id="cartTotal" style="color: var(--primary-blue)">0 MT</span>
             </div>
-            <button class="btn-buy" onclick="checkoutCart()" style="padding: 15px;"><i class="fab fa-whatsapp"></i> Finalizar Compra</button>
+            <button class="btn-buy" onclick="checkoutCart()" style="padding: 15px; flex: initial; width: 100%;"><i class="fab fa-whatsapp"></i> Finalizar Compra</button>
         </div>
     </div>
 
@@ -311,7 +318,6 @@
         let cartItems = []; 
         let currentModalProductId = null;
 
-        // Banco de Dados (Mantido conforme original)
         const bancoDeDados = [
             { id: 6, tag: 'audio-aluguer', isAluguer: true, nome: 'Coluna Bluetooth Express Portátil', preco: 1000, imagens: ['EXPRESS _1000MT.jpg'], desc: '• Autonomia: 4-6h\n• USB/SD/Aux\n• LEDs' },
             { id: 1, tag: 'audio-aluguer', isAluguer: true, nome: 'Básico (100 pessoas)', preco: 2500, imagens: ['Básico_100_pessoas1.jpg'], desc: '• 1 Coluna Amplificada\n• 1 Coluna Passiva\n• 1 Microfone' },
@@ -328,7 +334,7 @@
             { id: 108, tag: 'audio-venda', isAluguer: false, nome: 'Cabo de Som XLR Profissional', preco: 500, imagens: ['CABO DE SOM XRL 500MT.png', 'CABO DE SOM XRL 500MT.0.jpg', 'CABO DE SOM XRL 500MT3.jpeg'], desc: 'Cabo balanceado para microfones e equipamentos de áudio.' },
             { id: 109, tag: 'audio-venda', isAluguer: false, nome: 'Tweeter de Colunas (Par)', preco: 400, imagens: ['TWEETER DE CULUNAS 400MT.jpeg', 'TWEETER DE CULUNAS 400MTr.png', 'TWEETER DE CULUNAS 400MTe.png', 'TWEETER DE CULUNAS 400MTtr.png', 'TWEETER DE CULUNAS 400MTh.jpeg', 'TWEETER DE CULUNAS 400MTk.jpg', 'TWEETER DE CULUNAS 400MT.png'], desc: 'Reposição de agudos para colunas profissionais.\n• Som nítido e potente' },
             { id: 110, tag: 'audio-venda', isAluguer: false, nome: 'AirPods Wireless', preco: 800, imagens: ['AIRPODS 800MT.jpg', 'AIRPODS 800MT00.jpg'], desc: 'Auriculares Bluetooth sem fios.\n• Conexão rápida\n• Estojo de carregamento' },
-            { id: 111, tag: 'acessorios', isAluguer: false, nome: 'Máquina Encadernadora', preco: 4000, imagens: ['MAQ. ENCADERNADORA 4,000MT-.webp', 'MAQ. ENCADERNADORA 4,000MT-y.jpg'], desc: 'Equipamento robusto para encadernação de documentos.' },
+            { id: 111, tag: 'acessorios', isAluguer: false, nome: 'Máquina Encadernadora Profissional', preco: 4000, imagens: ['MAQ. ENCADERNADORA 4,000MT-.webp', 'MAQ. ENCADERNADORA 4,000MT-y.jpg'], desc: 'Equipamento robusto para encadernação de documentos.' },
             { id: 7, tag: 'pc-celeron', isAluguer: false, nome: 'Laptops Série Intel Celeron', preco: 15000, imagens: ['CELERON1.jpg', 'CELERON2.jpg'], desc: 'Intel celeron\n\n4GB RAM\n256GB - 512GB SSD/HDD' },
             { id: 9, tag: 'pc-corei3', isAluguer: false, nome: 'SÉRIE CORE i3', preco: 25000, imagens: ['CORE i3.jpg'], desc: '10 geração Core i3\n\n4GB RAM\n256GB - 500GB SSD/HDD\n\nBateria Excelente' },
             { id: 8, tag: 'pc-monitor', isAluguer: false, nome: 'Monitores 20" HDMI VGA DP', preco: 4500, imagens: ['MONITORES 4500MT2.jpg', 'MONITORES 4500MT1.jpg'], desc: '• Tamanho: 20 Polegadas\n• Conexões: HDMI, VGA, DP\n• Alta Resolução' },
@@ -408,10 +414,15 @@
                         <div class="img-container"><img src="${p.imagens[0]}"></div>
                         <div class="product-title">${p.nome}</div>
                         <div class="product-price">${p.preco.toLocaleString('en-US')} MT</div>
-                        <button class="btn-buy" onclick="event.stopPropagation(); buyNow(${p.id})">
-                            <i class="fab fa-whatsapp"></i> ${p.isAluguer ? 'Reservar' : 'Comprar'}
-                        </button>
-                        ${!p.isAluguer ? `<button class="btn-cart-add" onclick="event.stopPropagation(); addToCart(${p.id})"><i class="fas fa-cart-plus"></i> Carrinho</button>` : ''}
+                        <div class="product-actions">
+                            <button class="btn-buy" onclick="event.stopPropagation(); buyNow(${p.id})">
+                                <i class="fab fa-whatsapp"></i> ${p.isAluguer ? 'Reservar' : 'Comprar'}
+                            </button>
+                            ${!p.isAluguer ? `
+                                <button class="btn-cart-add" onclick="event.stopPropagation(); addToCart(${p.id})" title="Adicionar ao Carrinho">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>` : ''}
+                        </div>
                     </div>
                 `).join('');
             }
