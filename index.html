@@ -44,8 +44,10 @@
         .nav-tools { display: flex; align-items: center; gap: 20px; }
         .top-link { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .top-link:hover { color: var(--primary-blue); }
-        .login-icon { cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
-        .login-icon:hover { color: var(--primary-blue); }
+        
+        /* Ícone de Suporte */
+        .support-icon { cursor: pointer; font-size: 1.25rem; transition: 0.3s; color: var(--text-main); opacity: 0.9; }
+        .support-icon:hover { color: var(--primary-blue); transform: scale(1.1); }
         
         .cart-icon { cursor:pointer; width: 42px; height: 42px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border); position: relative; }
         #cartCount { position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.7rem; } 
@@ -86,7 +88,10 @@
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
         
         .product-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; height: 40px; overflow: hidden; }
-        .product-price { font-size: 1.3rem; font-weight: 800; color: var(--primary-blue); margin-bottom: 15px; }
+        
+        /* Preço mais pequeno no catálogo */
+        .product-price { font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 15px; }
+        
         .btn-buy { background: var(--whatsapp); color: white; width: 100%; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .btn-cart-add { background: transparent; color: var(--text-main); width: 100%; padding: 8px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; }
         .btn-cart-add:hover { background: var(--border); } 
@@ -95,7 +100,7 @@
         .btn-share-modal:hover { background: var(--border); }
 
         /* ==========================================================================
-           🪟 MODAIS (PRODUTO, LOGIN & CARRINHO)
+           🪟 MODAIS (PRODUTO & CARRINHO)
            ========================================================================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
@@ -103,11 +108,6 @@
         /* Modal Produto */
         .modal-content { background: var(--bg-card); border-radius: 15px; width: 100%; max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative;}
         
-        /* Modal Login Customização */
-        #loginModal .modal-content { display: block; max-width: 400px; padding: 40px 30px; text-align: center; }
-        .modal-input { width: 100%; padding: 12px 15px; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; margin-bottom: 15px; outline: none; transition: 0.3s; }
-        .modal-input:focus { border-color: var(--primary-blue); }
-
         /* Carrinho Lateral Direito */
         #cartModal { justify-content: flex-end; padding: 0; }
         #cartModal .modal-content { 
@@ -138,7 +138,7 @@
 
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border); }
         .cart-item-title { font-size: 0.9rem; font-weight: 500; }
-        .cart-item-price { color: var(--primary-blue); font-weight: bold; font-size: 0.95rem; }
+        .cart-item-price { color: var(--primary-blue); font-weight: bold; font-size: 0.85rem; } /* Preço menor no carrinho */
         .cart-remove { color: var(--danger); cursor: pointer; margin-left: 10px; padding: 5px; }
 
         .mobile-categories { display: none; }
@@ -150,7 +150,7 @@
             nav { height: 80px; }
             .logo-img { height: 50px; }
             .main-name { font-size: 1.3rem; }
-            .top-link { display: none; } /* Esconde texto "Sobre Nós" no mobile para poupar espaço */
+            .top-link { display: none; } 
             
             body { padding-top: 150px; } 
             
@@ -185,7 +185,7 @@
         </a>
         <div class="nav-tools">
             <a href="talvez.html" class="top-link">Quem Somos</a>
-            <i class="far fa-user login-icon" onclick="openLogin()"></i>
+            <i class="fas fa-headset support-icon" onclick="contactSupport()" title="Contacto e Suporte"></i>
             <div class="cart-icon" onclick="openCart()">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cartCount">0</span>
@@ -263,7 +263,7 @@
             <div style="padding:30px;">
                 <h2 id="modalTitle" style="margin-bottom:10px; padding-right: 25px;"></h2>
                 <p id="modalDesc" style="font-size:0.9rem; opacity:0.8; margin-bottom:20px; white-space:pre-line;"></p>
-                <h3 id="modalPrice" style="color:var(--primary-blue); font-size:1.8rem; margin-bottom:20px;"></h3>
+                <h3 id="modalPrice" style="color:var(--primary-blue); font-size:1.4rem; margin-bottom:20px;"></h3>
                 <div class="modal-actions" style="display: flex; flex-direction: column; gap: 10px;">
                     <button class="btn-buy" id="modalBtnWA" style="padding:15px;"><i class="fab fa-whatsapp"></i> <span id="textBtnWA">Comprar</span></button>
                     <button class="btn-cart-add" id="modalBtnCart" style="padding:12px;"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
@@ -278,25 +278,11 @@
             <button class="close-btn" onclick="document.getElementById('cartModal').classList.remove('active')"><i class="fas fa-times"></i></button>
             <h2 style="margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">Seu Carrinho</h2>
             <div id="cartItemsList" style="flex: 1; overflow-y: auto; margin-bottom: 20px; padding-right: 10px;"></div>
-            <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; border-top: 1px solid var(--border); padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; border-top: 1px solid var(--border); padding-top: 15px;">
                 <span>Total:</span>
                 <span id="cartTotal" style="color: var(--primary-blue)">0 MT</span>
             </div>
             <button class="btn-buy" onclick="checkoutCart()" style="padding: 15px;"><i class="fab fa-whatsapp"></i> Finalizar Compra</button>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="loginModal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <button class="close-btn" onclick="document.getElementById('loginModal').classList.remove('active')"><i class="fas fa-times"></i></button>
-            <h2 style="font-family: 'Outfit'; margin-bottom: 5px;">Bem-vindo</h2>
-            <p style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 25px;">Faça login na sua conta Casa Windows</p>
-            <form onsubmit="event.preventDefault(); alert('Sistema de Login em desenvolvimento!'); document.getElementById('loginModal').classList.remove('active');">
-                <input type="email" placeholder="Endereço de E-mail" class="modal-input" required>
-                <input type="password" placeholder="Sua Senha" class="modal-input" required>
-                <button type="submit" class="btn-buy" style="background: var(--primary-blue); padding: 12px; margin-top: 10px;">Acessar Conta</button>
-                <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.8;">Ainda não tem conta? <a href="#" style="color: var(--primary-blue); font-weight: bold;">Criar agora</a></p>
-            </form>
         </div>
     </div>
 
@@ -360,7 +346,7 @@
             { id: 40, tag: 'moda', isAluguer: false, nome: 'Sapatilhas Stan Smith', preco: 1300, imagens: ['STAN SMITH 1,300MT.jpg', 'STAN SMITH 1,300MT4.jpg', 'STAN SMITH 1,300MT44.jpg', 'STAN SMITH 1,300MT3.jpg', 'STAN SMITH 1,300MT_1.jpg'], desc: 'Sapatilhas clássicas.' },
             { id: 41, tag: 'moda', isAluguer: false, nome: 'Sapatilhas AirForce', preco: 1300, imagens: [`AIRFORCE 1,300MT.jpg`, `AIRFORCE 1,300MT1_.jpg`, `AIRFORCE 1,300MT2.jpg`, `AIRFORCE 1,300MT4.jpg`, `AIRFORCE 1,300MT6.jpeg`], desc: 'Estilo icónico e durabilidade.' },
 
-            // NOVOS PRODUTOS ADICIONADOS
+            // NOVOS PRODUTOS
             { id: 112, tag: 'acessorios', isAluguer: false, nome: 'Carregadores de Celulares', preco: 100, imagens: ['CARREGADORES DE CELULARES 100MT.png', 'CARREGADORES DE CELULARES 100MT4.png'], desc: 'Carregador compatível com diversos modelos.' },
             { id: 113, tag: 'acessorios', isAluguer: false, nome: 'Cabos Cell USB', preco: 50, imagens: ['CABOS CELL 50MT.png', 'CABOS CELL 50MTt.png', 'CABOS CELL 50MTg.png', 'CABOS CELL 50MT1.png'], desc: 'Cabo de dados e carregamento resistente.' },
             { id: 114, tag: 'pc-acessorios', isAluguer: false, nome: 'HDMI 3 em 1 Switch', preco: 300, imagens: ['HDMI 3 EM 1.png', 'HDMI 3 EM 1 1.png'], desc: 'Switch HDMI para ligar múltiplos dispositivos.' },
@@ -470,9 +456,14 @@
             dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
         }
         
-        function closeModal(e) { if(e.target.id === 'productModal' || e.target.id === 'cartModal' || e.target.id === 'loginModal') { e.target.classList.remove('active'); } }
+        function closeModal(e) { if(e.target.id === 'productModal' || e.target.id === 'cartModal') { e.target.classList.remove('active'); } }
         function toggleSubMenu(id) { document.getElementById(id).classList.toggle('active'); }
-        function openLogin() { document.getElementById('loginModal').classList.add('active'); }
+
+        // Nova função de suporte via WhatsApp
+        function contactSupport() {
+            const msg = "Olá Casa Windows! Gostaria de obter suporte ou informações sobre os vossos serviços.";
+            window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(msg)}`);
+        }
 
         function buyNow(id) {
             const p = bancoDeDados.find(x => x.id === id);
