@@ -26,7 +26,7 @@
         body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); padding-top: 105px; } 
 
         /* ==========================================================================
-           🖥️ CABEÇALHO
+           🖥️ CABEÇALHO E NAVEGAÇÃO
            ========================================================================== */
         nav {
             position: fixed; top: 0; width: 100%; background: var(--bg-card); padding: 0 4%; 
@@ -41,10 +41,18 @@
         .main-name span { color: var(--primary-blue); } 
         .slogan { font-size: 0.55rem; font-weight: 685; margin-top: 5px; color: var(--success); text-transform: uppercase; display: flex; align-items: center; gap: 4px; letter-spacing: 0.2px; } 
 
-        .nav-tools { display: flex; align-items: center; gap: 15px; }
+        .nav-tools { display: flex; align-items: center; gap: 20px; }
+        .top-link { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .top-link:hover { color: var(--primary-blue); }
+        .login-icon { cursor: pointer; font-size: 1.2rem; transition: 0.3s; }
+        .login-icon:hover { color: var(--primary-blue); }
+        
         .cart-icon { cursor:pointer; width: 42px; height: 42px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border); position: relative; }
         #cartCount { position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.7rem; } 
 
+        /* ==========================================================================
+           📦 ESTRUTURA E SIDEBAR
+           ========================================================================== */
         .container { display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: 20px 4%; }
         .sidebar { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); height: fit-content; position: sticky; top: 125px; }
         .sidebar-title { font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); opacity: 0.8; }
@@ -60,6 +68,9 @@
         .status-msg i { font-size: 1.5rem; color: var(--primary-blue); }
         .status-msg span { font-size: 0.9rem; font-weight: 500; } 
 
+        /* ==========================================================================
+           🛍️ GRELHA DE PRODUTOS
+           ========================================================================== */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; transition: 0.3s; position: relative; cursor: pointer; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); } 
@@ -83,9 +94,21 @@
         .btn-share-modal { background: var(--bg-body); color: var(--text-main); width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;}
         .btn-share-modal:hover { background: var(--border); }
 
+        /* ==========================================================================
+           🪟 MODAIS (PRODUTO, LOGIN & CARRINHO)
+           ========================================================================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
         
+        /* Modal Produto */
+        .modal-content { background: var(--bg-card); border-radius: 15px; width: 100%; max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative;}
+        
+        /* Modal Login Customização */
+        #loginModal .modal-content { display: block; max-width: 400px; padding: 40px 30px; text-align: center; }
+        .modal-input { width: 100%; padding: 12px 15px; background: var(--bg-body); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; margin-bottom: 15px; outline: none; transition: 0.3s; }
+        .modal-input:focus { border-color: var(--primary-blue); }
+
+        /* Carrinho Lateral Direito */
         #cartModal { justify-content: flex-end; padding: 0; }
         #cartModal .modal-content { 
             height: 100vh; width: 100%; max-width: 400px; 
@@ -95,8 +118,6 @@
         }
         #cartModal.active .modal-content { transform: translateX(0); }
 
-        .modal-content { background: var(--bg-card); border-radius: 15px; width: 100%; max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative;}
-        
         .close-btn { position: absolute; top: 15px; right: 15px; background: var(--danger); border: none; width: 35px; height: 35px; border-radius: 50%; color: white; font-size: 1.1rem; cursor: pointer; z-index: 50; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         .close-btn:hover { transform: scale(1.1); }
 
@@ -113,6 +134,8 @@
         .dot { width: 8px; height: 8px; background: #ccc; border-radius: 50%; cursor: pointer; }
         .dot.active { background: var(--primary-blue); } 
 
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; } 
+
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border); }
         .cart-item-title { font-size: 0.9rem; font-weight: 500; }
         .cart-item-price { color: var(--primary-blue); font-weight: bold; font-size: 0.95rem; }
@@ -121,30 +144,23 @@
         .mobile-categories { display: none; }
 
         /* ==========================================================================
-           📱 AJUSTES MOBILE (CORREÇÃO DE SOBREPOSIÇÃO)
+           📱 AJUSTES MOBILE
            ========================================================================== */
         @media (max-width: 768px) {
-            nav { height: 80px; } /* Diminuído a barra para ganhar espaço */
+            nav { height: 80px; }
             .logo-img { height: 50px; }
             .main-name { font-size: 1.3rem; }
+            .top-link { display: none; } /* Esconde texto "Sobre Nós" no mobile para poupar espaço */
             
-            body { padding-top: 150px; } /* Aumentado para empurrar os produtos para baixo */
+            body { padding-top: 150px; } 
             
             .container { grid-template-columns: 1fr; padding-top: 10px; }
             .sidebar { display: none; }
             
             .mobile-categories { 
-                display: flex; 
-                position: fixed; 
-                top: 80px; /* Alinhado exatamente onde termina a nav */
-                left: 0; 
-                width: 100%; 
-                background: var(--bg-card); 
-                padding: 12px 10px; 
-                gap: 10px; 
-                overflow-x: auto; 
-                z-index: 999; 
-                border-bottom: 1px solid var(--border);
+                display: flex; position: fixed; top: 80px; left: 0; width: 100%; 
+                background: var(--bg-card); padding: 12px 10px; gap: 10px; 
+                overflow-x: auto; z-index: 999; border-bottom: 1px solid var(--border);
                 box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
             }
             
@@ -164,10 +180,12 @@
             <img src="cw_logo_black.png" alt="CASA WINDOWS" class="logo-img">
             <div class="brand-text">
                 <div class="main-name">CASA<span>WINDOWS</span></div>
-                <div class="slogan"><i class="fas fa-shield-check"></i> Serviços Com Garantia e Nota Fiscal</div>
+                <div class="slogan"><i class="fas fa-shield-check"></i> Garantia e Nota Fiscal</div>
             </div>
         </a>
         <div class="nav-tools">
+            <a href="talvez.html" class="top-link">Quem Somos</a>
+            <i class="far fa-user login-icon" onclick="openLogin()"></i>
             <div class="cart-icon" onclick="openCart()">
                 <i class="fas fa-shopping-cart"></i>
                 <span id="cartCount">0</span>
@@ -181,6 +199,7 @@
         <div class="chip" onclick="filterBy('pc', this)">Computadores</div>
         <div class="chip" onclick="filterBy('moda', this)">Moda</div>
         <div class="chip" onclick="filterBy('acessorios', this)">Outros</div>
+        <div class="chip" onclick="window.location.href='talvez.html'">Nossa Visão</div>
     </div> 
 
     <div class="container">
@@ -215,6 +234,10 @@
                     <button class="filter-btn" onclick="filterBy('acessorios', this)">Acessórios & Escritório</button>
                 </div>
             </div>
+            
+            <div class="cat-group" style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 10px;">
+                <div class="cat-header" onclick="window.location.href='talvez.html'"><i class="fas fa-info-circle"></i> Sobre Nós</div>
+            </div>
         </aside> 
 
         <main>
@@ -230,6 +253,7 @@
     <div class="modal-overlay" id="productModal" onclick="closeModal(event)">
         <div class="modal-content">
             <button class="close-btn" onclick="document.getElementById('productModal').classList.remove('active')"><i class="fas fa-times"></i></button>
+
             <div class="carousel-container" id="carouselContainer">
                 <button class="carousel-btn prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
                 <div class="carousel-track" id="carouselTrack"></div>
@@ -262,17 +286,34 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="loginModal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="document.getElementById('loginModal').classList.remove('active')"><i class="fas fa-times"></i></button>
+            <h2 style="font-family: 'Outfit'; margin-bottom: 5px;">Bem-vindo</h2>
+            <p style="font-size: 0.9rem; opacity: 0.7; margin-bottom: 25px;">Faça login na sua conta Casa Windows</p>
+            <form onsubmit="event.preventDefault(); alert('Sistema de Login em desenvolvimento!'); document.getElementById('loginModal').classList.remove('active');">
+                <input type="email" placeholder="Endereço de E-mail" class="modal-input" required>
+                <input type="password" placeholder="Sua Senha" class="modal-input" required>
+                <button type="submit" class="btn-buy" style="background: var(--primary-blue); padding: 12px; margin-top: 10px;">Acessar Conta</button>
+                <p style="margin-top: 15px; font-size: 0.85rem; opacity: 0.8;">Ainda não tem conta? <a href="#" style="color: var(--primary-blue); font-weight: bold;">Criar agora</a></p>
+            </form>
+        </div>
+    </div>
+
     <script>
         const SEU_WHATSAPP = "258842785290";
         let cartItems = []; 
         let currentModalProductId = null;
 
         const bancoDeDados = [
+            // ÁUDIO - ALUGUER
             { id: 6, tag: 'audio-aluguer', isAluguer: true, nome: 'Coluna Bluetooth Express Portátil', preco: 1000, imagens: ['EXPRESS _1000MT.jpg'], desc: '• Autonomia: 4-6h\n• USB/SD/Aux\n• LEDs' },
             { id: 1, tag: 'audio-aluguer', isAluguer: true, nome: 'Básico (100 pessoas)', preco: 2500, imagens: ['Básico_100_pessoas1.jpg'], desc: '• 1 Coluna Amplificada\n• 1 Coluna Passiva\n• 1 Microfone' },
             { id: 2, tag: 'audio-aluguer', isAluguer: true, nome: 'Classico (500 pessoas)', preco: 3000, imagens: ['CLÁSSICA (200 pessoas).jpg'], desc: '• 1 Bass única\n• 1 Top\n• 2 Microfones\n• Mesa' },
             { id: 3, tag: 'audio-aluguer', isAluguer: true, nome: 'PRO (1000 pessoas)', preco: 5000, imagens: ['Pro(500 pessoas)1.jpg', 'PRO(500 pessoas)2.jpg'], desc: '• 1 Bass dupla\n• 2 Tops\n• 2 Microfones\n• Mesa/Crossover' },
             { id: 4, tag: 'audio-aluguer', isAluguer: true, nome: 'Prémio (2000 pessoas)', preco: 10000, imagens: ['PRÉMIO.jpg'], desc: '• 2 Bass dupla\n• 4 Tops\n• 4 Microfones' },
+            
+            // PROCESSADORES (PC)
             { id: 101, tag: 'pc-hardware', isAluguer: false, nome: 'Processadores de Alta Performance', preco: 9000, imagens: ['PROCESSADORES 9,000MT4.png', 'PROCESSADORES 9,000MT.jpg', 'PROCESSADORES 9,000MT3.jpg', 'PROCESSADORES 9,000MT9.webp'], desc: 'Processadores para upgrades e montagem de computadores.\n• Vários modelos disponíveis\n• Alta velocidade de processamento' },
             { id: 102, tag: 'pc-hardware', isAluguer: false, nome: 'Memórias RAM Profissionais', preco: 1500, imagens: ['MEMORIAS RAM 1500MT.jpg', 'MEMORIAS RAM 1500MT1.jpg'], desc: 'Upgrade de memória para o seu PC ou Laptop.\n• Estabilidade garantida\n• Aumento imediato de performance' },
             { id: 103, tag: 'pc-acessorios', isAluguer: false, nome: 'Suporte de Notebook Ergonómico', preco: 750, imagens: ['SUPORTE DE NOTEBOOK = 750MT.jpg', 'SUPORTE DE NOTEBOOK = 750MT.webp'], desc: 'Suporte ajustável para melhor postura.\n• Evita o aquecimento do portátil\n• Portátil e resistente' },
@@ -318,10 +359,33 @@
             { id: 39, tag: 'audio-venda', isAluguer: false, nome: 'Conector Jack (Pino)', preco: 100, imagens: ['PINO JACK 100MT .jpg', 'PINO JACK 100MT 2.jpg', 'PINO JACK 100MT 3.jpg'], desc: 'Ficha Jack P10 metálica.' },
             { id: 40, tag: 'moda', isAluguer: false, nome: 'Sapatilhas Stan Smith', preco: 1300, imagens: ['STAN SMITH 1,300MT.jpg', 'STAN SMITH 1,300MT4.jpg', 'STAN SMITH 1,300MT44.jpg', 'STAN SMITH 1,300MT3.jpg', 'STAN SMITH 1,300MT_1.jpg'], desc: 'Sapatilhas clássicas.' },
             { id: 41, tag: 'moda', isAluguer: false, nome: 'Sapatilhas AirForce', preco: 1300, imagens: [`AIRFORCE 1,300MT.jpg`, `AIRFORCE 1,300MT1_.jpg`, `AIRFORCE 1,300MT2.jpg`, `AIRFORCE 1,300MT4.jpg`, `AIRFORCE 1,300MT6.jpeg`], desc: 'Estilo icónico e durabilidade.' },
-            { id: 13, tag: 'acessorios', isAluguer: false, nome: 'Smartwatch', preco: 1000, imagens: ['SMARTWATCH 1000MT .jpg'], desc: 'Relógio inteligente multifuncional.' },
-            { id: 14, tag: 'acessorios', isAluguer: false, nome: 'Rolo de Plástico Aderente', preco: 500, imagens: ['PLÁSTICO ADERENTES 500MT.jpg'], desc: 'Para embalagens diversas.' },
-            { id: 22, tag: 'acessorios', isAluguer: false, nome: 'Aparelho de Pressão', preco: 1000, imagens: ['APARELHO DE PRESSÃO 1000MT .jpg'], desc: 'Monitor de pressão arterial digital.' },
-            { id: 10, tag: 'acessorios', isAluguer: false, nome: 'Tinta de Impressora Epson', preco: 150, imagens: ['TINTA EPSON 150MT3.png'], desc: 'Tinta de alta qualidade.' }
+
+            // NOVOS PRODUTOS ADICIONADOS
+            { id: 112, tag: 'acessorios', isAluguer: false, nome: 'Carregadores de Celulares', preco: 100, imagens: ['CARREGADORES DE CELULARES 100MT.png', 'CARREGADORES DE CELULARES 100MT4.png'], desc: 'Carregador compatível com diversos modelos.' },
+            { id: 113, tag: 'acessorios', isAluguer: false, nome: 'Cabos Cell USB', preco: 50, imagens: ['CABOS CELL 50MT.png', 'CABOS CELL 50MTt.png', 'CABOS CELL 50MTg.png', 'CABOS CELL 50MT1.png'], desc: 'Cabo de dados e carregamento resistente.' },
+            { id: 114, tag: 'pc-acessorios', isAluguer: false, nome: 'HDMI 3 em 1 Switch', preco: 300, imagens: ['HDMI 3 EM 1.png', 'HDMI 3 EM 1 1.png'], desc: 'Switch HDMI para ligar múltiplos dispositivos.' },
+            { id: 115, tag: 'audio-venda', isAluguer: false, nome: 'AirPods Normal Wireless', preco: 350, imagens: ['AIRPODS NORMAL 350MT.png', 'AIRPODS NORMAL 350MTh.png', 'AIRPODS NORMAL 350MTy.png'], desc: 'Auscultadores Bluetooth ergonómicos.' },
+            { id: 116, tag: 'pc-acessorios', isAluguer: false, nome: 'Hub de Entradas USB', preco: 750, imagens: ['HUP DE ENTRADAS USB  750MT.png', 'HUP DE ENTRADAS USB  750MTy.png'], desc: 'Expansor de portas USB de alta velocidade.' },
+            { id: 117, tag: 'acessorios', isAluguer: false, nome: 'Bluetooth para Carro', preco: 500, imagens: ['BLUETOOTH DE CARRO 500MTS.png', 'BLUETOOTH DE CARRO 500MTSy.png'], desc: 'Adaptador Bluetooth para sistema de som automóvel.' },
+            { id: 118, tag: 'pc-acessorios', isAluguer: false, nome: 'Adaptador DP para HDMI', preco: 300, imagens: ['ADAPTADORES DP HDMI = 300MT.png', '1000292236.jpg'], desc: 'Conversor DisplayPort para HDMI.' },
+            { id: 119, tag: 'pc-acessorios', isAluguer: false, nome: 'Adaptador Multiportas DP VGA DVI', preco: 400, imagens: ['ADAPTADORES DP VGA DVI DP= 400MT.png', 'ADAPTADORES DP VGA DVI DP= 400MTy.png', 'ADAPTADORES DP VGA DVI DP= 400MTtt.png', 'ADAPTADORES DP VGA DVI DP= 400MTre.png'], desc: 'Adaptador versátil para múltiplos tipos de vídeo.' },
+            { id: 120, tag: 'acessorios', isAluguer: false, nome: 'Estetoscópio Binário Profissional', preco: 1000, imagens: ['ESTETOSCÓPIO BINÁR 1,000MT.jpg', 'ESTETOSCÓPIO BINÁR 1,000MTy.jpg', '1000292235.jpg'], desc: 'Equipamento médico de alta precisão.' },
+            { id: 121, tag: 'acessorios', isAluguer: false, nome: 'Remotes Universais', preco: 250, imagens: ['REMOTES UNIVERSAIS = 250MT_.jpg', 'REMOTES UNIVERSAIS = 250MT_2.png'], desc: 'Comando universal compatível com várias marcas.' },
+            { id: 122, tag: 'acessorios', isAluguer: false, nome: 'Esfigmomanómetro Manual', preco: 1500, imagens: ['ESFIGMOMANOMETRO MANUAL = 1,500MT.png', 'ESFIGMOMANOMETRO MANUAL = 1,500MT1.png', 'ESFIGMOMANOMETRO MANUAL = 1,500MT3.png'], desc: 'Aparelho de pressão arterial clássico.' },
+            { id: 123, tag: 'acessorios', isAluguer: false, nome: 'Álcool 70% (Higiene)', preco: 500, imagens: ['ALCOOL 70% = 500MT.png', 'ALCOOL 70% = 500MT4.png'], desc: 'Solução desinfetante eficaz.' },
+            { id: 124, tag: 'audio-venda', isAluguer: false, nome: 'Caixa de Som Portátil', preco: 1500, imagens: ['CAIXA DE SOM 1,500MT.png', 'CAIXA DE SOM 1,500MT3.png', 'CAIXA DE SOM 1,500MT 3.png'], desc: 'Som potente e design compacto.' },
+            { id: 125, tag: 'audio-venda', isAluguer: false, nome: 'Barra de Som (Soundbar)', preco: 1500, imagens: ['BARRA DE SOM 1,500MT.png', 'BARRA DE SOM 1,500MT5.png'], desc: 'Melhor qualidade de áudio para sua TV ou PC.' },
+            { id: 126, tag: 'pc-acessorios', isAluguer: false, nome: 'Mini Teclado Wireless', preco: 500, imagens: ['TECLADOS MINI 500MT2.png', 'TECLADOS MINI 500MT.png'], desc: 'Teclado compacto ideal para Smart TV e box.' },
+            { id: 127, tag: 'pc-acessorios', isAluguer: false, nome: 'Teclado Gamer Retroiluminado', preco: 750, imagens: ['TECLADOS GAME 750MT.png', 'TECLADOS GAME 750MT4.png', 'TECLADOS GAME 750MTr.png'], desc: 'Teclado ergonómico para melhor performance em jogos.' },
+            { id: 128, tag: 'audio-venda', isAluguer: false, nome: 'Microfone de Lapela', preco: 7500, imagens: ['MICROFONE LAPELA 7,500MT .png', 'MICROFONE LAPELA 7,500MT 3.png', '1000292237.jpg'], desc: 'Microfone discreto para gravações e lives profissionais.' },
+            { id: 129, tag: 'audio-venda', isAluguer: false, nome: 'Auricular a Fio Standard', preco: 50, imagens: ['AURICULAR A FIO 50MT.png', 'AURICULAR A FIO 50MTr.png', 'AURICULAR A FIO 50MTf.png', 'AURICULAR A FIO 50MTv.png', 'AURICULAR A FIO 50MTe.png', 'AURICULAR A FIO 50MTy.png'], desc: 'Auscultadores com fio simples e eficazes.' },
+            { id: 130, tag: 'acessorios', isAluguer: false, nome: 'Oxímetro de Pulso', preco: 400, imagens: ['OXÍMETRO 400MT.png', 'OXÍMETRO 400MTr.png', 'OXÍMETRO 400MTh.png'], desc: 'Medição rápida de oxigénio no sangue.' },
+            { id: 131, tag: 'pc-hardware', isAluguer: false, nome: 'Disco Interno SSD', preco: 1500, imagens: ['DISCO SSD 1,500MT.png'], desc: 'Upgrade de velocidade imediato para seu PC.' },
+            { id: 132, tag: 'pc-hardware', isAluguer: false, nome: 'Disco Rígido HDD', preco: 1500, imagens: ['DISCO HDD 1,500MT.png', 'DISCO HDD 1,500MT2.png', 'DISCO HDD 1,500MT26.png'], desc: 'Ampla capacidade de armazenamento para ficheiros.' },
+            { id: 133, tag: 'pc-hardware', isAluguer: false, nome: 'Mini Processador NUC', preco: 6000, imagens: ['MINI PROCESSADORE NUC 6,000MT.png', 'MINI PROCESSADORE NUC 6,000MT1.png'], desc: 'Computador compacto de alta eficiência.' },
+            { id: 134, tag: 'moda', isAluguer: false, nome: 'Smart Watch Inteligente', preco: 500, imagens: ['SMART WATCH 500MT .jpg', 'SMART WATCH 500MT t.jpeg', 'SMART WATCH 500MT y.jpg'], desc: 'Relógio com notificações e monitorização física.' },
+            { id: 135, tag: 'pc-hardware', isAluguer: false, nome: 'Servidores de Dados', preco: 4500, imagens: ['SERVIDORES 4,500MT.jpeg', 'SERVIDORES 4,500MTr.jpeg'], desc: 'Equipamento para infraestrutura de rede e dados.' },
+            { id: 136, tag: 'acessorios', isAluguer: false, nome: 'Adaptador OTG', preco: 80, imagens: ['OTG 80MT.png', 'OTG 80MTg.png'], desc: 'Ligue pen drives diretamente ao seu telemóvel.' }
         ]; 
 
         let currentSlide = 0;
@@ -406,9 +470,10 @@
             dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
         }
         
-        function closeModal(e) { if(e.target.id === 'productModal' || e.target.id === 'cartModal') { e.target.classList.remove('active'); } }
+        function closeModal(e) { if(e.target.id === 'productModal' || e.target.id === 'cartModal' || e.target.id === 'loginModal') { e.target.classList.remove('active'); } }
         function toggleSubMenu(id) { document.getElementById(id).classList.toggle('active'); }
-        
+        function openLogin() { document.getElementById('loginModal').classList.add('active'); }
+
         function buyNow(id) {
             const p = bancoDeDados.find(x => x.id === id);
             let msg = p.isAluguer ? "Olá! Gostaria de reservar o kit: " : "Olá! Tenho interesse em comprar: ";
