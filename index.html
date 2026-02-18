@@ -39,7 +39,6 @@
         .brand-text { display: flex; flex-direction: column; justify-content: center; }
         .main-name { font-family: 'Outfit'; font-weight: 800; font-size: 1.6rem; line-height: 1; letter-spacing: 1px; }
         .main-name span { color: var(--primary-blue); } 
-        /* Slogan ajustado para terminar junto com o nome */
         .slogan { font-size: 0.65rem; font-weight: 700; margin-top: 5px; color: var(--success); text-transform: uppercase; display: flex; align-items: center; gap: 4px; letter-spacing: 0.2px; } 
 
         .search-container { flex: 1; max-width: 280px; margin: 0 20px; display: flex; }
@@ -50,9 +49,6 @@
         .cart-icon { cursor:pointer; width: 42px; height: 42px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border); position: relative; }
         #cartCount { position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.7rem; } 
 
-        /* ==========================================================================
-           📦 ESTRUTURA E SIDEBAR
-           ========================================================================== */
         .container { display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: 20px 4%; }
         .sidebar { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); height: fit-content; position: sticky; top: 125px; }
         .sidebar-title { font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); opacity: 0.8; }
@@ -64,14 +60,10 @@
         .filter-btn { display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; color: var(--text-main); cursor: pointer; opacity: 0.7; font-size: 0.85rem; }
         .filter-btn:hover, .filter-btn.active { opacity: 1; color: var(--primary-blue); } 
 
-        /* MENSAGEM DINÂMICA */
         .status-msg { background: rgba(59, 130, 246, 0.05); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 25px; display: none; align-items: center; gap: 15px; color: var(--text-main); justify-content: center; }
         .status-msg i { font-size: 1.5rem; color: var(--primary-blue); }
         .status-msg span { font-size: 0.9rem; font-weight: 500; } 
 
-        /* ==========================================================================
-           🛍️ GRELHA DE PRODUTOS
-           ========================================================================== */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px; transition: 0.3s; position: relative; cursor: pointer; }
         .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); } 
@@ -95,14 +87,10 @@
         .btn-share-modal { background: var(--bg-body); color: var(--text-main); width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;}
         .btn-share-modal:hover { background: var(--border); }
 
-        /* ==========================================================================
-           🪟 MODAIS (PRODUTO & CARRINHO)
-           ========================================================================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
         .modal-content { background: var(--bg-card); border-radius: 15px; width: 100%; max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative;}
         
-        /* Botão Fechar (X) Flutuante */
         .close-btn { position: absolute; top: 15px; right: 15px; background: var(--danger); border: none; width: 35px; height: 35px; border-radius: 50%; color: white; font-size: 1.1rem; cursor: pointer; z-index: 50; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         .close-btn:hover { transform: scale(1.1); }
 
@@ -121,16 +109,12 @@
 
         .modal-actions { display: flex; flex-direction: column; gap: 10px; } 
 
-        /* Layout Específico do Carrinho */
         #cartModal .modal-content { display: block; max-width: 450px; padding: 25px; }
         .cart-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border); }
         .cart-item-title { font-size: 0.9rem; font-weight: 500; }
         .cart-item-price { color: var(--primary-blue); font-weight: bold; font-size: 0.95rem; }
         .cart-remove { color: var(--danger); cursor: pointer; margin-left: 10px; padding: 5px; }
 
-        /* ==========================================================================
-           📱 MOBILE
-           ========================================================================== */
         .mobile-categories { display: none; }
         @media (max-width: 768px) {
             body { padding-top: 130px; }
@@ -200,7 +184,7 @@
             <div class="cat-group">
                 <div class="cat-header" onclick="toggleSubMenu('m4'); filterBy('acessorios', this)"><i class="fas fa-gem"></i> Outros</div>
                 <div class="sub-cat-list" id="m4">
-                    <button class="filter-btn" onclick="filterBy('acessorios', this)">Tintas & Outros</button>
+                    <button class="filter-btn" onclick="filterBy('acessorios', this)">Acessórios & Escritório</button>
                 </div>
             </div>
         </aside> 
@@ -242,15 +226,11 @@
         <div class="modal-content">
             <button class="close-btn" onclick="document.getElementById('cartModal').classList.remove('active')"><i class="fas fa-times"></i></button>
             <h2 style="margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">Seu Carrinho</h2>
-            
-            <div id="cartItemsList" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px; padding-right: 10px;">
-                </div>
-
+            <div id="cartItemsList" style="max-height: 300px; overflow-y: auto; margin-bottom: 20px; padding-right: 10px;"></div>
             <div style="display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: 800; margin-bottom: 20px;">
                 <span>Total:</span>
                 <span id="cartTotal" style="color: var(--primary-blue)">0 MT</span>
             </div>
-            
             <button class="btn-buy" onclick="checkoutCart()" style="padding: 15px;"><i class="fab fa-whatsapp"></i> Finalizar Compra</button>
         </div>
     </div>
@@ -268,7 +248,20 @@
             { id: 3, tag: 'audio-aluguer', isAluguer: true, nome: 'PRO (1000 pessoas)', preco: 5000, imagens: ['Pro(500 pessoas)1.jpg', 'PRO(500 pessoas)2.jpg'], desc: '• 1 Bass dupla\n• 2 Tops\n• 2 Microfones\n• Mesa/Crossover' },
             { id: 4, tag: 'audio-aluguer', isAluguer: true, nome: 'Prémio (2000 pessoas)', preco: 10000, imagens: ['PRÉMIO.jpg'], desc: '• 2 Bass dupla\n• 4 Tops\n• 4 Microfones' },
             
-            // COMPUTADORES - ANTIGOS E NOVOS
+            // PROCESSADORES (PC) - Imagem 4 agora é a primeira (capa)
+            { id: 101, tag: 'pc-hardware', isAluguer: false, nome: 'Processadores de Alta Performance', preco: 9000, imagens: ['PROCESSADORES 9,000MT4.png', 'PROCESSADORES 9,000MT.jpg', 'PROCESSADORES 9,000MT3.jpg', 'PROCESSADORES 9,000MT9.webp'], desc: 'Processadores para upgrades e montagem de computadores.\n• Vários modelos disponíveis\n• Alta velocidade de processamento' },
+            
+            { id: 102, tag: 'pc-hardware', isAluguer: false, nome: 'Memórias RAM Profissionais', preco: 1500, imagens: ['MEMORIAS RAM 1500MT.jpg', 'MEMORIAS RAM 1500MT1.jpg'], desc: 'Upgrade de memória para o seu PC ou Laptop.\n• Estabilidade garantida\n• Aumento imediato de performance' },
+            { id: 103, tag: 'pc-acessorios', isAluguer: false, nome: 'Suporte de Notebook Ergonómico', preco: 750, imagens: ['SUPORTE DE NOTEBOOK = 750MT.jpg', 'SUPORTE DE NOTEBOOK = 750MT.webp'], desc: 'Suporte ajustável para melhor postura.\n• Evita o aquecimento do portátil\n• Portátil e resistente' },
+            { id: 104, tag: 'acessorios', isAluguer: false, nome: 'Cartões de Memória', preco: 350, imagens: ['CARTÕES DE MEMÓRIA .jpeg'], desc: 'Expansão de armazenamento para câmeras e telemóveis.' },
+            { id: 105, tag: 'acessorios', isAluguer: false, nome: 'Powerbank de Alta Capacidade', preco: 1000, imagens: ['POWERBANK 1000MT .png', 'POWERBANK 1000MT 2.jpg', 'POWERBANK 1000MT 00.jpg', 'POWERBANK 1000MT 44.jpeg'], desc: 'Energia extra para o seu dia.\n• Múltiplas cargas\n• Design compacto' },
+            { id: 106, tag: 'acessorios', isAluguer: false, nome: 'Impressora Epson EcoTank L3252', preco: 18500, imagens: ['IMPRESSORA EPSON L3252 18,500MT.jpeg', 'IMPRESSORA EPSON L3252 18,500MT.jpg', 'IMPRESSORA EPSON L3252 18,500MT .jpg'], desc: 'Impressora Multifuncional com Wi-Fi.\n• Economia extrema de tinta\n• Impressão via Smartphone' },
+            { id: 107, tag: 'moda', isAluguer: false, nome: 'Relógio Casio Classic Lite', preco: 250, imagens: ['RELÓGIO CASIO 250MTLite.jpg', 'RELÓGIO CASIO 250MTL1.jpg', 'RELÓGIO CASIO 250MTLite Lite.jpg'], desc: 'Relógio digital clássico da Casio.\n• Durabilidade icónica\n• Resistente à água' },
+            { id: 108, tag: 'audio-venda', isAluguer: false, nome: 'Cabo de Som XLR Profissional', preco: 500, imagens: ['CABO DE SOM XRL 500MT.png', 'CABO DE SOM XRL 500MT.0.jpg', 'CABO DE SOM XRL 500MT3.jpeg'], desc: 'Cabo balanceado para microfones e equipamentos de áudio.' },
+            { id: 109, tag: 'audio-venda', isAluguer: false, nome: 'Tweeter de Colunas (Par)', preco: 400, imagens: ['TWEETER DE CULUNAS 400MT.jpeg', 'TWEETER DE CULUNAS 400MTr.png', 'TWEETER DE CULUNAS 400MTe.png', 'TWEETER DE CULUNAS 400MTtr.png', 'TWEETER DE CULUNAS 400MTh.jpeg', 'TWEETER DE CULUNAS 400MTk.jpg', 'TWEETER DE CULUNAS 400MT.png'], desc: 'Reposição de agudos para colunas profissionais.\n• Som nítido e potente' },
+            { id: 110, tag: 'audio-venda', isAluguer: false, nome: 'AirPods Wireless', preco: 800, imagens: ['AIRPODS 800MT.jpg', 'AIRPODS 800MT00.jpg'], desc: 'Auriculares Bluetooth sem fios.\n• Conexão rápida\n• Estojo de carregamento' },
+            { id: 111, tag: 'acessorios', isAluguer: false, nome: 'Máquina Encadernadora Profissional', preco: 4000, imagens: ['MAQ. ENCADERNADORA 4,000MT-.webp', 'MAQ. ENCADERNADORA 4,000MT-y.jpg'], desc: 'Equipamento robusto para encadernação de documentos.' },
+
             { id: 7, tag: 'pc-celeron', isAluguer: false, nome: 'Laptops Série Intel Celeron', preco: 15000, imagens: ['CELERON1.jpg', 'CELERON2.jpg'], desc: 'Intel celeron\n\n4GB RAM\n256GB - 512GB SSD/HDD' },
             { id: 9, tag: 'pc-corei3', isAluguer: false, nome: 'SÉRIE CORE i3', preco: 25000, imagens: ['CORE i3.jpg'], desc: '10 geração Core i3\n\n4GB RAM\n256GB - 500GB SSD/HDD\n\nBateria Excelente' },
             { id: 8, tag: 'pc-monitor', isAluguer: false, nome: 'Monitores 20" HDMI VGA DP', preco: 4500, imagens: ['MONITORES 4500MT2.jpg', 'MONITORES 4500MT1.jpg'], desc: '• Tamanho: 20 Polegadas\n• Conexões: HDMI, VGA, DP\n• Alta Resolução' },
@@ -277,46 +270,36 @@
             { id: 16, tag: 'pc-projector', isAluguer: false, nome: 'Projector Show Profissional', preco: 15000, imagens: ['SHOW 15,000MT .jpeg'], desc: 'Projector de alta luminosidade e resolução.' },
             { id: 43, tag: 'pc-corei5', isAluguer: false, nome: 'Laptop Série Core i5', preco: 35000, imagens: ['SÉRIE CORE I5 35,000MT.png', 'SÉRIE CORE I5 35,000MT1.jpg', 'SÉRIE CORE I5 35,000MT4.jpeg', 'SÉRIE CORE I5 35,000MT7.jpg'], desc: '• Processador Intel Core i5\n• Alta performance para trabalho e design\n• Design fino e elegante' },
             { id: 42, tag: 'pc-acessorios', isAluguer: false, nome: 'Macbook (Peças/Acessórios)', preco: 2000, imagens: ['MACBOOK 2,000MT.jpeg', 'MACBOOK 2,000MT43.png', 'MACBOOK 2,000MT.jpg'], desc: 'Acessórios e componentes para Macbook.' },
-
-            // ACESSÓRIOS DE PC
             { id: 17, tag: 'pc-acessorios', isAluguer: false, nome: 'Mouse Óptico', preco: 200, imagens: ['MOUSE 200MT1.png'], desc: 'Mouse prático e ergonómico.' },
-            { id: 44, tag: 'pc-acessorios', isAluguer: false, nome: 'Mouse Bluetooth', preco: 400, imagens: ['MOUSE BLUETOOTH 400MT.webp', 'MOUSE BLUETOOTH 400MT.jpg', 'MOUSE BLUETOOTH 400MT4.webp'], desc: 'Mouse sem fios com conexão Bluetooth.\n• Design ergonómico\n• Sem necessidade de dongle USB' },
+            { id: 44, tag: 'pc-acessorios', isAluguer: false, nome: 'Mouse Bluetooth', preco: 400, imagens: ['MOUSE BLUETOOTH 400MT.webp', 'MOUSE BLUETOOTH 400MT.jpg', 'MOUSE BLUETOOTH 400MT4.webp'], desc: 'Mouse sem fios com conexão Bluetooth.' },
             { id: 11, tag: 'pc-acessorios', isAluguer: false, nome: 'Carregadores de Laptop Universais', preco: 1000, imagens: ['CARREGADORES 1000MT .jpg'], desc: 'Carregadores para HP, DELL, ASUS, LENOVO, TOSHIBA.' },
             { id: 21, tag: 'pc-acessorios', isAluguer: false, nome: 'Case para HDD 2.5"', preco: 400, imagens: ['CASE HDD 400MT.jpg'], desc: 'Caixa externa para disco rígido.' },
             { id: 23, tag: 'pc-acessorios', isAluguer: false, nome: 'Teclado USB', preco: 400, imagens: ['TECLADOS 400MT .jpg'], desc: 'Teclado padrão com conexão USB.' },
-            
-            // CABOS E CONECTIVIDADE
             { id: 19, tag: 'pc-acessorios', isAluguer: false, nome: 'Cabo HDMI', preco: 100, imagens: ['HDMI 100MT .jpg'], desc: 'Cabo HDMI de alta definição.' },
             { id: 18, tag: 'pc-acessorios', isAluguer: false, nome: 'Cabo de Corrente', preco: 100, imagens: ['CORRENTE 100MT.png'], desc: 'Cabo de alimentação padrão.' },
-            { id: 45, tag: 'acessorios', isAluguer: false, nome: 'Cabo/Adaptador Type-C', preco: 1500, imagens: ['TYPE-C 1,500MT.png', 'TYPE-C 1,500MT4.png', 'TYPE-C 1,500MT6.webp'], desc: 'Acessórios de conexão USB Type-C de alta velocidade.' },
-            { id: 46, tag: 'acessorios', isAluguer: false, nome: 'Cabo de Dados Original', preco: 100, imagens: ['ORIGINAL PHONE CABLE 100MT .png', 'ORIGINAL PHONE CABLE 100MT 2.png', 'ORIGINAL PHONE CABLE 100MT 3.png', 'ORIGINAL PHONE CABLE 100MT 90.png', 'ORIGINAL PHONE CABLE 100MT 8.png'], desc: 'Cabo de dados e carregamento para telemóveis.\n• Alta resistência' },
+            { id: 45, tag: 'acessorios', isAluguer: false, nome: 'Cabo/Adaptador Type-C', preco: 1500, imagens: ['TYPE-C 1,500MT.png', 'TYPE-C 1,500MT4.png', 'TYPE-C 1,500MT6.webp'], desc: 'Acessórios de conexão USB Type-C.' },
+            { id: 46, tag: 'acessorios', isAluguer: false, nome: 'Cabo de Dados Original', preco: 100, imagens: ['ORIGINAL PHONE CABLE 100MT .png', 'ORIGINAL PHONE CABLE 100MT 2.png', 'ORIGINAL PHONE CABLE 100MT 3.png', 'ORIGINAL PHONE CABLE 100MT 90.png', 'ORIGINAL PHONE CABLE 100MT 8.png'], desc: 'Cabo de dados e carregamento para telemóveis.' },
             { id: 47, tag: 'acessorios', isAluguer: false, nome: 'Cabeça de Carregador', preco: 200, imagens: ['CABEÇA CHARGER PHONE 200MT r.png', 'CABEÇA CHARGER PHONE 200MT e.png', 'CABEÇA CHARGER PHONE 200MT ty.png', 'CABEÇA CHARGER PHONE 200MT .png', 'CABEÇA CHARGER PHONE 200MT 2.png'], desc: 'Adaptador de tomada para carregamento USB.' },
             { id: 48, tag: 'acessorios', isAluguer: false, nome: 'Carregador de Telemóvel Standard', preco: 400, imagens: ['PHONE CHARGERS 400Mt3.png', 'PHONE CHARGERS 400Mt5.png', 'PHONE CHARGERS 400MT.png'], desc: 'Carregador completo de boa qualidade.' },
             { id: 49, tag: 'acessorios', isAluguer: false, nome: 'Carregador de Telemóvel Rápido', preco: 600, imagens: ['PHONE CHARGERS 600Mt.png'], desc: 'Carregador com suporte a carregamento rápido.' },
-
-            // ÁUDIO - VENDA (NOVOS E ATUALIZADOS)
             { id: 24, tag: 'audio-venda', isAluguer: false, nome: 'Headphones JBL', preco: 1000, imagens: ['JBL HEADPHONE 1000MT .jpg'], desc: 'Auscultadores com graves potentes.' },
             { id: 25, tag: 'audio-venda', isAluguer: false, nome: 'Bass Dupla Profissional', preco: 50000, imagens: ['BASS DUPLA 50,000MT1.jpg'], desc: 'Subwoofer de alta potência com duplo alto-falante.' },
-            { id: 28, tag: 'audio-venda', isAluguer: false, nome: 'Coluna Top 15 Polegadas', preco: 25000, imagens: ['TOP 15 POLEGADA 25,000MT.jpg', 'TOP 15 POLEGADA 25,000MT2.jpg', 'TOP 15 POLEGADA 25,000MT3.jpg'], desc: 'Coluna Top de alta performance.\n• 15 Polegadas\n• Som cristalino e potente' },
+            { id: 28, tag: 'audio-venda', isAluguer: false, nome: 'Coluna Top 15 Polegadas', preco: 25000, imagens: ['TOP 15 POLEGADA 25,000MT.jpg', 'TOP 15 POLEGADA 25,000MT2.jpg', 'TOP 15 POLEGADA 25,000MT3.jpg'], desc: 'Coluna Top de alta performance.' },
             { id: 31, tag: 'audio-venda', isAluguer: false, nome: 'Microfone JBL', preco: 5000, imagens: ['MICROFONE JBL 5,000MT .jpg', 'MICROFONE JBL 5,000MT 1.jpg'], desc: 'Microfone sem fios de alta fidelidade da JBL.' },
-            { id: 32, tag: 'audio-venda', isAluguer: false, nome: 'Microfone Standard', preco: 2500, imagens: ['MICRO 2,500MT .jpg', 'MICRO 2,500MT1.jpg'], desc: 'Microfone sem fios para eventos e karaoke.' },
-            { id: 33, tag: 'audio-venda', isAluguer: false, nome: 'Mesa de Som Profissional', preco: 8500, imagens: ['MESA DE SOM 8,500MT 23.jpg', 'MESA DE SOM 8,500MT 2.jpg', 'MESA DE SOM 8,500MT .jpg'], desc: 'Mixer de áudio com múltiplos canais e efeitos.' },
-            { id: 34, tag: 'audio-venda', isAluguer: false, nome: 'Amplificador 1000W', preco: 12000, imagens: ['AMPLIFICADOR 1000W = 12,000MT3.jpg', 'AMPLIFICADOR 1000W = 12,000MT.png'], desc: 'Potência de 1000 Watts para sistemas de som.' },
-            { id: 35, tag: 'audio-venda', isAluguer: false, nome: 'Amplificador 3000W', preco: 30000, imagens: ['AMPLIFICADOR 3000W = 30,000MT.jpg'], desc: 'Amplificador de alta potência (3000W) para grandes eventos.' },
-            { id: 36, tag: 'audio-venda', isAluguer: false, nome: 'Crossover', preco: 5000, imagens: ['CROSSOVER 5,000MT.jpg', 'CROSSOVER 5,000MT1.jpg', 'CROSSOVER 5,000MT3.jpg'], desc: 'Divisor de frequências para melhor qualidade sonora.' },
-            { id: 37, tag: 'audio-venda', isAluguer: false, nome: 'Cabo de Som 10M', preco: 2000, imagens: ['CABO DE SOM 10M = 2000MT .jpg', 'CABO DE SOM 10M = 2000MT 1.png', 'CABO DE SOM 10M = 2000MT 4.jpg'], desc: 'Cabo de áudio profissional com 10 metros de comprimento.' },
-            { id: 38, tag: 'audio-venda', isAluguer: false, nome: 'Conector Speakon', preco: 100, imagens: ['SPEAKON PINO 100MT.png', 'SPEAKON PINO 100MT1.png', 'SPEAKON PINO 100MT3.png'], desc: 'Ficha Speakon de alta durabilidade.' },
+            { id: 32, tag: 'audio-venda', isAluguer: false, nome: 'Microfone Standard', preco: 2500, imagens: ['MICRO 2,500MT .jpg', 'MICRO 2,500MT1.jpg'], desc: 'Microfone sem fios para eventos.' },
+            { id: 33, tag: 'audio-venda', isAluguer: false, nome: 'Mesa de Som Profissional', preco: 8500, imagens: ['MESA DE SOM 8,500MT 23.jpg', 'MESA DE SOM 8,500MT 2.jpg', 'MESA DE SOM 8,500MT .jpg'], desc: 'Mixer de áudio com múltiplos canais.' },
+            { id: 34, tag: 'audio-venda', isAluguer: false, nome: 'Amplificador 1000W', preco: 12000, imagens: ['AMPLIFICADOR 1000W = 12,000MT3.jpg', 'AMPLIFICADOR 1000W = 12,000MT.png'], desc: 'Potência de 1000 Watts.' },
+            { id: 35, tag: 'audio-venda', isAluguer: false, nome: 'Amplificador 3000W', preco: 30000, imagens: ['AMPLIFICADOR 3000W = 30,000MT.jpg'], desc: 'Amplificador de alta potência (3000W).' },
+            { id: 36, tag: 'audio-venda', isAluguer: false, nome: 'Crossover', preco: 5000, imagens: ['CROSSOVER 5,000MT.jpg', 'CROSSOVER 5,000MT1.jpg', 'CROSSOVER 5,000MT3.jpg'], desc: 'Divisor de frequências profissional.' },
+            { id: 37, tag: 'audio-venda', isAluguer: false, nome: 'Cabo de Som 10M', preco: 2000, imagens: ['CABO DE SOM 10M = 2000MT .jpg', 'CABO DE SOM 10M = 2000MT 1.png', 'CABO DE SOM 10M = 2000MT 4.jpg'], desc: 'Cabo de áudio profissional de 10 metros.' },
+            { id: 38, tag: 'audio-venda', isAluguer: false, nome: 'Conector Speakon', preco: 100, imagens: ['SPEAKON PINO 100MT.png', 'SPEAKON PINO 100MT1.png', 'SPEAKON PINO 100MT3.png'], desc: 'Ficha Speakon durável.' },
             { id: 39, tag: 'audio-venda', isAluguer: false, nome: 'Conector Jack (Pino)', preco: 100, imagens: ['PINO JACK 100MT .jpg', 'PINO JACK 100MT 2.jpg', 'PINO JACK 100MT 3.jpg'], desc: 'Ficha Jack P10 metálica.' },
-
-            // MODA E CALÇADO
-            { id: 40, tag: 'moda', isAluguer: false, nome: 'Sapatilhas Stan Smith', preco: 1300, imagens: ['STAN SMITH 1,300MT.jpg', 'STAN SMITH 1,300MT4.jpg', 'STAN SMITH 1,300MT44.jpg', 'STAN SMITH 1,300MT3.jpg', 'STAN SMITH 1,300MT_1.jpg'], desc: 'Sapatilhas clássicas e confortáveis.\nDisponíveis em vários tamanhos.' },
-            { id: 41, tag: 'moda', isAluguer: false, nome: 'Sapatilhas AirForce', preco: 1300, imagens: ['AIRFORCE 1,300MT.jpg', 'AIRFORCE 1,300MT1_.jpg', 'AIRFORCE 1,300MT2.jpg', 'AIRFORCE 1,300MT4.jpg', 'AIRFORCE 1,300MT6.jpeg'], desc: 'Estilo icónico e durabilidade.\nIdeal para o dia a dia.' },
-
-            // DIVERSOS
+            { id: 40, tag: 'moda', isAluguer: false, nome: 'Sapatilhas Stan Smith', preco: 1300, imagens: ['STAN SMITH 1,300MT.jpg', 'STAN SMITH 1,300MT4.jpg', 'STAN SMITH 1,300MT44.jpg', 'STAN SMITH 1,300MT3.jpg', 'STAN SMITH 1,300MT_1.jpg'], desc: 'Sapatilhas clássicas.' },
+            { id: 41, tag: 'moda', isAluguer: false, nome: 'Sapatilhas AirForce', preco: 1300, imagens: [`AIRFORCE 1,300MT.jpg`, `AIRFORCE 1,300MT1_.jpg`, `AIRFORCE 1,300MT2.jpg`, `AIRFORCE 1,300MT4.jpg`, `AIRFORCE 1,300MT6.jpeg`], desc: 'Estilo icónico e durabilidade.' },
             { id: 13, tag: 'acessorios', isAluguer: false, nome: 'Smartwatch', preco: 1000, imagens: ['SMARTWATCH 1000MT .jpg'], desc: 'Relógio inteligente multifuncional.' },
-            { id: 14, tag: 'acessorios', isAluguer: false, nome: 'Rolo de Plástico Aderente', preco: 500, imagens: ['PLÁSTICO ADERENTES 500MT.jpg'], desc: 'Para embalagens industriais ou domésticas.' },
+            { id: 14, tag: 'acessorios', isAluguer: false, nome: 'Rolo de Plástico Aderente', preco: 500, imagens: ['PLÁSTICO ADERENTES 500MT.jpg'], desc: 'Para embalagens diversas.' },
             { id: 22, tag: 'acessorios', isAluguer: false, nome: 'Aparelho de Pressão', preco: 1000, imagens: ['APARELHO DE PRESSÃO 1000MT .jpg'], desc: 'Monitor de pressão arterial digital.' },
-            { id: 10, tag: 'acessorios', isAluguer: false, nome: 'Tinta de Impressora Epson', preco: 150, imagens: ['TINTA EPSON 150MT3.png'], desc: 'Tinta de alta qualidade para impressoras Epson.' }
+            { id: 10, tag: 'acessorios', isAluguer: false, nome: 'Tinta de Impressora Epson', preco: 150, imagens: ['TINTA EPSON 150MT3.png'], desc: 'Tinta de alta qualidade.' }
         ]; 
 
         let currentSlide = 0;
@@ -325,7 +308,6 @@
         function renderProducts(lista) {
             const grid = document.getElementById('productGrid');
             const msg = document.getElementById('emptyMsg'); 
-
             if (lista.length === 0) {
                 grid.style.display = 'none';
                 msg.style.display = 'flex';
@@ -353,28 +335,18 @@
             if (!p) return;
             const url = window.location.origin + window.location.pathname + '?id=' + id;
             if (navigator.share) {
-                navigator.share({
-                    title: p.nome,
-                    text: `Veja este produto na Casa Windows: ${p.nome}`,
-                    url: url
-                }).catch(console.error);
+                navigator.share({ title: p.nome, text: `Veja este produto na Casa Windows: ${p.nome}`, url: url }).catch(console.error);
             } else {
-                navigator.clipboard.writeText(url);
-                alert("Link de partilha copiado: " + url);
+                navigator.clipboard.writeText(url); alert("Link de partilha copiado: " + url);
             }
         }
 
-        function shareCurrentModalProduct() {
-            if(currentModalProductId) shareProduct(currentModalProductId);
-        }
+        function shareCurrentModalProduct() { if(currentModalProductId) shareProduct(currentModalProductId); }
 
         function filterBy(tag, el) {
             document.querySelectorAll('.filter-btn, .chip, .cat-header').forEach(b => b.classList.remove('active'));
             el.classList.add('active');
-            
-            if(tag === 'todos') {
-                renderProducts(bancoDeDados);
-            } else {
+            if(tag === 'todos') { renderProducts(bancoDeDados); } else {
                 const filtrados = bancoDeDados.filter(p => p.tag.startsWith(tag));
                 renderProducts(filtrados);
             }
@@ -386,13 +358,10 @@
             document.getElementById('modalTitle').innerText = p.nome;
             document.getElementById('modalDesc').innerText = p.desc;
             document.getElementById('modalPrice').innerText = p.preco.toLocaleString('en-US') + " MT";
-            
             document.getElementById('textBtnWA').innerText = p.isAluguer ? "Reservar" : "Comprar";
             document.getElementById('modalBtnWA').onclick = () => buyNow(id);
-            
             document.getElementById('modalBtnCart').style.display = p.isAluguer ? 'none' : 'block';
             document.getElementById('modalBtnCart').onclick = () => addToCart(id);
-            
             const track = document.getElementById('carouselTrack');
             const dots = document.getElementById('carouselDots');
             track.innerHTML = ''; dots.innerHTML = '';
@@ -415,12 +384,7 @@
             dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
         }
         
-        function closeModal(e) { 
-            if(e.target.id === 'productModal' || e.target.id === 'cartModal') {
-                e.target.classList.remove('active'); 
-            }
-        }
-        
+        function closeModal(e) { if(e.target.id === 'productModal' || e.target.id === 'cartModal') { e.target.classList.remove('active'); } }
         function toggleSubMenu(id) { document.getElementById(id).classList.toggle('active'); }
         
         function buyNow(id) {
@@ -431,73 +395,43 @@
 
         function addToCart(id) {
             const p = bancoDeDados.find(x => x.id === id);
-            cartItems.push(p);
-            updateCartCount();
+            cartItems.push(p); updateCartCount();
         } 
 
-        function updateCartCount() {
-            document.getElementById('cartCount').innerText = cartItems.length;
-        } 
+        function updateCartCount() { document.getElementById('cartCount').innerText = cartItems.length; } 
 
-        function openCart() {
-            renderCartList();
-            document.getElementById('cartModal').classList.add('active');
-        }
+        function openCart() { renderCartList(); document.getElementById('cartModal').classList.add('active'); }
 
         function renderCartList() {
             const list = document.getElementById('cartItemsList');
             let total = 0;
-            
             if(cartItems.length === 0) {
                 list.innerHTML = '<p style="opacity:0.6; text-align:center; padding: 20px 0;">O seu carrinho está vazio.</p>';
             } else {
                 list.innerHTML = cartItems.map((item, index) => {
                     total += item.preco;
-                    return `
-                    <div class="cart-item">
-                        <div>
-                            <div class="cart-item-title">${item.nome}</div>
-                        </div>
-                        <div style="display:flex; align-items:center;">
-                            <span class="cart-item-price">${item.preco.toLocaleString('en-US')} MT</span>
-                            <i class="fas fa-trash cart-remove" onclick="removeFromCart(${index})"></i>
-                        </div>
-                    </div>`;
+                    return `<div class="cart-item"><div><div class="cart-item-title">${item.nome}</div></div><div style="display:flex; align-items:center;"><span class="cart-item-price">${item.preco.toLocaleString('en-US')} MT</span><i class="fas fa-trash cart-remove" onclick="removeFromCart(${index})"></i></div></div>`;
                 }).join('');
             }
-            
             document.getElementById('cartTotal').innerText = total.toLocaleString('en-US') + ' MT';
         }
 
-        function removeFromCart(index) {
-            cartItems.splice(index, 1);
-            updateCartCount();
-            renderCartList();
-        }
+        function removeFromCart(index) { cartItems.splice(index, 1); updateCartCount(); renderCartList(); }
 
         function checkoutCart() {
             if(cartItems.length === 0) return alert("O carrinho está vazio!");
-            
             let text = "Olá! Gostaria de finalizar esta compra:\n\n";
             let total = 0;
-            
-            cartItems.forEach(item => {
-                text += `▪️ ${item.nome} - ${item.preco} MT\n`;
-                total += item.preco;
-            });
-            
+            cartItems.forEach(item => { text += `▪️ ${item.nome} - ${item.preco} MT\n`; total += item.preco; });
             text += `\n*TOTAL: ${total} MT*`;
             window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(text)}`);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             renderProducts(bancoDeDados);
-            
             const urlParams = new URLSearchParams(window.location.search);
             const productId = urlParams.get('id');
-            if (productId) {
-                setTimeout(() => openModal(parseInt(productId)), 300);
-            }
+            if (productId) { setTimeout(() => openModal(parseInt(productId)), 300); }
         });
     </script>
 </body>
