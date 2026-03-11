@@ -1,644 +1,869 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link id="meu-favicon" rel="icon" type="image/png" href="cw_logo_blue.png">
-    <link rel="apple-touch-icon" href="cw_logo_blue.png">
-    
-    <title>CASA WINDOWS | Store & Aluguer</title>
-
-    <meta name="description" content="CASA WINDOWS | Loja especializada em venda de computadores, acessórios e aluguer de som profissional em Moçambique. Qualidade e garantia com nota fiscal.">
-    <meta name="keywords" content="CASA WINDOWS, casawindows, aluguer de som Moçambique, comprar laptop Lichinga, informática Moçambique, acessórios de telemóvel">
-    <meta name="author" content="CASA WINDOWS">
-    
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "CASA WINDOWS",
-      "image": "cw_logo_blue.png",
-      "@id": "https://casawindows.online",
-      "url": "https://casawindows.online",
-      "telephone": "+258842785290",
-      "priceRange": "MT",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Nampula",
-        "addressLocality": "Nampula",
-        "addressCountry": "MZ"
-      },
-      "description": "Especialistas em venda de computadores, hardware, acessórios e aluguer de sistemas de som para eventos.",
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
-        ],
-        "opens": "08:00",
-        "closes": "18:00"
-      }
-    }
-    </script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        /* ==========================================================================
-           🎨 CORES E RESET
-           ========================================================================== */
-        :root {
-            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;      
-            --primary-blue: #3b82f6; --whatsapp: #25d366; --border: #1e293b;         
-            --shadow: 0 4px 12px rgba(0,0,0,0.3); --danger: #ef4444; --success: #22c55e;        
-        } 
-
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg-body); color: var(--text-main); padding-top: 105px; } 
-
-        /* ==========================================================================
-           🖥️ CABEÇALHO E NAVEGAÇÃO
-           ========================================================================== */
-        nav {
-            position: fixed; top: 0; width: 100%; background: var(--bg-card); padding: 0 4%; 
-            display: flex; align-items: center; justify-content: space-between;
-            z-index: 1000; height: 105px; border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
-        }
-        
-        .brand-container { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); }
-        .logo-img { height: 65px; width: auto; }
-        .brand-text { display: flex; flex-direction: column; justify-content: center; }
-        .main-name { font-family: 'Outfit'; font-weight: 800; font-size: 1.6rem; line-height: 1; letter-spacing: 1px; }
-        .main-name span { color: var(--primary-blue); } 
-        .slogan { font-size: 0.55rem; font-weight: 685; margin-top: 5px; color: var(--success); text-transform: uppercase; display: flex; align-items: center; gap: 4px; letter-spacing: 0.2px; } 
-
-        .nav-tools { display: flex; align-items: center; gap: 20px; }
-        .top-link { color: var(--text-main); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
-        .top-link:hover { color: var(--primary-blue); }
-        
-        .support-btn { 
-            display: flex; align-items: center; gap: 8px; background: var(--bg-body); 
-            border: 1px solid var(--border); padding: 8px 15px; border-radius: 20px;
-            cursor: pointer; transition: 0.3s; color: var(--text-main); font-size: 0.85rem; font-weight: 500;
-        }
-        .support-btn:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
-        .support-btn i { font-size: 1rem; }
-        
-        .cart-icon { cursor:pointer; width: 42px; height: 42px; display:flex; align-items:center; justify-content:center; border-radius: 50%; background: var(--bg-body); border: 1px solid var(--border); position: relative; }
-        #cartCount { position: absolute; top: -5px; right: -5px; background: var(--danger); color: #fff; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 0.7rem; } 
-
-        /* ==========================================================================
-           📦 ESTRUTURA E SIDEBAR
-           ========================================================================== */
-        .container { display: grid; grid-template-columns: 260px 1fr; gap: 30px; padding: 20px 4%; }
-        .sidebar { background: var(--bg-card); padding: 20px; border-radius: 12px; border: 1px solid var(--border); height: fit-content; position: sticky; top: 125px; }
-        .sidebar-title { font-family: 'Outfit'; font-size: 1.1rem; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); opacity: 0.8; }
-        
-        .cat-header { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg-body); border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; }
-        .cat-header:hover, .cat-header.active { color: var(--primary-blue); }
-        .sub-cat-list { margin-left: 15px; padding-left: 15px; border-left: 1px solid var(--border); display: none; margin-bottom: 10px; }
-        .sub-cat-list.active { display: block; }
-        .filter-btn { display: block; width: 100%; text-align: left; padding: 8px; border: none; background: none; color: var(--text-main); cursor: pointer; opacity: 0.7; font-size: 0.85rem; }
-        .filter-btn:hover, .filter-btn.active { opacity: 1; color: var(--primary-blue); } 
-
-        .status-msg { background: rgba(59, 130, 246, 0.05); border: 1px solid var(--border); padding: 20px; border-radius: 12px; margin-bottom: 25px; display: none; align-items: center; gap: 15px; color: var(--text-main); justify-content: center; }
-        .status-msg i { font-size: 1.5rem; color: var(--primary-blue); }
-        .status-msg span { font-size: 0.9rem; font-weight: 500; } 
-
-        /* ==========================================================================
-           🛍️ GRELHA DE PRODUTOS
-           ========================================================================== */
-        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-        .product-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 12px; transition: 0.3s; position: relative; cursor: pointer; display: flex; flex-direction: column; }
-        .product-card:hover { transform: translateY(-5px); border-color: var(--primary-blue); } 
-        
-        .tag-badge { position: absolute; top: 10px; left: 10px; padding: 5px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: bold; color: white; z-index: 3; }
-        .tag-aluguer { background: #8b5cf6; } 
-        .tag-venda { background: var(--border); color: #fff; }
-        .promo-badge { position: absolute; top: 10px; right: 10px; background: var(--danger); color: white; padding: 4px 8px; border-radius: 6px; font-weight: 800; font-size: 0.75rem; z-index: 3; box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4); }
-
-        .img-container { width: 100%; aspect-ratio: 1/1; margin-bottom: 12px; overflow: hidden; border-radius: 10px; background: #fff; position: relative; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .product-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 8px; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .product-price { font-size: 1.1rem; font-weight: 700; color: var(--primary-blue); margin-bottom: 12px; }
-        
-        .product-actions { display: flex; gap: 8px; margin-top: auto; }
-        
-        .btn-buy { background: var(--whatsapp); color: white; flex: 1; padding: 10px; border-radius: 8px; border: none; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 0.85rem; }
-        
-        .btn-cart-add { background: var(--bg-body); color: var(--text-main); width: 42px; height: 42px; border-radius: 8px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; flex-shrink: 0; }
-        .btn-cart-add:hover { background: var(--border); color: var(--primary-blue); } 
-
-        .btn-share-modal { background: var(--bg-body); color: var(--text-main); width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: 0.2s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px;}
-        .btn-share-modal:hover { background: var(--border); }
-
-        /* ==========================================================================
-           🪟 MODAIS
-           ========================================================================== */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        
-        .modal-content { background: var(--bg-card); border-radius: 15px; width: 100%; max-width: 800px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; position: relative;}
-        
-        #cartModal { justify-content: flex-end; padding: 0; }
-        #cartModal .modal-content { 
-            height: 100vh; width: 100%; max-width: 400px; 
-            border-radius: 0; display: flex; flex-direction: column; 
-            transform: translateX(100%); transition: transform 0.3s ease;
-            padding: 30px;
-        }
-        #cartModal.active .modal-content { transform: translateX(0); }
-
-        .close-btn { position: absolute; top: 15px; right: 15px; background: var(--danger); border: none; width: 35px; height: 35px; border-radius: 50%; color: white; font-size: 1.1rem; cursor: pointer; z-index: 50; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
-        .close-btn:hover { transform: scale(1.1); }
-
-        .carousel-container { position: relative; background: #fff; overflow: hidden; display: flex; align-items: center; }
-        .carousel-track { display: flex; transition: transform 0.3s ease; width: 100%; }
-        .carousel-slide { min-width: 100%; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .carousel-slide img { max-width: 100%; max-height: 350px; object-fit: contain; }
-        
-        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; width: 35px; height: 35px; border-radius: 50%; cursor: pointer; z-index: 5; }
-        .carousel-btn.prev { left: 10px; }
-        .carousel-btn.next { right: 10px; }
-        
-        .carousel-dots { position: absolute; bottom: 10px; width: 100%; display: flex; justify-content: center; gap: 5px; }
-        .dot { width: 8px; height: 8px; background: #ccc; border-radius: 50%; cursor: pointer; }
-        .dot.active { background: var(--primary-blue); } 
-
-        /* Estilo Preço no Modal */
-        .old-price-display { font-size: 1rem; color: var(--danger); text-decoration: line-through; opacity: 0.7; font-weight: 500; margin-bottom: 2px; display: block;}
-        .new-price-display { font-size: 2rem; color: var(--text-main); font-weight: 800; margin-bottom: 20px; display: block;}
-
-        .cart-item { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--border); }
-        .cart-item-title { font-size: 0.9rem; font-weight: 500; }
-        .cart-item-price { color: var(--primary-blue); font-weight: bold; font-size: 0.85rem; }
-        .cart-remove { color: var(--danger); cursor: pointer; margin-left: 10px; padding: 5px; }
-
-        .mobile-categories { display: none; }
-
-        .support-options { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-        .support-link { display: flex; align-items: center; gap: 12px; padding: 15px; border-radius: 10px; text-decoration: none; color: white; font-weight: 600; transition: 0.3s; }
-        .support-link.call { background: var(--primary-blue); }
-        .support-link.wa { background: var(--whatsapp); }
-
-        @media (max-width: 768px) {
-            nav { height: 80px; }
-            .logo-img { height: 50px; }
-            .main-name { font-size: 1.3rem; }
-            .top-link { display: none; } 
-            .support-btn { width: 42px; height: 42px; padding: 0; border-radius: 50%; justify-content: center; }
-            .support-btn span { display: none; }
-            .support-btn i { font-size: 1.2rem; }
-            body { padding-top: 150px; } 
-            .container { grid-template-columns: 1fr; padding-top: 10px; }
-            .sidebar { display: none; }
-            .mobile-categories { 
-                display: flex; position: fixed; top: 80px; left: 0; width: 100%; 
-                background: var(--bg-card); padding: 12px 10px; gap: 10px; 
-                overflow-x: auto; z-index: 999; border-bottom: 1px solid var(--border);
-                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
-            }
-            .chip { padding: 8px 18px; background: var(--bg-body); border-radius: 20px; white-space: nowrap; font-size: 0.85rem; border: 1px solid var(--border); }
-            .chip.active { background: var(--primary-blue); color: white; border-color: var(--primary-blue); }
-            .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .modal-content { grid-template-columns: 1fr; max-height: 90vh; overflow-y: auto; }
-            #cartModal .modal-content { max-width: 85%; }
-            .btn-buy { font-size: 0.75rem; padding: 10px 5px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link id="meu-favicon" rel="icon" type="image/png" href="cw_logo_blue.png">
+<link rel="apple-touch-icon" href="cw_logo_blue.png">
+<title>CASA WINDOWS | Store & Aluguer</title>
+<meta name="description" content="CASA WINDOWS | Loja especializada em venda de computadores, acessórios e aluguer de som profissional em Moçambique.">
+<meta name="author" content="CASA WINDOWS">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"CASA WINDOWS","url":"https://casawindows.online","telephone":"+258842785290","address":{"@type":"PostalAddress","addressLocality":"Nampula","addressCountry":"MZ"}}</script>
+<!-- META PIXEL — quando tiveres o ID do Pixel, substitui XXXXXXXXXXXXXXXXXX nos 2 sítios abaixo -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','XXXXXXXXXXXXXXXXXX');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=XXXXXXXXXXXXXXXXXX&ev=PageView&noscript=1"/></noscript>
+<!-- FIM META PIXEL -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --bg:#07080a;--bg2:#0d0f12;--bg3:#131619;--bg4:#181b1f;--bg5:#1e2127;
+  --line:rgba(255,255,255,0.06);--line2:rgba(255,255,255,0.10);
+  --txt:#f0f2f5;--txt2:#9aa3b0;--txt3:#5e6673;
+  --blue:#2a7de1;--blue-l:#4a94f0;--blue-gl:rgba(42,125,225,0.18);
+  --green:#1db954;--green-d:#17a349;--red:#e8404a;--amber:#f5a623;--purple:#7c5cfc;
+  --nav:60px;--bar:42px;--r:10px;--r2:14px;
+  --sh:0 4px 24px rgba(0,0,0,.45);--sh2:0 12px 40px rgba(0,0,0,.6);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--txt);padding-top:var(--nav);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:99px}
+::-webkit-scrollbar-thumb:hover{background:var(--line2)}
+#nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:900;background:rgba(7,8,10,.9);backdrop-filter:blur(24px) saturate(160%);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 5%;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--txt);flex-shrink:0}
+.brand img{height:34px;width:auto}
+.brand-name{font-family:'Familjen Grotesk',sans-serif;font-weight:700;font-size:1.15rem;line-height:1}
+.brand-name b{color:var(--blue-l)}
+.brand-tag{font-size:.55rem;color:var(--green);letter-spacing:1.2px;text-transform:uppercase;margin-top:3px;display:flex;align-items:center;gap:3px;white-space:nowrap}
+.nav-search{flex:1;max-width:520px;display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--line);border-radius:8px;padding:0 14px;transition:border-color .2s,box-shadow .2s}
+.nav-search:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-gl)}
+.nav-search i{color:var(--txt3);font-size:.85rem;flex-shrink:0}
+.nav-search input{flex:1;background:none;border:none;outline:none;font-family:inherit;font-size:.85rem;color:var(--txt);padding:9px 0}
+.nav-search input::placeholder{color:var(--txt3)}
+.nav-search .clr{background:none;border:none;color:var(--txt3);cursor:pointer;padding:2px;display:none;transition:color .15s}
+.nav-search .clr:hover{color:var(--txt)}
+.nav-end{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
+.nb{display:flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--line);color:var(--txt);padding:7px 13px;border-radius:8px;font-family:inherit;font-size:.8rem;font-weight:500;cursor:pointer;transition:background .15s,border-color .15s;white-space:nowrap}
+.nb:hover{background:var(--bg4);border-color:var(--line2)}
+.nb i{font-size:.85rem}
+.cart-nb{position:relative}
+.c-badge{position:absolute;top:-7px;right:-7px;background:var(--red);color:#fff;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;border:2px solid var(--bg);transition:transform .2s}
+.c-badge.pop{animation:badgePop .3s ease}
+@keyframes badgePop{0%{transform:scale(1)}50%{transform:scale(1.6)}100%{transform:scale(1)}}
+.promo-bar{background:linear-gradient(90deg,#0f2a5e 0%,#1a3a80 40%,#0f2a5e 100%);border-bottom:1px solid rgba(42,125,225,.25);padding:8px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:.78rem;color:rgba(255,255,255,.8)}
+.promo-bar .pb-items{display:flex;gap:24px;flex-wrap:wrap}
+.promo-bar .pb-item{display:flex;align-items:center;gap:6px}
+.promo-bar .pb-item i{color:var(--blue-l)}
+.promo-bar .pb-cta{background:var(--blue);color:#fff;padding:5px 14px;border-radius:6px;font-size:.75rem;font-weight:600;text-decoration:none;white-space:nowrap;transition:background .15s;flex-shrink:0}
+.promo-bar .pb-cta:hover{background:var(--blue-l)}
+.m-chips{display:none;padding:10px 4%;gap:7px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;background:var(--bg);border-bottom:1px solid var(--line);position:sticky;top:var(--nav);z-index:800}
+.m-chips::-webkit-scrollbar{display:none}
+.chip{padding:6px 15px;border-radius:99px;flex-shrink:0;background:var(--bg3);border:1px solid var(--line);color:var(--txt2);font-size:.78rem;font-weight:500;cursor:pointer;transition:all .15s}
+.chip.on,.chip:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.cat-strip{padding:18px 5% 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.cat-card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r2);padding:16px 12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;transition:all .2s;text-align:center}
+.cat-card:hover,.cat-card.on{border-color:var(--blue);background:var(--blue-gl)}
+.cat-card .cc-icon{width:44px;height:44px;border-radius:10px;background:var(--bg4);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--txt2);transition:all .2s}
+.cat-card:hover .cc-icon,.cat-card.on .cc-icon{background:var(--blue-gl);color:var(--blue-l);border-color:rgba(42,125,225,.3)}
+.cat-card .cc-name{font-size:.72rem;font-weight:600;color:var(--txt2)}
+.cat-card:hover .cc-name,.cat-card.on .cc-name{color:var(--blue-l)}
+.cat-card .cc-cnt{font-size:.65rem;color:var(--txt3)}
+.layout{display:grid;grid-template-columns:220px 1fr;gap:20px;padding:20px 5% 80px;align-items:start}
+.sidebar{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r2);padding:18px;position:sticky;top:calc(var(--nav) + 12px)}
+.sb-section{margin-bottom:20px}
+.sb-section:last-child{margin-bottom:0}
+.sb-label{font-size:.65rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--txt3);margin-bottom:10px}
+.tree-item{border-radius:8px;cursor:pointer;user-select:none;transition:background .15s,color .15s}
+.tree-head{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;font-size:.82rem;font-weight:500;color:var(--txt2);transition:all .15s}
+.tree-head:hover{background:var(--bg3);color:var(--txt)}
+.tree-head.on{background:var(--blue-gl);color:var(--blue-l)}
+.tree-head .t-icon{width:18px;text-align:center;font-size:.8rem;flex-shrink:0}
+.tree-head .t-arrow{margin-left:auto;font-size:.65rem;color:var(--txt3);transition:transform .2s;flex-shrink:0}
+.tree-head.expanded .t-arrow{transform:rotate(180deg)}
+.tree-head .t-cnt{margin-left:auto;font-size:.65rem;background:var(--bg4);padding:2px 7px;border-radius:99px;color:var(--txt3);flex-shrink:0}
+.tree-head.on .t-cnt{background:rgba(42,125,225,.2);color:var(--blue-l)}
+.tree-children{display:none;padding-left:10px;margin-top:2px}
+.tree-children.open{display:block}
+.tree-child{display:flex;align-items:center;gap:7px;padding:7px 10px 7px 28px;border-radius:7px;font-size:.78rem;color:var(--txt3);cursor:pointer;transition:all .15s;margin-bottom:1px}
+.tree-child::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0;margin-left:-12px}
+.tree-child:hover{color:var(--txt);background:var(--bg3)}
+.tree-child.on{color:var(--blue-l);background:var(--blue-gl)}
+.price-filter{display:flex;flex-direction:column;gap:10px}
+.price-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.price-inp-wrap{display:flex;flex-direction:column;gap:4px}
+.price-inp-wrap label{font-size:.65rem;color:var(--txt3);font-weight:500}
+.price-inp-wrap input{background:var(--bg3);border:1px solid var(--line);color:var(--txt);border-radius:7px;padding:7px 10px;font-family:inherit;font-size:.8rem;outline:none;width:100%;transition:border-color .15s}
+.price-inp-wrap input:focus{border-color:var(--blue)}
+.price-apply{background:var(--blue);color:#fff;border:none;border-radius:7px;padding:8px;font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .15s}
+.price-apply:hover{background:var(--blue-l)}
+.price-reset{background:none;border:none;color:var(--txt3);font-family:inherit;font-size:.72rem;cursor:pointer;text-align:center;transition:color .15s;padding:2px}
+.price-reset:hover{color:var(--txt)}
+main{min-width:0}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--txt3);margin-bottom:14px;flex-wrap:wrap}
+.breadcrumb span{cursor:pointer;transition:color .15s}
+.breadcrumb span:hover{color:var(--txt)}
+.breadcrumb span.cur{color:var(--txt);font-weight:500;cursor:default}
+.breadcrumb i{font-size:.6rem}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.results-txt{font-size:.8rem;color:var(--txt3);flex:1;min-width:120px}
+.results-txt strong{color:var(--txt);font-weight:600}
+.dropdown{position:relative}
+.dd-btn{display:flex;align-items:center;gap:7px;background:var(--bg3);border:1px solid var(--line);color:var(--txt2);padding:7px 13px;border-radius:8px;font-family:inherit;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .15s;white-space:nowrap}
+.dd-btn:hover,.dd-btn.open{background:var(--bg4);border-color:var(--line2);color:var(--txt)}
+.dd-btn .dd-arrow{transition:transform .2s;font-size:.6rem}
+.dd-btn.open .dd-arrow{transform:rotate(180deg)}
+.dd-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--bg3);border:1px solid var(--line2);border-radius:10px;min-width:180px;z-index:200;overflow:hidden;box-shadow:var(--sh2);transform:translateY(-4px);opacity:0;pointer-events:none;transition:all .15s}
+.dd-menu.open{transform:translateY(0);opacity:1;pointer-events:all}
+.dd-opt{display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:.8rem;color:var(--txt2);cursor:pointer;transition:all .1s}
+.dd-opt:hover,.dd-opt.on{background:var(--bg4);color:var(--txt)}
+.dd-opt.on::after{content:'\f00c';font-family:'Font Awesome 6 Free';font-weight:900;margin-left:auto;color:var(--blue-l);font-size:.7rem}
+.view-toggle{display:flex;background:var(--bg3);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.vt-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:none;background:none;color:var(--txt3);cursor:pointer;transition:all .15s;font-size:.8rem}
+.vt-btn.on,.vt-btn:hover{background:var(--bg4);color:var(--txt)}
+.active-filters{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.af-chip{display:flex;align-items:center;gap:5px;background:var(--blue-gl);border:1px solid rgba(42,125,225,.3);color:var(--blue-l);padding:4px 10px;border-radius:99px;font-size:.72rem;font-weight:500}
+.af-rm{background:none;border:none;color:var(--blue-l);cursor:pointer;padding:0 2px;font-size:.7rem;transition:color .15s}
+.af-rm:hover{color:var(--red)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px}
+.plist{display:flex;flex-direction:column;gap:10px}
+.pcard{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r2);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:transform .2s,border-color .2s,box-shadow .2s;position:relative}
+.pcard:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:var(--sh2)}
+.pcard-img{width:100%;aspect-ratio:1/1;background:#fff;overflow:hidden;position:relative}
+.pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.pcard:hover .pcard-img img{transform:scale(1.06)}
+.qbuy{position:absolute;bottom:0;left:0;right:0;background:rgba(42,125,225,.92);color:#fff;border:none;padding:9px;font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transform:translateY(100%);transition:transform .25s ease}
+.pcard:hover .qbuy{transform:translateY(0)}
+.pcard-body{padding:11px;display:flex;flex-direction:column;flex:1}
+.pcard-name{font-size:.82rem;font-weight:600;line-height:1.4;color:var(--txt);margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.3em}
+.pcard-prices{display:flex;align-items:baseline;gap:6px;margin-bottom:10px}
+.pn{font-size:1rem;font-weight:700;color:var(--txt)}
+.po{font-size:.72rem;color:var(--txt3);text-decoration:line-through}
+.pdiscount{font-size:.68rem;background:rgba(232,64,74,.15);color:var(--red);padding:2px 6px;border-radius:4px;font-weight:700}
+.pcard-badges{position:absolute;top:9px;left:9px;display:flex;flex-direction:column;gap:4px;z-index:4}
+.pb{padding:3px 8px;border-radius:5px;font-size:.62rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.pb-rent{background:var(--purple);color:#fff}
+.pb-sale{background:var(--blue);color:#fff}
+.pcard-actions{display:flex;gap:7px;margin-top:auto}
+.btn-wa{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;background:var(--green);color:#fff;border:none;border-radius:8px;padding:8px 10px;font-family:inherit;font-size:.75rem;font-weight:600;cursor:pointer;transition:background .15s}
+.btn-wa:hover{background:var(--green-d)}
+.btn-ic{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--bg4);border:1px solid var(--line);border-radius:8px;cursor:pointer;color:var(--txt3);font-size:.8rem;transition:all .15s}
+.btn-ic:hover{background:var(--bg5);color:var(--txt);border-color:var(--line2)}
+.prow{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r2);display:flex;gap:16px;padding:14px;cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.prow:hover{border-color:var(--line2);box-shadow:var(--sh)}
+.prow-img{width:100px;height:100px;flex-shrink:0;background:#fff;border-radius:10px;overflow:hidden}
+.prow-img img{width:100%;height:100%;object-fit:cover}
+.prow-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.prow-name{font-size:.88rem;font-weight:600;color:var(--txt);line-height:1.4}
+.prow-desc{font-size:.75rem;color:var(--txt3);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.prow-end{display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;flex-shrink:0;gap:10px}
+.prow-price{font-size:1.05rem;font-weight:700;color:var(--txt);text-align:right}
+.prow-old{font-size:.72rem;color:var(--txt3);text-decoration:line-through;text-align:right}
+.empty{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:12px;color:var(--txt3)}
+.empty i{font-size:2.5rem;opacity:.3}
+.empty p{font-size:.9rem}
+.skel{animation:shimmer 1.4s infinite}
+.skel-card{background:var(--bg2);border:1px solid var(--line);border-radius:var(--r2);overflow:hidden}
+.skel-img{width:100%;aspect-ratio:1/1;background:var(--bg4)}
+.skel-body{padding:11px;display:flex;flex-direction:column;gap:8px}
+.skel-line{height:10px;background:var(--bg4);border-radius:4px}
+.skel-line.w80{width:80%}
+.skel-line.w50{width:50%}
+@keyframes shimmer{0%,100%{opacity:.6}50%{opacity:1}}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.overlay.on{display:flex}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.prod-modal{background:var(--bg2);border:1px solid var(--line);border-radius:18px;width:100%;max-width:800px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:relative;animation:fadeUp .22s ease}
+.m-close{position:absolute;top:12px;right:12px;z-index:20;width:30px;height:30px;border-radius:8px;background:rgba(0,0,0,.6);border:1px solid var(--line2);color:var(--txt);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:background .15s}
+.m-close:hover{background:var(--red);border-color:var(--red)}
+.car{position:relative;background:#fff;overflow:hidden;min-height:300px;display:flex;align-items:stretch}
+.car-track{display:flex;transition:transform .3s ease;width:100%}
+.car-slide{min-width:100%;display:flex;align-items:center;justify-content:center;padding:20px}
+.car-slide img{max-width:100%;max-height:320px;object-fit:contain}
+.car-btn{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(0,0,0,.35);border:none;color:#fff;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;font-size:.72rem;transition:background .15s}
+.car-btn:hover{background:rgba(0,0,0,.65)}
+.car-btn.prev{left:8px}
+.car-btn.next{right:8px}
+.car-dots{position:absolute;bottom:8px;width:100%;display:flex;justify-content:center;gap:4px;z-index:5}
+.cdot{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.2);cursor:pointer;transition:all .2s}
+.cdot.on{background:var(--blue);width:14px;border-radius:99px}
+.m-info{padding:24px 22px;overflow-y:auto;max-height:520px;display:flex;flex-direction:column}
+.m-tag{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
+.m-badge{padding:3px 9px;border-radius:5px;font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.m-badge.rent{background:var(--purple);color:#fff}
+.m-badge.cat{background:var(--bg4);color:var(--txt2)}
+.m-name{font-family:'Familjen Grotesk',sans-serif;font-size:1.15rem;font-weight:700;line-height:1.3;margin-bottom:10px;padding-right:28px}
+.m-desc{font-size:.82rem;color:var(--txt2);line-height:1.75;margin-bottom:16px;white-space:pre-line}
+.m-prices{margin-bottom:20px;padding:12px 14px;background:var(--bg3);border-radius:10px;border:1px solid var(--line)}
+.m-old{font-size:.8rem;color:var(--txt3);text-decoration:line-through;margin-bottom:2px}
+.m-price{font-family:'Familjen Grotesk',sans-serif;font-size:1.7rem;font-weight:700;color:var(--txt)}
+.m-saving{font-size:.75rem;color:var(--green);margin-top:3px}
+.m-avail{display:flex;align-items:center;gap:6px;font-size:.75rem;margin-bottom:16px}
+.m-avail i{color:var(--green)}
+.m-btns{display:flex;flex-direction:column;gap:8px;margin-top:auto}
+.mbtn{display:flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:10px;padding:12px;font-family:inherit;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s}
+.mbtn-wa{background:var(--green);color:#fff}
+.mbtn-wa:hover{background:var(--green-d)}
+.mbtn-cart{background:var(--bg4);border:1px solid var(--line);color:var(--txt)}
+.mbtn-cart:hover{background:var(--bg5);border-color:var(--line2)}
+.mbtn-share{background:var(--bg3);border:1px solid var(--line);color:var(--txt2);font-size:.8rem;padding:9px}
+.mbtn-share:hover{background:var(--bg4);color:var(--txt)}
+#cartModal{justify-content:flex-end;padding:0}
+.cart-panel{background:var(--bg2);border-left:1px solid var(--line);width:100%;max-width:380px;height:100dvh;display:flex;flex-direction:column;padding:0;transform:translateX(100%);transition:transform .3s ease}
+#cartModal.on .cart-panel{transform:translateX(0)}
+.cp-head{padding:20px 22px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+.cp-title{font-family:'Familjen Grotesk',sans-serif;font-size:1.05rem;font-weight:700}
+.cp-close{width:28px;height:28px;border-radius:7px;background:var(--bg4);border:1px solid var(--line);color:var(--txt);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;transition:all .15s}
+.cp-close:hover{background:var(--red);border-color:var(--red)}
+.cp-body{flex:1;overflow-y:auto;padding:16px 22px}
+.cp-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:12px;color:var(--txt3)}
+.cp-empty i{font-size:2.2rem;opacity:.25}
+.cp-empty p{font-size:.85rem}
+.ci{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);animation:fadeUp .2s ease}
+.ci-img{width:52px;height:52px;border-radius:9px;background:#fff;overflow:hidden;flex-shrink:0}
+.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-size:.8rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.ci-price{font-size:.82rem;color:var(--blue-l);font-weight:700}
+.ci-rm{background:none;border:none;color:var(--txt3);cursor:pointer;align-self:center;padding:6px;flex-shrink:0;font-size:.85rem;transition:color .15s}
+.ci-rm:hover{color:var(--red)}
+.cp-foot{padding:16px 22px;border-top:1px solid var(--line)}
+.cp-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.cp-tlabel{font-size:.8rem;color:var(--txt3)}
+.cp-tval{font-family:'Familjen Grotesk',sans-serif;font-size:1.2rem;font-weight:700}
+.cp-sub{font-size:.7rem;color:var(--txt3);margin-bottom:14px}
+.sup-box{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:26px;width:100%;max-width:340px;position:relative;animation:fadeUp .22s ease}
+.sup-title{font-family:'Familjen Grotesk',sans-serif;font-size:1.05rem;font-weight:700;margin-bottom:5px}
+.sup-sub{font-size:.8rem;color:var(--txt3);margin-bottom:18px}
+.sup-links{display:flex;flex-direction:column;gap:9px}
+.sup-link{display:flex;align-items:center;gap:12px;padding:13px 16px;border-radius:10px;text-decoration:none;color:#fff;font-weight:600;font-size:.85rem;transition:opacity .15s}
+.sup-link:hover{opacity:.88}
+.sup-link.ph{background:var(--blue)}
+.sup-link.wa{background:var(--green)}
+#siteFooter{background:var(--bg2);border-top:1px solid var(--line);padding:14px 5% 16px;opacity:0;transform:translateY(20px);transition:opacity .4s ease,transform .4s ease;pointer-events:none}
+#siteFooter.visible{opacity:1;transform:translateY(0);pointer-events:all}
+.footer-icons{display:flex;align-items:center;gap:6px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none;padding-bottom:2px}
+.footer-icons::-webkit-scrollbar{display:none}
+.fi{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 14px;border-radius:10px;cursor:pointer;flex-shrink:0;transition:background .15s;min-width:72px}
+.fi:hover{background:var(--bg3)}
+.fi-icon{width:38px;height:38px;border-radius:10px;overflow:hidden;background:#fff;flex-shrink:0}
+.fi-icon img{width:100%;height:100%;object-fit:cover}
+.fi-icon.ic{background:var(--bg3);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--txt2)}
+.fi-label{font-size:.6rem;color:var(--txt3);text-align:center;line-height:1.3;font-weight:500;max-width:64px}
+.footer-div{width:1px;height:36px;background:var(--line);flex-shrink:0;margin:0 4px}
+.footer-copy{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:.65rem;color:var(--txt3);flex-wrap:wrap;gap:6px}
+.footer-copy a{color:var(--txt3);text-decoration:none;transition:color .15s}
+.footer-copy a:hover{color:var(--txt)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(12px);background:var(--bg3);border:1px solid var(--line2);color:var(--txt);padding:9px 18px;border-radius:10px;font-size:.8rem;font-weight:500;z-index:9999;opacity:0;transition:all .25s;pointer-events:none;display:flex;align-items:center;gap:7px;white-space:nowrap;box-shadow:var(--sh)}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast i{font-size:.85rem}
+#btt{position:fixed;bottom:24px;right:24px;z-index:800;width:40px;height:40px;border-radius:10px;background:var(--bg3);border:1px solid var(--line2);color:var(--txt2);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.85rem;transition:all .2s;opacity:0;pointer-events:none;transform:translateY(8px)}
+#btt.on{opacity:1;pointer-events:all;transform:translateY(0)}
+#btt:hover{background:var(--blue);border-color:var(--blue);color:#fff}
+.m-drag-handle{display:none;width:36px;height:4px;border-radius:99px;background:var(--line2);margin:10px auto 0;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:30}
+@media(max-width:640px){.m-drag-handle{display:block}}
+@media(max-width:960px){
+  .layout{grid-template-columns:1fr;padding-top:8px}
+  .sidebar{display:none}
+  .cat-strip{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+  .m-chips{display:flex}
+  .promo-bar .pb-cta{display:none}
+}
+@media(max-width:640px){
+  :root{--nav:64px}
+  #nav{height:var(--nav);padding:0 4%;gap:10px}
+  .brand img{height:28px}
+  .brand-name{font-size:.95rem}
+  .brand-tag{font-size:.5rem;letter-spacing:.8px}
+  .nav-search{max-width:none;flex:1}
+  .nav-search input{font-size:.8rem}
+  .nb span{display:none}
+  .nb{width:36px;height:36px;padding:0;justify-content:center;flex-shrink:0}
+  .pgrid{grid-template-columns:1fr 1fr;gap:8px}
+  .pcard-name{font-size:.78rem}
+  .pn{font-size:.9rem}
+  .btn-wa{font-size:.72rem;padding:7px 6px}
+  .btn-ic{width:30px;height:30px;font-size:.75rem}
+  .prod-modal{grid-template-columns:1fr;max-height:94dvh;overflow-y:auto;border-radius:18px 18px 0 0;width:100%;align-self:flex-end;margin:0}
+  #prodModal{align-items:flex-end;padding:0}
+  .car{min-height:220px}
+  .car-slide img{max-height:200px}
+  .m-info{max-height:none;padding:18px 16px}
+  .m-name{font-size:1rem}
+  .m-price{font-size:1.4rem}
+  #cartModal .cart-panel{max-width:100%;border-left:none;border-top:1px solid var(--line);border-radius:18px 18px 0 0}
+  #cartModal{align-items:flex-end;padding:0}
+  .cat-strip{display:none}
+  .promo-bar{display:none}
+  .toolbar{gap:6px;flex-wrap:nowrap}
+  .results-txt{font-size:.72rem;min-width:60px}
+  .dd-btn{font-size:.72rem;padding:6px 10px}
+  .breadcrumb{font-size:.7rem}
+  .view-toggle{display:none}
+}
+@media(max-width:400px){
+  :root{--nav:60px}
+  .brand-name{font-size:.85rem}
+  .brand-tag{font-size:.45rem}
+  .pgrid{grid-template-columns:1fr 1fr;gap:6px}
+}
+@media(max-width:360px){
+  .pgrid{grid-template-columns:1fr}
+  .brand-tag{display:none}
+}
+</style>
 </head>
-<body> 
+<body>
 
-    <nav>
-        <a href="#" class="brand-container">
-            <img src="cw_logo_blue.png" alt="CASA WINDOWS" class="logo-img">
-            <div class="brand-text">
-                <div class="main-name">CASA<span>WINDOWS</span></div>
-                <div class="slogan"><i class="fas fa-shield-check"></i>Serviços Com Garantia e Nota Fiscal</div>
-            </div>
-        </a>
-        <div class="nav-tools">
-            <div class="support-btn" onclick="openSupportModal()">
-                <i class="fas fa-headset"></i>
-                <span>Suporte</span>
-            </div>
-
-            <div class="cart-icon" onclick="openCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cartCount">0</span>
-            </div>
-        </div>
-    </nav> 
-
-    <div class="mobile-categories">
-        <div class="chip active" onclick="filterBy('todos', this)">Tudo</div>
-        <div class="chip" onclick="filterBy('audio', this)">Som</div>
-        <div class="chip" onclick="filterBy('pc', this)">Computadores</div>
-        <div class="chip" onclick="filterBy('moda', this)">Moda</div>
-        <div class="chip" onclick="filterBy('acessorios', this)">Outros</div>
-        <div class="chip" onclick="window.location.href='talvez.html'">Sobre Nós</div>
-    </div> 
-
-    <div class="container">
-        <aside class="sidebar">
-            <h3 class="sidebar-title">CATÁLOGO</h3>
-            <div class="cat-group">
-                <div class="cat-header" onclick="filterBy('todos', this)"><i class="fas fa-border-all"></i> Ver Tudo</div>
-            </div> 
-
-            <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m1'); filterBy('audio', this)"><i class="fas fa-volume-up"></i> Áudio Profissional</div>
-                <div class="sub-cat-list" id="m1">
-                    <button class="filter-btn" onclick="filterBy('audio-aluguer', this)">Aluguer</button>
-                    <button class="filter-btn" onclick="filterBy('audio-venda', this)">Venda</button>
-                </div>
-            </div> 
-
-            <div class="cat-group">
-                <div class="cat-header" onclick="filterBy('pc', this)"><i class="fas fa-laptop"></i> Computadores</div>
-            </div> 
-
-            <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m3'); filterBy('moda', this)"><i class="fas fa-tshirt"></i> Moda e Estilo</div>
-                <div class="sub-cat-list" id="m3">
-                    <button class="filter-btn" onclick="filterBy('moda', this)">Coleção 2026</button>
-                </div>
-            </div> 
-
-            <div class="cat-group">
-                <div class="cat-header" onclick="toggleSubMenu('m4'); filterBy('acessorios', this)"><i class="fas fa-gem"></i> Outros</div>
-                <div class="sub-cat-list" id="m4">
-                    <button class="filter-btn" onclick="filterBy('acessorios', this)">Acessórios & Escritório</button>
-                </div>
-            </div>
-            
-            <div class="cat-group" style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 10px;">
-                <div class="cat-header" onclick="window.location.href='talvez.html'"><i class="fas fa-users"></i> Sobre Nós</div>
-            </div>
-        </aside> 
-
-        <main>
-            <div class="status-msg" id="emptyMsg">
-                <i class="fas fa-box-open"></i>
-                <span>Brevemente teremos novidades por aqui</span>
-            </div> 
-
-            <div class="products-grid" id="productGrid"></div>
-        </main>
-    </div> 
-
-    <div class="modal-overlay" id="supportModal" onclick="closeModal(event)">
-        <div class="modal-content" style="display: block; padding: 30px; max-width: 350px;">
-            <button class="close-btn" onclick="document.getElementById('supportModal').classList.remove('active')"><i class="fas fa-times"></i></button>
-            <h2 style="margin-bottom: 10px;">Suporte</h2>
-            <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Como prefere contactar-nos?</p>
-            <div class="support-options">
-                <a href="tel:+258842785290" class="support-link call">
-                    <i class="fas fa-phone-alt"></i> Chamada Normal
-                </a>
-                <a href="https://wa.me/258842785290?text=Olá Casa Windows! Gostaria de obter suporte." target="_blank" class="support-link wa">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-            </div>
-        </div>
+<nav id="nav">
+  <a href="#" class="brand">
+    <img src="cw_logo_blue.png" alt="CASA WINDOWS">
+    <div>
+      <div class="brand-name">CASA<b>WINDOWS</b></div>
+      <div class="brand-tag"><i class="fas fa-shield-halved"></i> Garantia &amp; Nota Fiscal</div>
     </div>
+  </a>
+  <div class="nav-search">
+    <i class="fas fa-magnifying-glass"></i>
+    <input type="text" id="searchInput" placeholder="Pesquisar produtos…" oninput="onSearch(this)">
+    <button class="clr" id="searchClr" onclick="clearSearch()"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div class="nav-end">
+    <button class="nb" onclick="openSupport()"><i class="fas fa-headset"></i><span>Suporte</span></button>
+    <button class="nb cart-nb" onclick="openCart()"><i class="fas fa-shopping-cart"></i><span class="c-badge" id="cartBadge">0</span></button>
+  </div>
+</nav>
 
-    <div class="modal-overlay" id="productModal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <button class="close-btn" onclick="document.getElementById('productModal').classList.remove('active')"><i class="fas fa-times"></i></button>
+<div class="promo-bar">
+  <div class="pb-items">
+    <div class="pb-item"><i class="fas fa-shield-check"></i> Garantia em todos os produtos</div>
+    <div class="pb-item"><i class="fas fa-file-invoice"></i> Nota Fiscal incluída</div>
+    <div class="pb-item"><i class="fas fa-clock"></i> Seg – Sáb · 08h – 18h</div>
+  </div>
+  <a href="https://wa.me/258842785290" target="_blank" class="pb-cta"><i class="fab fa-whatsapp"></i> Falar connosco</a>
+</div>
 
-            <div class="carousel-container" id="carouselContainer">
-                <button class="carousel-btn prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-                <div class="carousel-track" id="carouselTrack"></div>
-                <button class="carousel-btn next" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
-                <div class="carousel-dots" id="carouselDots"></div>
-            </div>
-            <div style="padding:30px;">
-                <h2 id="modalTitle" style="margin-bottom:10px; padding-right: 25px;"></h2>
-                <p id="modalDesc" style="font-size:0.9rem; opacity:0.8; margin-bottom:20px; white-space:pre-line;"></p>
-                <div id="modalPriceContainer">
-                    <span id="modalOldPrice" class="old-price-display"></span>
-                    <h3 id="modalPrice" class="new-price-display"></h3>
-                </div>
-                <div class="modal-actions" style="display: flex; flex-direction: column; gap: 10px;">
-                    <button class="btn-buy" id="modalBtnWA" style="padding:15px; flex: initial; width: 100%;"><i class="fab fa-whatsapp"></i> <span id="textBtnWA">Comprar</span></button>
-                    <button class="btn-cart-add" id="modalBtnCart" style="padding:12px; width: 100%; height: auto;"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
-                    <button class="btn-share-modal" onclick="shareCurrentModalProduct()"><i class="fas fa-share-alt"></i> Partilhar Produto</button>
-                </div>
-            </div>
+<div class="m-chips" id="mChips">
+  <div class="chip on" onclick="filterBy('todos',this)">Tudo</div>
+  <div class="chip" onclick="filterBy('audio',this)">Áudio</div>
+  <div class="chip" onclick="filterBy('audio-aluguer',this)">Aluguer Som</div>
+  <div class="chip" onclick="filterBy('pc',this)">Computadores</div>
+  <div class="chip" onclick="filterBy('moda',this)">Moda</div>
+  <div class="chip" onclick="filterBy('acessorios',this)">Outros</div>
+</div>
+
+<div class="cat-strip" id="catStrip"></div>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="sb-section">
+      <div class="sb-label">Categorias</div>
+      <div class="tree-item">
+        <div class="tree-head on" id="th-todos" onclick="filterBy('todos',this)">
+          <span class="t-icon"><i class="fas fa-border-all"></i></span>Ver Tudo<span class="t-cnt" id="cn-todos">0</span>
         </div>
-    </div> 
-
-    <div class="modal-overlay" id="cartModal" onclick="closeModal(event)">
-        <div class="modal-content">
-            <button class="close-btn" onclick="document.getElementById('cartModal').classList.remove('active')"><i class="fas fa-times"></i></button>
-            <h2 style="margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 15px;">Seu Carrinho</h2>
-            <div id="cartItemsList" style="flex: 1; overflow-y: auto; margin-bottom: 20px; padding-right: 10px;"></div>
-            <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 800; margin-bottom: 20px; border-top: 1px solid var(--border); padding-top: 15px;">
-                <span>Total:</span>
-                <span id="cartTotal" style="color: var(--primary-blue)">0 MT</span>
-            </div>
-            <button class="btn-buy" onclick="checkoutCart()" style="padding: 15px; flex: initial; width: 100%;"><i class="fab fa-whatsapp"></i> Finalizar Compra</button>
+      </div>
+      <div class="tree-item">
+        <div class="tree-head" id="th-audio" onclick="filterBy('audio',this);toggleTree('tc-audio',this)">
+          <span class="t-icon"><i class="fas fa-waveform-lines"></i></span>Áudio Profissional<span class="t-cnt" id="cn-audio">0</span><i class="fas fa-chevron-down t-arrow"></i>
         </div>
+        <div class="tree-children" id="tc-audio">
+          <div class="tree-child" onclick="filterBy('audio-aluguer',this)">Aluguer de Som</div>
+          <div class="tree-child" onclick="filterBy('audio-venda',this)">Equipamento à Venda</div>
+        </div>
+      </div>
+      <div class="tree-item">
+        <div class="tree-head" id="th-pc" onclick="filterBy('pc',this);toggleTree('tc-pc',this)">
+          <span class="t-icon"><i class="fas fa-laptop"></i></span>Computadores<span class="t-cnt" id="cn-pc">0</span><i class="fas fa-chevron-down t-arrow"></i>
+        </div>
+        <div class="tree-children" id="tc-pc">
+          <div class="tree-child" onclick="filterBy('pc-celeron',this)">Série Celeron</div>
+          <div class="tree-child" onclick="filterBy('pc-corei3',this)">Core i3</div>
+          <div class="tree-child" onclick="filterBy('pc-corei5',this)">Core i5</div>
+          <div class="tree-child" onclick="filterBy('pc-desktop',this)">Desktops</div>
+          <div class="tree-child" onclick="filterBy('pc-monitor',this)">Monitores</div>
+          <div class="tree-child" onclick="filterBy('pc-projector',this)">Projectores</div>
+          <div class="tree-child" onclick="filterBy('pc-hardware',this)">Hardware</div>
+          <div class="tree-child" onclick="filterBy('pc-acessorios',this)">Acessórios PC</div>
+        </div>
+      </div>
+      <div class="tree-item">
+        <div class="tree-head" id="th-moda" onclick="filterBy('moda',this)">
+          <span class="t-icon"><i class="fas fa-shirt"></i></span>Moda e Estilo<span class="t-cnt" id="cn-moda">0</span>
+        </div>
+      </div>
+      <div class="tree-item">
+        <div class="tree-head" id="th-acessorios" onclick="filterBy('acessorios',this)">
+          <span class="t-icon"><i class="fas fa-sparkles"></i></span>Outros<span class="t-cnt" id="cn-acessorios">0</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px">
+        <div class="tree-head" onclick="window.location.href='talvez.html'">
+          <span class="t-icon"><i class="fas fa-circle-info"></i></span>Sobre Nós
+        </div>
+      </div>
     </div>
+    <div class="sb-section">
+      <div class="sb-label">Filtrar por Preço</div>
+      <div class="price-filter">
+        <div class="price-inputs">
+          <div class="price-inp-wrap"><label>Mínimo (MT)</label><input type="number" id="pMin" placeholder="0" min="0"></div>
+          <div class="price-inp-wrap"><label>Máximo (MT)</label><input type="number" id="pMax" placeholder="Sem limite" min="0"></div>
+        </div>
+        <button class="price-apply" onclick="applyPrice()"><i class="fas fa-sliders"></i> Aplicar</button>
+        <button class="price-reset" onclick="resetPrice()">Remover filtro de preço</button>
+      </div>
+    </div>
+  </aside>
 
-    <script>
-        const SEU_WHATSAPP = "258842785290";
-        let cartItems = []; 
-        let currentModalProductId = null;
+  <main>
+    <div class="breadcrumb" id="breadcrumb">
+      <span onclick="filterBy('todos',document.getElementById('th-todos'))">Início</span>
+      <i class="fas fa-chevron-right"></i>
+      <span class="cur" id="bc-cur">Todos os Produtos</span>
+    </div>
+    <div class="toolbar">
+      <span class="results-txt"><strong id="rCount">0</strong> produtos</span>
+      <div class="dropdown" id="sortDD">
+        <button class="dd-btn" id="sortBtn" onclick="toggleDD('sortDD')">
+          <i class="fas fa-arrow-up-arrow-down"></i><span id="sortLabel">Ordenar</span><i class="fas fa-chevron-down dd-arrow"></i>
+        </button>
+        <div class="dd-menu" id="sortMenu">
+          <div class="dd-opt on" onclick="setSort(this,'default','Padrão')">Padrão</div>
+          <div class="dd-opt" onclick="setSort(this,'price-asc','Preço ↑')">Preço: Menor → Maior</div>
+          <div class="dd-opt" onclick="setSort(this,'price-desc','Preço ↓')">Preço: Maior → Menor</div>
+          <div class="dd-opt" onclick="setSort(this,'name','Nome A–Z')">Nome A → Z</div>
+        </div>
+      </div>
+      <div class="view-toggle">
+        <button class="vt-btn on" id="vt-grid" onclick="setView('grid')"><i class="fas fa-grid-2"></i></button>
+        <button class="vt-btn" id="vt-list" onclick="setView('list')"><i class="fas fa-list"></i></button>
+      </div>
+    </div>
+    <div class="active-filters" id="activeFilters"></div>
+    <div class="pgrid" id="productGrid"></div>
+  </main>
+</div>
 
-        let bancoDeDados = [
-            // 1. Carregadores de laptops todos tipos
-            { id: 11, tag: 'pc-acessorios', isAluguer: false, nome: 'Carregadores de Laptop Universais', preco: 1000, imagens: ['CARREGADORES 1000MT .jpg', 'CARREGADORES 1000MT 66.jpg'], desc: 'Carregadores para HP, DELL, ASUS, LENOVO, TOSHIBA.' },
-            
-            // 2. Carregadores de laptops Type-C
-            { id: 45, tag: 'acessorios', isAluguer: false, nome: 'Cabo/Adaptador Type-C', preco: 1500, imagens: ['TYPE-C 1,500MT.png', 'TYPE-C 1,500MT4.png', 'TYPE-C 1,500MT6.webp'], desc: 'Acessórios USB Type-C.' },
+<!-- FOOTER COMPACTO -->
+<footer id="siteFooter">
+  <div class="footer-icons" id="footerIcons"></div>
+  <div class="footer-copy">
+    <span>© 2025 CASA WINDOWS · Nampula, Moçambique</span>
+    <div style="display:flex;align-items:center;gap:14px">
+      <a href="https://www.facebook.com/profile.php?id=61562855252848" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook</a>
+      <a href="https://wa.me/258842785290" target="_blank"><i class="fab fa-whatsapp"></i> +258 84 278 5290</a>
+    </div>
+  </div>
+</footer>
 
-            // 3. Laptops série Celeron
-            { id: 7, tag: 'pc-celeron', isAluguer: false, nome: 'Laptops Série Intel Celeron', preco: 15000, imagens: ['CELERON.jpg', 'CELERON1.jpg', 'CELERON2.jpg', 'CELERON3.jpg', 'CELERON4.jpg'], desc: '■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente' },
+<!-- MODAL PRODUTO -->
+<div class="overlay" id="prodModal" onclick="overlayClose(event,'prodModal')">
+  <div class="prod-modal">
+    <div class="m-drag-handle"></div>
+    <button class="m-close" onclick="closeModal('prodModal')"><i class="fas fa-xmark"></i></button>
+    <div class="car" id="carWrap">
+      <button class="car-btn prev" onclick="cSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+      <div class="car-track" id="carTrack"></div>
+      <button class="car-btn next" onclick="cSlide(1)"><i class="fas fa-chevron-right"></i></button>
+      <div class="car-dots" id="carDots"></div>
+    </div>
+    <div class="m-info">
+      <div class="m-tag" id="mTags"></div>
+      <h2 class="m-name" id="mName"></h2>
+      <p class="m-desc" id="mDesc"></p>
+      <div class="m-prices">
+        <div class="m-old" id="mOld"></div>
+        <div class="m-price" id="mPrice"></div>
+        <div class="m-saving" id="mSaving"></div>
+      </div>
+      <div class="m-avail" id="mAvail"></div>
+      <div class="m-btns">
+        <button class="mbtn mbtn-wa" id="mBtnWA"><i class="fab fa-whatsapp"></i> <span id="mBtnLbl">Comprar agora</span></button>
+        <button class="mbtn mbtn-cart" id="mBtnCart"><i class="fas fa-shopping-cart"></i> Adicionar ao carrinho</button>
+        <button class="mbtn mbtn-share" onclick="shareProd()"><i class="fas fa-arrow-up-from-bracket"></i> Partilhar produto</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-            // 4. Laptops série core i3
-            { id: 9, tag: 'pc-corei3', isAluguer: false, nome: 'SÉRIE CORE i3', preco: 25000, imagens: ['CORE i3.jpg', 'CORE i3 4.webp', 'CORE i3 8.jpeg', 'CORE i3 9.jpg', 'CORE i3 222.jpeg'], desc: '■ Core i3,\n■ 10ª - 13ª geração\n■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ CPU 1.10GHZ - 3.00GHZ\n■ Bateria Excelente' },
+<!-- MODAL CARRINHO -->
+<div class="overlay" id="cartModal" onclick="overlayClose(event,'cartModal')">
+  <div class="cart-panel">
+    <div class="cp-head">
+      <span class="cp-title">Carrinho (<span id="cpCount">0</span>)</span>
+      <button class="cp-close" onclick="closeModal('cartModal')"><i class="fas fa-xmark"></i></button>
+    </div>
+    <div class="cp-body" id="cpBody"></div>
+    <div class="cp-foot">
+      <div class="cp-total"><span class="cp-tlabel">Total estimado</span><span class="cp-tval" id="cpTotal">0 MT</span></div>
+      <p class="cp-sub">Preço final confirmado no WhatsApp</p>
+      <button class="mbtn mbtn-wa" onclick="checkout()" style="width:100%"><i class="fab fa-whatsapp"></i> Finalizar no WhatsApp</button>
+    </div>
+  </div>
+</div>
 
-            // 5. Laptops série core i5
-            { id: 43, tag: 'pc-corei5', isAluguer: false, nome: 'Laptop Série Core i5', preco: 35000, imagens: ['SÉRIE CORE i5 35,000MT.png', 'SÉRIE CORE i5 35,000MT1.jpg', 'SÉRIE CORE i5 35,000MT4.jpeg', 'SÉRIE CORE i5 35,000MT7.jpg'], desc: '■ Core i5,\n■ 10ª - 13ª geração\n■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ CPU 1.10GHZ - 3.00GHZ\n■ Bateria Excelente' },
+<!-- MODAL SUPORTE -->
+<div class="overlay" id="supModal" onclick="overlayClose(event,'supModal')">
+  <div class="sup-box">
+    <button class="m-close" onclick="closeModal('supModal')"><i class="fas fa-xmark"></i></button>
+    <h2 class="sup-title">Como podemos ajudar?</h2>
+    <p class="sup-sub">Estamos disponíveis Seg–Sáb · 08h–18h</p>
+    <div class="sup-links">
+      <a href="tel:+258842785290" class="sup-link ph"><i class="fas fa-phone"></i> Ligar agora · +258 84 278 5290</a>
+      <a href="https://wa.me/258842785290?text=Olá Casa Windows! Preciso de ajuda." target="_blank" class="sup-link wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="https://www.facebook.com/profile.php?id=61562855252848" target="_blank" rel="noopener" class="sup-link" style="background:#1877f2"><i class="fab fa-facebook"></i> Facebook</a>
+    </div>
+  </div>
+</div>
 
-            // 6. Projectores VGA 500 Polegadas
-            { id: 15, tag: 'pc-projector', isAluguer: false, nome: 'Projector Standard', preco: 10000, imagens: ['PROJECTOR 10,000MT.jpg', 'PROJECTOR 10,000MT2.jpg', 'PROJECTOR 10,000MT4.jpg'], desc: 'Projector de vídeo.' },
+<div class="toast" id="toast"></div>
+<button id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
-            // 7. Projectores HDMI 1000 polegadas
-            { id: 16, tag: 'pc-projector', isAluguer: false, nome: 'Projector Show Profissional', preco: 15000, imagens: ['SHOW 15,000MT .jpeg', 'SHOW 15,000MT (7).jpeg', 'SHOW 15,000MT 2.webp', 'SHOW 15,000MT 5.jpeg', 'SHOW 15,000MT 25.webp', 'SHOW 15,000MT 47.jpg'], desc: 'Projector de alta luminosidade.' },
+<script>
+const WA="258842785290";
+let cart=[],curProdId=null,cIdx=0,cTotal=0;
+let activeFilter='todos',activeSort='default',searchQ='',priceMin=null,priceMax=null,viewMode='grid';
 
-            // 8. Desktops completo
-            { id: 12, tag: 'pc-desktop', isAluguer: false, nome: 'Computador Desktop', preco: 12000, imagens: ['DESKTOP_12,000MT.jpg'], desc: 'Computador Desktop de excelente performance.\nIdeal para escritórios e uso doméstico.' },
+const DB=[
+  {id:11,tag:'pc-acessorios',rent:false,name:'Carregadores de Laptop Universais',price:1000,imgs:['CARREGADORES 1000MT .jpg','CARREGADORES 1000MT 66.jpg'],desc:'Carregadores para HP, DELL, ASUS, LENOVO, TOSHIBA.'},
+  {id:42,tag:'pc-acessorios',rent:false,name:'Carregador Macbook / Acessórios Mac',price:2000,imgs:['MACBOOK 2,000MT.jpg','MACBOOK 2,000MT.jpeg','MACBOOK 2,000MT43.png'],desc:'Carregadores e acessórios para Macbook.'},
+  {id:45,tag:'acessorios',rent:false,name:'Cabo/Adaptador Type-C',price:1500,imgs:['TYPE-C 1,500MT.png','TYPE-C 1,500MT4.png','TYPE-C 1,500MT6.webp'],desc:'Acessórios USB Type-C.'},
+  {id:7,tag:'pc-celeron',rent:false,name:'Laptops Série Intel Celeron',price:15000,imgs:['CELERON.jpg','CELERON1.jpg','CELERON2.jpg','CELERON3.jpg','CELERON4.jpg'],desc:'■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente'},
+  {id:9,tag:'pc-corei3',rent:false,name:'Laptop Série Core i3',price:25000,imgs:['CORE i3.jpg','CORE i3 4.webp','CORE i3 8.jpeg','CORE i3 9.jpg','CORE i3 222.jpeg'],desc:'■ Core i3\n■ 10ª - 13ª geração\n■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente'},
+  {id:43,tag:'pc-corei5',rent:false,name:'Laptop Série Core i5',price:35000,imgs:['SÉRIE CORE i5 35,000MT.png','SÉRIE CORE i5 35,000MT1.jpg','SÉRIE CORE i5 35,000MT4.jpeg','SÉRIE CORE i5 35,000MT7.jpg'],desc:'■ Core i5\n■ 10ª - 13ª geração\n■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente'},
+  {id:15,tag:'pc-projector',rent:false,name:'Projector Standard',price:10000,imgs:['PROJECTOR 10,000MT.jpg','PROJECTOR 10,000MT2.jpg','PROJECTOR 10,000MT4.jpg'],desc:'Projector de vídeo.'},
+  {id:16,tag:'pc-projector',rent:false,name:'Projector Show Profissional',price:15000,imgs:['SHOW 15,000MT .jpeg','SHOW 15,000MT (7).jpeg','SHOW 15,000MT 2.webp','SHOW 15,000MT 5.jpeg'],desc:'Projector de alta luminosidade.'},
+  {id:12,tag:'pc-desktop',rent:false,name:'Computador Desktop',price:12000,imgs:['DESKTOP_12,000MT.jpg'],desc:'Computador Desktop de excelente performance.\nIdeal para escritórios e uso doméstico.'},
+  {id:8,tag:'pc-monitor',rent:false,name:'Monitor 20" HDMI VGA DP',price:4500,imgs:['MONITORES 4500MT.jpg','MONITORES 4500MT1.jpg','MONITORES 4500MT2.jpg','MONITORES 4500MT3.jpg'],desc:'• Tamanho: 20 Polegadas\n• Conexões: HDMI, VGA, DP\n• Alta Resolução'},
+  {id:101,tag:'pc-hardware',rent:false,name:'Processadores de Alta Performance',price:9000,imgs:['PROCESSADORES 9,000MT.jpg','PROCESSADORES 9,000MT3.jpg','PROCESSADORES 9,000MT4.png','PROCESSADORES 9,000MT9.webp'],desc:'Processadores para upgrades e montagem de computadores.'},
+  {id:133,tag:'pc-hardware',rent:false,name:'Mini Processador NUC',price:6000,imgs:['MINI PROCESSADORE NUC 6,000MT.png'],desc:'Computador compacto.'},
+  {id:102,tag:'pc-hardware',rent:false,name:'Memórias RAM Profissionais',price:1500,imgs:['MEMORIAS RAM 1500MT.jpg','MEMORIAS RAM 1500MT1.jpg'],desc:'Upgrade de memória para o seu PC ou Laptop.'},
+  {id:131,tag:'pc-hardware',rent:false,name:'Disco Interno SSD',price:1500,imgs:['DISCO SSD 1,500MT.png'],desc:'Upgrade de velocidade imediato para seu PC.'},
+  {id:132,tag:'pc-hardware',rent:false,name:'Disco Rígido HDD',price:1500,imgs:['DISCO HDD 1,500MT.png'],desc:'Ampla capacidade.'},
+  {id:135,tag:'pc-hardware',rent:false,name:'Servidores de Dados',price:4500,imgs:['SERVIDORES 4,500MT.jpeg'],desc:'Infraestrutura de rede.'},
+  {id:21,tag:'pc-acessorios',rent:false,name:'Case para HDD 2.5"',price:400,imgs:['CASE HDD 400MT.jpg','CASE HDD 400MT2.jpg','CASE HDD 400MT3.jpeg'],desc:'Caixa externa para disco.'},
+  {id:103,tag:'pc-acessorios',rent:false,name:'Suporte de Notebook Ergonómico',price:750,imgs:['SUPORTE DE NOTEBOOK = 750MT.jpg','SUPORTE DE NOTEBOOK = 750MT.webp'],desc:'Suporte ajustável para melhor postura.'},
+  {id:17,tag:'pc-acessorios',rent:false,name:'Mouse Óptico',price:200,imgs:['MOUSE 200MT1.png','MOUSE 200MT2.png','MOUSE 200MT3.png','MOUSE 200MT5.png'],desc:'Mouse prático e ergonómico.'},
+  {id:44,tag:'pc-acessorios',rent:false,name:'Mouse Bluetooth',price:400,imgs:['MOUSE BLUETOOTH 400MT.jpg','MOUSE BLUETOOTH 400MT.webp','MOUSE BLUETOOTH 400MT4.webp'],desc:'Mouse sem fios.'},
+  {id:23,tag:'pc-acessorios',rent:false,name:'Teclado USB',price:400,imgs:['TECLADOS 400MT .jpg'],desc:'Teclado padrão.'},
+  {id:126,tag:'pc-acessorios',rent:false,name:'Mini Teclado Wireless',price:500,imgs:['TECLADOS MINI 500MT2.png'],desc:'Ideal para Smart TV.'},
+  {id:127,tag:'pc-acessorios',rent:false,name:'Teclado Gamer Retroiluminado',price:750,imgs:['TECLADOS GAME 750MT.png'],desc:'Teclado ergonómico retroiluminado.'},
+  {id:19,tag:'pc-acessorios',rent:false,name:'Cabo HDMI',price:100,imgs:['HDMI 100MT .jpg'],desc:'Cabo HDMI.'},
+  {id:18,tag:'pc-acessorios',rent:false,name:'Cabo de Corrente',price:100,imgs:['CORRENTE 100MT.png','CORRENTE 100MT2.webp','CORRENTE2 100MT.jpg'],desc:'Cabo de alimentação.'},
+  {id:139,tag:'pc-acessorios',rent:false,name:'Cabos de Imagem',price:100,imgs:['CABOS DE IMAGEM 100MT 1.jpg','CABOS DE IMAGEM 100MT 4.jpeg','CABOS DE IMAGEM 100MT5.jpeg'],desc:'Cabos diversos de vídeo/imagem.'},
+  {id:114,tag:'pc-acessorios',rent:false,name:'HDMI 3 em 1 Switch',price:300,imgs:['HDMI 3 EM 1.png'],desc:'Switch HDMI.'},
+  {id:118,tag:'pc-acessorios',rent:false,name:'Adaptador DP para HDMI',price:300,imgs:['ADAPTADORES DP HDMI = 300MT.png'],desc:'Conversor DP para HDMI.'},
+  {id:119,tag:'pc-acessorios',rent:false,name:'Adaptador Multiportas DP VGA DVI',price:400,imgs:['ADAPTADORES DP VGA DVI DP= 400MT.png'],desc:'Adaptador versátil.'},
+  {id:116,tag:'pc-acessorios',rent:false,name:'Hub de Entradas USB',price:750,imgs:['HUP DE ENTRADAS USB  750MT.png'],desc:'Expansor USB.'},
+  {id:134,tag:'moda',rent:false,name:'Smart Watch Inteligente',price:1000,imgs:['SMARTWATCH 1000MT .jpg','SMARTWATCH 1000MT 2.jpg','SMARTWATCH 1000MT 3.jpg'],desc:'Relógio com notificações e monitorização física.'},
+  {id:40,tag:'moda',rent:false,name:'Sapatilhas Stan Smith',price:1300,imgs:['STAN SMITH 1,300MT.jpg','STAN SMITH 1,300MT_1.jpg','STAN SMITH 1,300MT1.jpg','STAN SMITH 1,300MT3.jpg','STAN SMITH 1,300MT4.jpg'],desc:'Sapatilhas clássicas.'},
+  {id:41,tag:'moda',rent:false,name:'Sapatilhas AirForce',price:1300,imgs:['AIRFORCE  1,300MT1_.jpg','AIRFORCE  1,300MT2.jpg','AIRFORCE  1,300MT4.jpg','AIRFORCE 1,300MT4.jpg'],desc:'Estilo icónico e durabilidade.'},
+  {id:107,tag:'moda',rent:false,name:'Relógio Casio Classic',price:250,imgs:['RELÓGIO CASIO 250MTLite.jpg'],desc:'Relógio digital clássico da Casio.'},
+  {id:112,tag:'acessorios',rent:false,name:'Carregadores de Celulares',price:100,imgs:['CARREGADORES DE CELULARES 100MT.png','CARREGADORES DE CELULARES 100MT4.png'],desc:'Carregador compatível com diversos modelos.'},
+  {id:48,tag:'acessorios',rent:false,name:'Carregador de Telemóvel Standard',price:400,imgs:['PHONE CHARGERS 400MT.png','PHONE CHARGERS 400Mt3.png','PHONE CHARGERS 400Mt5.png'],desc:'Carregador completo de boa qualidade.'},
+  {id:49,tag:'acessorios',rent:false,name:'Carregador de Telemóvel Rápido',price:600,imgs:['PHONE CHARGERS 600Mt.png'],desc:'Carregador com suporte a carregamento rápido.'},
+  {id:47,tag:'acessorios',rent:false,name:'Cabeça de Carregador',price:200,imgs:['CABEÇA CHARGER PHONE 200MT .png','CABEÇA CHARGER PHONE 200MT 2.png','CABEÇA CHARGER PHONE 200MT e.png'],desc:'Adaptador de tomada.'},
+  {id:46,tag:'acessorios',rent:false,name:'Cabo de Dados Original',price:100,imgs:['ORIGINAL PHONE CABLE 100MT .png','ORIGINAL PHONE CABLE 100MT 2.png','ORIGINAL PHONE CABLE 100MT 3.png'],desc:'Cabo de dados e carregamento para telemóveis.'},
+  {id:113,tag:'acessorios',rent:false,name:'Cabos Cell USB',price:50,imgs:['CABOS CELL 50MT.png','CABOS CELL 50MTt.png','CABOS CELL 50MTg.png'],desc:'Cabo de dados e carregamento resistente.'},
+  {id:136,tag:'acessorios',rent:false,name:'Adaptador OTG',price:80,imgs:['OTG 80MT.png'],desc:'Ligue pen drives ao telemóvel.'},
+  {id:105,tag:'acessorios',rent:false,name:'Powerbank de Alta Capacidade',price:1000,imgs:['POWERBANK 1000MT .png','POWERBANK 1000MT 2.jpg','POWERBANK 1000MT 00.jpg','POWERBANK 1000MT 44.jpeg'],desc:'Energia extra para o seu dia.\n• Múltiplas cargas\n• Design compacto'},
+  {id:104,tag:'acessorios',rent:false,name:'Cartões de Memória',price:350,imgs:['CARTÕES DE MEMÓRIA .jpeg'],desc:'Expansão de armazenamento.'},
+  {id:117,tag:'acessorios',rent:false,name:'Bluetooth para Carro',price:500,imgs:['BLUETOOTH DE CARRO 500MTS.png'],desc:'Adaptador Bluetooth.'},
+  {id:121,tag:'acessorios',rent:false,name:'Remotes Universais',price:250,imgs:['REMOTES UNIVERSAIS = 250MT_.jpg'],desc:'Comando universal.'},
+  {id:106,tag:'acessorios',rent:false,name:'Impressora Epson EcoTank L3252',price:18500,imgs:['IMPRESSORA EPSON L3252 18,500MT.jpeg'],desc:'Impressora Multifuncional com Wi-Fi.'},
+  {id:142,tag:'acessorios',rent:false,name:'Tinta para Impressora Epson',price:150,imgs:['TINTA EPSON 150MT.webp','TINTA EPSON 150MT1.jpg','TINTA EPSON 150MT3.png'],desc:'Refil de tinta para impressoras Epson EcoTank.'},
+  {id:111,tag:'acessorios',rent:false,name:'Máquina Encadernadora Profissional',price:4000,imgs:['MAQ. ENCADERNADORA 4,000MT-.webp'],desc:'Equipamento robusto.'},
+  {id:137,tag:'acessorios',rent:false,name:'Plástico Aderente',price:500,imgs:['PLÁSTICO ADERENTES 500MT.jpg','PLÁSTICO ADERENTES 500MT2.jpg','PLÁSTICO ADERENTES 500MT3.jpg'],desc:'Rolo de plástico aderente multiuso.'},
+  {id:120,tag:'acessorios',rent:false,name:'Estetoscópio Binário Profissional',price:1000,imgs:['ESTETOSCÓPIO BINÁR 1,000MT.jpg'],desc:'Equipamento médico.'},
+  {id:122,tag:'acessorios',rent:false,name:'Esfigmomanómetro Manual',price:1500,imgs:['APARELHO DE PRESSÃO 1000MT .jpg','APARELHO DE PRESSÃO 1000MT 2.jpg'],desc:'Aparelho de pressão.'},
+  {id:130,tag:'acessorios',rent:false,name:'Oxímetro de Pulso',price:400,imgs:['OXÍMETRO 400MT.png'],desc:'Medição de oxigénio.'},
+  {id:123,tag:'acessorios',rent:false,name:'Álcool 70%',price:500,imgs:['ALCOOL 70% = 500MT.png'],desc:'Desinfetante.'},
+  {id:110,tag:'audio-venda',rent:false,name:'AirPods Wireless',price:800,imgs:['AIRPODS 800MT.jpg','AIRPODS 800MT00.jpg'],desc:'Auriculares Bluetooth sem fios.\n• Conexão rápida\n• Estojo de carregamento'},
+  {id:115,tag:'audio-venda',rent:false,name:'AirPods Normal Wireless',price:350,imgs:['AIRPODS NORMAL 350MT.png','AIRPODS NORMAL 350MTh.png','AIRPODS NORMAL 350MTy.png'],desc:'Auscultadores Bluetooth ergonómicos.'},
+  {id:129,tag:'audio-venda',rent:false,name:'Auricular a Fio Standard',price:50,imgs:['AURICULAR A FIO 50MT.png','AURICULAR A FIO 50MTr.png','AURICULAR A FIO 50MTf.png'],desc:'Auscultadores com fio simples e eficazes.'},
+  {id:124,tag:'audio-venda',rent:false,name:'Caixa de Som Portátil',price:1500,imgs:['CAIXA DE SOM 1,500MT.png','CAIXA DE SOM 1,500MT3.png'],desc:'Som potente e design compacto.'},
+  {id:125,tag:'audio-venda',rent:false,name:'Barra de Som Soundbar',price:1500,imgs:['BARRA DE SOM 1,500MT.png','BARRA DE SOM 1,500MT5.png'],desc:'Melhor qualidade de áudio para sua TV ou PC.'},
+  {id:24,tag:'audio-venda',rent:false,name:'Headphones JBL',price:1000,imgs:['JBL HEADPHONE 1000MT .jpg','JBL HEADPHONE 1000MT .png','JBL HEADPHONE 1000MT 1.jpg','JBL HEADPHONE 1000MT 4.jpg'],desc:'Auscultadores com graves potentes.'},
+  {id:108,tag:'audio-venda',rent:false,name:'Cabo de Som XLR Profissional',price:500,imgs:['CABO DE SOM XRL 500MT.png'],desc:'Cabo balanceado.'},
+  {id:109,tag:'audio-venda',rent:false,name:'Tweeter de Colunas (Par)',price:400,imgs:['TWEETER DE CULUNAS 400MT.jpeg'],desc:'Reposição de agudos.'},
+  {id:38,tag:'audio-venda',rent:false,name:'Conector Speakon',price:100,imgs:['SPEAKON PINO 100MT.png','SPEAKON PINO 100MT1.png','SPEAKON PINO 100MT3.png'],desc:'Ficha Speakon.'},
+  {id:39,tag:'audio-venda',rent:false,name:'Conector Jack P10',price:100,imgs:['PINO JACK 100MT .jpg','PINO JACK 100MT 2.jpg','PINO JACK 100MT 3.jpg'],desc:'Ficha Jack P10.'},
+  {id:37,tag:'audio-venda',rent:false,name:'Cabo de Som 10M',price:2000,imgs:['CABO DE SOM 10M = 2000MT .jpg','CABO DE SOM 10M = 2000MT 1.png','CABO DE SOM 10M = 2000MT 4.jpg'],desc:'Cabo 10 metros.'},
+  {id:32,tag:'audio-venda',rent:false,name:'Microfone Standard',price:2500,imgs:['MICRO 2,500MT .jpg','MICRO 2,500MT1.jpg'],desc:'Microfone sem fios.'},
+  {id:31,tag:'audio-venda',rent:false,name:'Microfone JBL Sem Fios',price:5000,imgs:['MICROFONE JBL 5,000MT .jpg','MICROFONE JBL 5,000MT 1.jpg'],desc:'Microfone sem fios de alta fidelidade da JBL.'},
+  {id:36,tag:'audio-venda',rent:false,name:'Crossover',price:5000,imgs:['CROSSOVER 5,000MT.jpg','CROSSOVER 5,000MT1.jpg','CROSSOVER 5,000MT3.jpg'],desc:'Divisor de frequências.'},
+  {id:128,tag:'audio-venda',rent:false,name:'Microfone de Lapela',price:7500,imgs:['MICROFONE LAPELA 7,500MT .png'],desc:'Microfone discreto.'},
+  {id:33,tag:'audio-venda',rent:false,name:'Mesa de Som Profissional',price:8500,imgs:['MESA DE SOM 8,500MT .jpg','MESA DE SOM 8,500MT 2.jpg','MESA DE SOM 8,500MT 23.jpg'],desc:'Mixer de áudio.'},
+  {id:34,tag:'audio-venda',rent:false,name:'Amplificador 1000W',price:12000,imgs:['AMPLIFICADOR 1000W = 12,000MT.jpg','AMPLIFICADOR 1000W = 12,000MT.png','AMPLIFICADOR 1000W = 12,000MT3.jpg'],desc:'Potência de 1000 Watts.'},
+  {id:140,tag:'audio-venda',rent:false,name:'Retorno de Palco',price:15000,imgs:['RETORNO 15,000MT.png','RETORNO 15,000MT1.jpeg','RETORNO 15,000MT3.jpg','RETORNO 15,000MT4.jpg','RETORNO 15,000MT6.jpg'],desc:'Coluna de retorno de palco para músicos.'},
+  {id:28,tag:'audio-venda',rent:false,name:'Coluna Top 15 Polegadas',price:25000,imgs:['TOP 15 POLEGADA 25,000MT.jpg','TOP 15 POLEGADA 25,000MT.jpeg','TOP 15 POLEGADA 25,000MT.png','TOP 15 POLEGADA 25,000MT2.jpg'],desc:'Coluna Top de alta qualidade.'},
+  {id:138,tag:'audio-venda',rent:false,name:'Bass Mono Profissional',price:30000,imgs:['BASS MONO 30,000MT.jpg','BASS MONO 30,000MT2.webp','BASS MONO 30,000MT4.webp','BASS MONO 30,000MT6.jpg'],desc:'Subwoofer mono de alta performance.'},
+  {id:141,tag:'audio-venda',rent:false,name:'Torre 15 Polegadas',price:30000,imgs:['TORRE 15 POLEGADA 30,000MT.jpg','ORRE 15 POLEGADA 30,000MT.jpg','ORRE 15 POLEGADA 30,000MT4.jpg','ORRE 15 POLEGADA 30,000MT11.jpg'],desc:'Sistema em torre de 15 polegadas.'},
+  {id:35,tag:'audio-venda',rent:false,name:'Amplificador 3000W',price:30000,imgs:['AMPLIFICADOR 3000W = 30,000MT.jpg'],desc:'Amplificador 3000W.'},
+  {id:25,tag:'audio-venda',rent:false,name:'Bass Dupla Profissional',price:50000,imgs:['BASS DUPLA 50,000MT.jpg','BASS DUPLA 50,000MT1.jpg','BASS DUPLA 50,000MT3.jpg','BASS DUPLA 50,000MT4.jpg'],desc:'Subwoofer de alta potência.'},
+  {id:202,tag:'audio-aluguer',rent:true,name:'Kit Express',price:1000,imgs:['kit_express.jpg','kit_lite1.jpg'],desc:'■ 1 Coluna com bateria 12/5W\n■ 1 Microfone\n\nIdeal para pequenas reuniões e eventos íntimos.'},
+  {id:207,tag:'audio-aluguer',rent:true,name:'Kit Basic',price:2500,imgs:['kit_basic.jpg','kit_lite1.jpg'],desc:'■ 1 Coluna Bass 18"\n■ 1 Coluna Top 15"\n■ 2 Microfones\n\nIdeal para festas e eventos de média dimensão.'},
+  {id:210,tag:'audio-aluguer',rent:true,name:'Kit Classic',price:3000,imgs:['kit_classic.jpg'],desc:'■ 1 Coluna Bass 18"\n■ 2 Colunas Top 15"\n■ 2 Microfones\n\nPara eventos de médio porte com boa cobertura sonora.'},
+  {id:213,tag:'audio-aluguer',rent:true,name:'Kit Lite',price:3500,imgs:['kit_lite1.jpg'],desc:'■ 1 Coluna Bass dupla 18"\n■ 2 Colunas Top 15"\n■ 2 Microfones\n\nQualidade superior para eventos exigentes.'},
+  {id:205,tag:'audio-aluguer',rent:true,name:'Kit Platinum',price:5000,imgs:['kit_platinum.jpg'],desc:'■ 1 Coluna Bass dupla 18"\n■ 3 Colunas Top 15"\n■ 1 Retorno\n■ 2 Microfones\n\nPara eventos grandes com exigência profissional.'},
+  {id:203,tag:'audio-aluguer',rent:true,name:'Kit Plus',price:15000,imgs:['kit_plus.jpg'],desc:'■ 2 Colunas Bass dupla 18"\n■ 2 Colunas torres 15" ×2\n■ 2 Colunas tops\n■ 1 Retorno\n■ 4 Microfones\n\nSom de grande potência para eventos de dimensão.'},
+  {id:214,tag:'audio-aluguer',rent:true,name:'Kit Pro',price:20000,imgs:['kit_pro.jpg'],desc:'■ 2 Colunas Bass dupla 18"\n■ 2 Colunas torres 15" ×2\n■ 3 Colunas tops\n■ 2 Retornos\n■ 4 Microfones\n\nAlta performance para grandes eventos e concertos.'},
+  {id:212,tag:'audio-aluguer',rent:true,name:'Kit Pro Max',price:25000,imgs:['kit_pro_max.jpg'],desc:'■ 3 Colunas Bass dupla 18"\n■ 3 Colunas torres 15" ×2\n■ 4 Colunas tops\n■ 2 Retornos\n■ 6 Microfones\n\nMáxima potência para concertos e eventos de grande escala.'},
+  {id:206,tag:'audio-aluguer',rent:true,name:'Kit Gold',price:30000,imgs:['kit_golden.jpg'],desc:'■ 4 Colunas Bass dupla 18"\n■ 4 Colunas torres 15" ×2\n■ 4 Colunas tops\n■ 2 Retornos\n■ 4 Microfones\n\nO kit gold — para os maiores eventos.'},
+  {id:204,tag:'audio-aluguer',rent:true,name:'Kit Signature',price:50000,imgs:['kit_signature.jpg'],desc:'■ 6 Colunas Bass dupla 18"\n■ 6 Colunas torres 15" ×2\n■ 6 Colunas tops\n■ 8 Microfones\n\nO kit mais completo e profissional da Casa Windows. Para eventos de topo e espectáculos de grande escala.'},
+];
 
-            // 9. Monitores
-            { id: 8, tag: 'pc-monitor', isAluguer: false, nome: 'Monitores 20" HDMI VGA DP', preco: 4500, imagens: ['MONITORES 4500MT.jpg', 'MONITORES 4500MT1.jpg', 'MONITORES 4500MT2.jpg', 'MONITORES 4500MT3.jpg'], desc: '• Tamanho: 20 Polegadas\n• Conexões: HDMI, VGA, DP\n• Alta Resolução' },
-
-            // 10. Processadores
-            { id: 101, tag: 'pc-hardware', isAluguer: false, nome: 'Processadores de Alta Performance', preco: 9000, imagens: ['PROCESSADORES 9,000MT.jpg', 'PROCESSADORES 9,000MT3.jpg', 'PROCESSADORES 9,000MT4.png', 'PROCESSADORES 9,000MT9.webp'], desc: 'Processadores para upgrades e montagem de computadores.' },
-            { id: 133, tag: 'pc-hardware', isAluguer: false, nome: 'Mini Processador NUC', preco: 6000, imagens: ['MINI PROCESSADORE NUC 6,000MT.png'], desc: 'Computador compacto.' },
-
-            // 11. Memórias Ram
-            { id: 102, tag: 'pc-hardware', isAluguer: false, nome: 'Memórias RAM Profissionais', preco: 1500, imagens: ['MEMORIAS RAM 1500MT.jpg', 'MEMORIAS RAM 1500MT1.jpg'], desc: 'Upgrade de memória para o seu PC ou Laptop.' },
-
-            // 12. Disco interno/externo SSD
-            { id: 131, tag: 'pc-hardware', isAluguer: false, nome: 'Disco Interno SSD', preco: 1500, imagens: ['DISCO SSD 1,500MT.png'], desc: 'Upgrade de velocidade imediato para seu PC.' },
-
-            // 13. Disco interno/externo HDD
-            { id: 132, tag: 'pc-hardware', isAluguer: false, nome: 'Disco Rígido HDD', preco: 1500, imagens: ['DISCO HDD 1,500MT.png'], desc: 'Ampla capacidade.' },
-            { id: 21, tag: 'pc-acessorios', isAluguer: false, nome: 'Case para HDD 2.5"', preco: 400, imagens: ['CASE HDD 400MT.jpg', 'CASE HDD 400MT2.jpg', 'CASE HDD 400MT3.jpeg'], desc: 'Caixa externa para disco.' },
-
-            // 14. Outros . . .
-            { id: 112, tag: 'acessorios', isAluguer: false, nome: 'Carregadores de Celulares', preco: 100, imagens: ['CARREGADORES DE CELULARES 100MT.png', 'CARREGADORES DE CELULARES 100MT4.png'], desc: 'Carregador compatível com diversos modelos.' },
-            { id: 48, tag: 'acessorios', isAluguer: false, nome: 'Carregador de Telemóvel Standard', preco: 400, imagens: ['PHONE CHARGERS 400MT.png', 'PHONE CHARGERS 400Mt3.png', 'PHONE CHARGERS 400Mt5.png'], desc: 'Carregador completo de boa qualidade.' },
-            { id: 49, tag: 'acessorios', isAluguer: false, nome: 'Carregador de Telemóvel Rápido', preco: 600, imagens: ['PHONE CHARGERS 600Mt.png'], desc: 'Carregador com suporte a carregamento rápido.' },
-            { id: 47, tag: 'acessorios', isAluguer: false, nome: 'Cabeça de Carregador', preco: 200, imagens: ['CABEÇA CHARGER PHONE 200MT .png', 'CABEÇA CHARGER PHONE 200MT 2.png', 'CABEÇA CHARGER PHONE 200MT e.png', 'CABEÇA CHARGER PHONE 200MT r.png', 'CABEÇA CHARGER PHONE 200MT ty.png'], desc: 'Adaptador de tomada.' },
-            { id: 46, tag: 'acessorios', isAluguer: false, nome: 'Cabo de Dados Original', preco: 100, imagens: ['ORIGINAL PHONE CABLE 100MT .png', 'ORIGINAL PHONE CABLE 100MT 2.png', 'ORIGINAL PHONE CABLE 100MT 3.png', 'ORIGINAL PHONE CABLE 100MT 8.png', 'ORIGINAL PHONE CABLE 100MT 90.png'], desc: 'Cabo de dados e carregamento para telemóveis.' },
-            { id: 113, tag: 'acessorios', isAluguer: false, nome: 'Cabos Cell USB', preco: 50, imagens: ['CABOS CELL 50MT.png', 'CABOS CELL 50MTt.png', 'CABOS CELL 50MTg.png', 'CABOS CELL 50MT1.png'], desc: 'Cabo de dados e carregamento resistente.' },
-            { id: 105, tag: 'acessorios', isAluguer: false, nome: 'Powerbank de Alta Capacidade', preco: 1000, imagens: ['POWERBANK 1000MT .png', 'POWERBANK 1000MT 2.jpg', 'POWERBANK 1000MT 00.jpg', 'POWERBANK 1000MT 44.jpeg'], desc: 'Energia extra para o seu dia.\n• Múltiplas cargas\n• Design compacto' },
-            { id: 106, tag: 'acessorios', isAluguer: false, nome: 'Impressora Epson EcoTank L3252', preco: 18500, imagens: ['IMPRESSORA EPSON L3252 18,500MT.jpeg'], desc: 'Impressora Multifuncional com Wi-Fi.' },
-            { id: 142, tag: 'acessorios', isAluguer: false, nome: 'Tinta para Impressora Epson', preco: 150, imagens: ['TINTA EPSON 150MT.webp', 'TINTA EPSON 150MT1.jpg', 'TINTA EPSON 150MT3.png'], desc: 'Refil de tinta para impressoras Epson EcoTank.' },
-            { id: 111, tag: 'acessorios', isAluguer: false, nome: 'Máquina Encadernadora Profissional', preco: 4000, imagens: ['MAQ. ENCADERNADORA 4,000MT-.webp'], desc: 'Equipamento robusto.' },
-            { id: 134, tag: 'moda', isAluguer: false, nome: 'Smart Watch Inteligente', preco: 1000, imagens: ['SMARTWATCH 1000MT .jpg', 'SMARTWATCH 1000MT 2.jpg', 'SMARTWATCH 1000MT 3.jpg'], desc: 'Relógio com notificações e monitorização física.' },
-            { id: 40, tag: 'moda', isAluguer: false, nome: 'Sapatilhas Stan Smith', preco: 1300, imagens: ['STAN SMITH 1,300MT.jpg', 'STAN SMITH 1,300MT_1.jpg', 'STAN SMITH 1,300MT1.jpg', 'STAN SMITH 1,300MT1_1.jpg', 'STAN SMITH 1,300MT3.jpg', 'STAN SMITH 1,300MT4.jpg', 'STAN SMITH 1,300MT44.jpg'], desc: 'Sapatilhas clássicas.' },
-            { id: 41, tag: 'moda', isAluguer: false, nome: 'Sapatilhas AirForce', preco: 1300, imagens: ['AIRFORCE  1,300MT1_.jpg', 'AIRFORCE  1,300MT2.jpg', 'AIRFORCE  1,300MT4.jpg', 'AIRFORCE 1,300MT4.jpg'], desc: 'Estilo icónico e durabilidade.' },
-            { id: 107, tag: 'moda', isAluguer: false, nome: 'Relógio Casio Classic Lite', preco: 250, imagens: ['RELÓGIO CASIO 250MTLite.jpg'], desc: 'Relógio digital clássico da Casio.' },
-            { id: 103, tag: 'pc-acessorios', isAluguer: false, nome: 'Suporte de Notebook Ergonómico', preco: 750, imagens: ['SUPORTE DE NOTEBOOK = 750MT.jpg', 'SUPORTE DE NOTEBOOK = 750MT.webp'], desc: 'Suporte ajustável para melhor postura.' },
-            { id: 104, tag: 'acessorios', isAluguer: false, nome: 'Cartões de Memória', preco: 350, imagens: ['CARTÕES DE MEMÓRIA .jpeg'], desc: 'Expansão de armazenamento.' },
-            { id: 42, tag: 'pc-acessorios', isAluguer: false, nome: 'Macbook (Peças/Acessórios)', preco: 2000, imagens: ['MACBOOK 2,000MT.jpg', 'MACBOOK 2,000MT.jpeg', 'MACBOOK 2,000MT43.png'], desc: 'Acessórios e componentes para Macbook.' },
-            { id: 17, tag: 'pc-acessorios', isAluguer: false, nome: 'Mouse Óptico', preco: 200, imagens: ['MOUSE 200MT1.png', 'MOUSE 200MT2.png', 'MOUSE 200MT3.png', 'MOUSE 200MT5.png'], desc: 'Mouse prático e ergonómico.' },
-            { id: 44, tag: 'pc-acessorios', isAluguer: false, nome: 'Mouse Bluetooth', preco: 400, imagens: ['MOUSE BLUETOOTH 400MT.jpg', 'MOUSE BLUETOOTH 400MT.webp', 'MOUSE BLUETOOTH 400MT4.webp'], desc: 'Mouse sem fios.' },
-            { id: 23, tag: 'pc-acessorios', isAluguer: false, nome: 'Teclado USB', preco: 400, imagens: ['TECLADOS 400MT .jpg'], desc: 'Teclado padrão.' },
-            { id: 126, tag: 'pc-acessorios', isAluguer: false, nome: 'Mini Teclado Wireless', preco: 500, imagens: ['TECLADOS MINI 500MT2.png'], desc: 'Ideal para Smart TV.' },
-            { id: 127, tag: 'pc-acessorios', isAluguer: false, nome: 'Teclado Gamer Retroiluminado', preco: 750, imagens: ['TECLADOS GAME 750MT.png'], desc: 'Teclado ergonómico.' },
-            { id: 19, tag: 'pc-acessorios', isAluguer: false, nome: 'Cabo HDMI', preco: 100, imagens: ['HDMI 100MT .jpg'], desc: 'Cabo HDMI.' },
-            { id: 18, tag: 'pc-acessorios', isAluguer: false, nome: 'Cabo de Corrente', preco: 100, imagens: ['CORRENTE 100MT.png', 'CORRENTE 100MT2.webp', 'CORRENTE2 100MT.jpg'], desc: 'Cabo de alimentação.' },
-            { id: 114, tag: 'pc-acessorios', isAluguer: false, nome: 'HDMI 3 em 1 Switch', preco: 300, imagens: ['HDMI 3 EM 1.png'], desc: 'Switch HDMI.' },
-            { id: 116, tag: 'pc-acessorios', isAluguer: false, nome: 'Hub de Entradas USB', preco: 750, imagens: ['HUP DE ENTRADAS USB  750MT.png'], desc: 'Expansor USB.' },
-            { id: 117, tag: 'acessorios', isAluguer: false, nome: 'Bluetooth para Carro', preco: 500, imagens: ['BLUETOOTH DE CARRO 500MTS.png'], desc: 'Adaptador Bluetooth.' },
-            { id: 118, tag: 'pc-acessorios', isAluguer: false, nome: 'Adaptador DP para HDMI', preco: 300, imagens: ['ADAPTADORES DP HDMI = 300MT.png'], desc: 'Conversor DP para HDMI.' },
-            { id: 119, tag: 'pc-acessorios', isAluguer: false, nome: 'Adaptador Multiportas DP VGA DVI', preco: 400, imagens: ['ADAPTADORES DP VGA DVI DP= 400MT.png'], desc: 'Adaptador versátil.' },
-            { id: 120, tag: 'acessorios', isAluguer: false, nome: 'Estetoscópio Binário Profissional', preco: 1000, imagens: ['ESTETOSCÓPIO BINÁR 1,000MT.jpg'], desc: 'Equipamento médico.' },
-            { id: 121, tag: 'acessorios', isAluguer: false, nome: 'Remotes Universais', preco: 250, imagens: ['REMOTES UNIVERSAIS = 250MT_.jpg'], desc: 'Comando universal.' },
-            { id: 122, tag: 'acessorios', isAluguer: false, nome: 'Esfigmomanómetro Manual', preco: 1500, imagens: ['APARELHO DE PRESSÃO 1000MT .jpg', 'APARELHO DE PRESSÃO 1000MT 2.jpg'], desc: 'Aparelho de pressão.' },
-            { id: 123, tag: 'acessorios', isAluguer: false, nome: 'Álcool 70% (Higiene)', preco: 500, imagens: ['ALCOOL 70% = 500MT.png'], desc: 'Desinfetante.' },
-            { id: 130, tag: 'acessorios', isAluguer: false, nome: 'Oxímetro de Pulso', preco: 400, imagens: ['OXÍMETRO 400MT.png'], desc: 'Medição de oxigénio.' },
-            { id: 135, tag: 'pc-hardware', isAluguer: false, nome: 'Servidores de Dados', preco: 4500, imagens: ['SERVIDORES 4,500MT.jpeg'], desc: 'Infraestrutura de rede.' },
-            { id: 136, tag: 'acessorios', isAluguer: false, nome: 'Adaptador OTG', preco: 80, imagens: ['OTG 80MT.png'], desc: 'Ligue pen drives ao telemóvel.' },
-            { id: 137, tag: 'acessorios', isAluguer: false, nome: 'Plástico Aderente', preco: 500, imagens: ['PLÁSTICO ADERENTES 500MT.jpg', 'PLÁSTICO ADERENTES 500MT2.jpg', 'PLÁSTICO ADERENTES 500MT3.jpg'], desc: 'Rolo de plástico aderente multiuso.' },
-            { id: 139, tag: 'pc-acessorios', isAluguer: false, nome: 'Cabos de Imagem', preco: 100, imagens: ['CABOS DE IMAGEM 100MT 1.jpg', 'CABOS DE IMAGEM 100MT 4.jpeg', 'CABOS DE IMAGEM 100MT5.jpeg'], desc: 'Cabos diversos de vídeo/imagem.' },
-
-            // 15. Colunas a venda
-            { id: 110, tag: 'audio-venda', isAluguer: false, nome: 'AirPods Wireless', preco: 800, imagens: ['AIRPODS 800MT.jpg', 'AIRPODS 800MT00.jpg'], desc: 'Auriculares Bluetooth sem fios.\n• Conexão rápida\n• Estojo de carregamento' },
-            { id: 115, tag: 'audio-venda', isAluguer: false, nome: 'AirPods Normal Wireless', preco: 350, imagens: ['AIRPODS NORMAL 350MT.png', 'AIRPODS NORMAL 350MTh.png', 'AIRPODS NORMAL 350MTy.png'], desc: 'Auscultadores Bluetooth ergonómicos.' },
-            { id: 129, tag: 'audio-venda', isAluguer: false, nome: 'Auricular a Fio Standard', preco: 50, imagens: ['AURICULAR A FIO 50MT.png', 'AURICULAR A FIO 50MTr.png', 'AURICULAR A FIO 50MTf.png', 'AURICULAR A FIO 50MTv.png', 'AURICULAR A FIO 50MTe.png', 'AURICULAR A FIO 50MTy.png'], desc: 'Auscultadores com fio simples e eficazes.' },
-            { id: 124, tag: 'audio-venda', isAluguer: false, nome: 'Caixa de Som Portátil', preco: 1500, imagens: ['CAIXA DE SOM 1,500MT.png', 'CAIXA DE SOM 1,500MT3.png'], desc: 'Som potente e design compacto.' },
-            { id: 125, tag: 'audio-venda', isAluguer: false, nome: 'Barra de Som (Soundbar)', preco: 1500, imagens: ['BARRA DE SOM 1,500MT.png', 'BARRA DE SOM 1,500MT5.png'], desc: 'Melhor qualidade de áudio para sua TV ou PC.' },
-            { id: 24, tag: 'audio-venda', isAluguer: false, nome: 'Headphones JBL', preco: 1000, imagens: ['JBL HEADPHONE 1000MT .jpg', 'JBL HEADPHONE 1000MT .png', 'JBL HEADPHONE 1000MT 1.jpg', 'JBL HEADPHONE 1000MT 4.jpg'], desc: 'Auscultadores com graves potentes.' },
-            { id: 31, tag: 'audio-venda', isAluguer: false, nome: 'Microfone JBL', preco: 5000, imagens: ['MICROFONE JBL 5,000MT .jpg', 'MICROFONE JBL 5,000MT 1.jpg'], desc: 'Microfone sem fios de alta fidelidade da JBL.' },
-            { id: 108, tag: 'audio-venda', isAluguer: false, nome: 'Cabo de Som XLR Profissional', preco: 500, imagens: ['CABO DE SOM XRL 500MT.png'], desc: 'Cabo balanceado.' },
-            { id: 109, tag: 'audio-venda', isAluguer: false, nome: 'Tweeter de Colunas (Par)', preco: 400, imagens: ['TWEETER DE CULUNAS 400MT.jpeg'], desc: 'Reposição de agudos.' },
-            { id: 25, tag: 'audio-venda', isAluguer: false, nome: 'Bass Dupla Profissional', preco: 50000, imagens: ['BASS DUPLA 50,000MT.jpg', 'BASS DUPLA 50,000MT1.jpg', 'BASS DUPLA 50,000MT3.jpg', 'BASS DUPLA 50,000MT4.jpg', 'BASS DUPLA 50,000MT7.jpg'], desc: 'Subwoofer de alta potência.' },
-            { id: 28, tag: 'audio-venda', isAluguer: false, nome: 'Coluna Top 15 Polegadas', preco: 25000, imagens: ['TOP 15 POLEGADA 25,000MT.jpg', 'TOP 15 POLEGADA 25,000MT.jpeg', 'TOP 15 POLEGADA 25,000MT.png', 'TOP 15 POLEGADA 25,000MT2.jpg', 'TOP 15 POLEGADA 25,000MT2_1.jpg', 'TOP 15 POLEGADA 25,000MT3.jpg'], desc: 'Coluna Top.' },
-            { id: 32, tag: 'audio-venda', isAluguer: false, nome: 'Microfone Standard', preco: 2500, imagens: ['MICRO 2,500MT .jpg', 'MICRO 2,500MT1.jpg'], desc: 'Microfone sem fios.' },
-            { id: 33, tag: 'audio-venda', isAluguer: false, nome: 'Mesa de Som Profissional', preco: 8500, imagens: ['MESA DE SOM 8,500MT .jpg', 'MESA DE SOM 8,500MT 2.jpg', 'MESA DE SOM 8,500MT 23.jpg'], desc: 'Mixer de áudio.' },
-            { id: 34, tag: 'audio-venda', isAluguer: false, nome: 'Amplificador 1000W', preco: 12000, imagens: ['AMPLIFICADOR 1000W = 12,000MT.jpg', 'AMPLIFICADOR 1000W = 12,000MT.png', 'AMPLIFICADOR 1000W = 12,000MT3.jpg'], desc: 'Potência de 1000 Watts.' },
-            { id: 35, tag: 'audio-venda', isAluguer: false, nome: 'Amplificador 3000W', preco: 30000, imagens: ['AMPLIFICADOR 3000W = 30,000MT.jpg'], desc: 'Amplificador 3000W.' },
-            { id: 36, tag: 'audio-venda', isAluguer: false, nome: 'Crossover', preco: 5000, imagens: ['CROSSOVER 5,000MT.jpg', 'CROSSOVER 5,000MT1.jpg', 'CROSSOVER 5,000MT3.jpg'], desc: 'Divisor de frequências.' },
-            { id: 37, tag: 'audio-venda', isAluguer: false, nome: 'Cabo de Som 10M', preco: 2000, imagens: ['CABO DE SOM 10M = 2000MT .jpg', 'CABO DE SOM 10M = 2000MT 1.png', 'CABO DE SOM 10M = 2000MT 4.jpg'], desc: 'Cabo 10 metros.' },
-            { id: 38, tag: 'audio-venda', isAluguer: false, nome: 'Conector Speakon', preco: 100, imagens: ['SPEAKON PINO 100MT.png', 'SPEAKON PINO 100MT1.png', 'SPEAKON PINO 100MT3.png'], desc: 'Ficha Speakon.' },
-            { id: 39, tag: 'audio-venda', isAluguer: false, nome: 'Conector Jack (Pino)', preco: 100, imagens: ['PINO JACK 100MT .jpg', 'PINO JACK 100MT 2.jpg', 'PINO JACK 100MT 3.jpg'], desc: 'Ficha Jack P10.' },
-            { id: 128, tag: 'audio-venda', isAluguer: false, nome: 'Microfone de Lapela', preco: 7500, imagens: ['MICROFONE LAPELA 7,500MT .png'], desc: 'Microfone discreto.' },
-            { id: 138, tag: 'audio-venda', isAluguer: false, nome: 'Bass Mono Profissional', preco: 30000, imagens: ['BASS MONO 30,000MT.jpg', 'BASS MONO 30,000MT2.webp', 'BASS MONO 30,000MT4.webp', 'BASS MONO 30,000MT6.jpg'], desc: 'Subwoofer mono de alta performance.' },
-            { id: 140, tag: 'audio-venda', isAluguer: false, nome: 'Retorno de Palco', preco: 15000, imagens: ['RETORNO 15,000MT.png', 'RETORNO 15,000MT1.jpeg', 'RETORNO 15,000MT3.jpg', 'RETORNO 15,000MT4.jpg', 'RETORNO 15,000MT6.jpg'], desc: 'Coluna de retorno de palco para músicos.' },
-            { id: 141, tag: 'audio-venda', isAluguer: false, nome: 'Torre 15 Polegadas', preco: 30000, imagens: ['TORRE 15 POLEGADA 30,000MT.jpg', 'ORRE 15 POLEGADA 30,000MT.jpg', 'ORRE 15 POLEGADA 30,000MT4.jpg', 'ORRE 15 POLEGADA 30,000MT11.jpg', 'ORRE 15 POLEGADA 30,000MT11q.jpg', 'ORRE 15 POLEGADA 30,000MTqq.jpg'], desc: 'Sistema em torre de 15 polegadas.' },
-
-            // 16. Colunas aluguer (ACTUALIZADO COM OS NOVOS KITS)
-            { id: 201, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Lite 1', preco: 0, imagens: ['kit_lite1.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 202, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Express', preco: 0, imagens: ['kit_express.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 203, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Plus', preco: 0, imagens: ['kit_plus.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 204, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Signature', preco: 0, imagens: ['kit_signature.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 205, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Platinum', preco: 0, imagens: ['kit_platinum.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 206, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Golden', preco: 0, imagens: ['kit_golden.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 207, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Basic', preco: 0, imagens: ['kit_basic.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 208, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Platinum 1', preco: 0, imagens: ['kit_platinum1.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 209, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Platinum 2', preco: 0, imagens: ['kit_platinum2.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 210, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Classic', preco: 0, imagens: ['kit_classic.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 211, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Platinium Max', preco: 0, imagens: ['kit_platinium_max.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' },
-            { id: 212, tag: 'audio-aluguer', isAluguer: true, nome: 'Kit Pro Max', preco: 0, imagens: ['kit_pro_max.jpg'], desc: 'Kit de som profissional - Consultar disponibilidade.' }
-        ]; 
-
-        // Adicionar preços antigos simulados
-        bancoDeDados = bancoDeDados.map(p => {
-            if(!p.isAluguer) p.oldPrice = Math.round(p.preco * 1.15);
-            return p;
-        });
-
-        let currentSlide = 0;
-        let totalSlides = 0; 
-
-        function renderProducts(lista) {
-            const grid = document.getElementById('productGrid');
-            const msg = document.getElementById('emptyMsg'); 
-            if (lista.length === 0) {
-                grid.style.display = 'none';
-                msg.style.display = 'flex';
-            } else {
-                grid.style.display = 'grid';
-                msg.style.display = 'none';
-                grid.innerHTML = lista.map(p => `
-                    <div class="product-card" onclick="openModal(${p.id})">
-                        ${p.isAluguer ? `<span class="tag-badge tag-aluguer">ALUGUER</span>` : `<span class="tag-badge tag-venda">VENDA</span><span class="promo-badge">-15% OFF</span>`}
-                        <div class="img-container"><img src="${p.imagens[0]}"></div>
-                        <div class="product-title">${p.nome}</div>
-                        <div class="product-price">${p.preco === 0 ? 'Sob Consulta' : p.preco.toLocaleString('en-US') + ' MT'}</div>
-                        <div class="product-actions">
-                            <button class="btn-buy" onclick="event.stopPropagation(); buyNow(${p.id})">
-                                <i class="fab fa-whatsapp"></i> ${p.isAluguer ? 'Reservar' : 'Comprar'}
-                            </button>
-                            ${!p.isAluguer ? `
-                                <button class="btn-cart-add" onclick="event.stopPropagation(); addToCart(${p.id})" title="Adicionar ao Carrinho">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>` : ''}
-                        </div>
-                    </div>
-                `).join('');
-            }
-        } 
-
-        function shareProduct(id) {
-            const p = bancoDeDados.find(x => x.id === id);
-            if (!p) return;
-            const baseUrl = window.location.href.split('?')[0];
-            const url = `${baseUrl}?id=${id}`;
-            const shareText = `Veja este produto na Casa Windows: ${p.nome}`;
-            if (navigator.share) {
-                navigator.share({ title: 'Casa Windows', text: shareText, url: url }).catch(err => copyToClipboard(url));
-            } else { copyToClipboard(url); }
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => alert("Link do produto copiado com sucesso!")).catch(err => alert("Erro ao copiar link."));
-        }
-
-        function shareCurrentModalProduct() { if(currentModalProductId) shareProduct(currentModalProductId); }
-
-        function filterBy(tag, el) {
-            document.querySelectorAll('.filter-btn, .chip, .cat-header').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
-            if(tag === 'todos') { renderProducts(bancoDeDados); } else {
-                const filtrados = bancoDeDados.filter(p => p.tag.startsWith(tag));
-                renderProducts(filtrados);
-            }
-        } 
-
-        function openModal(id) {
-            const p = bancoDeDados.find(x => x.id === id);
-            if(!p) return;
-            currentModalProductId = id;
-            document.getElementById('modalTitle').innerText = p.nome;
-            document.getElementById('modalDesc').innerText = p.desc;
-            
-            if(p.oldPrice) {
-                document.getElementById('modalOldPrice').innerText = p.oldPrice.toLocaleString('en-US') + " MT";
-                document.getElementById('modalOldPrice').style.display = 'block';
-            } else {
-                document.getElementById('modalOldPrice').style.display = 'none';
-            }
-            document.getElementById('modalPrice').innerText = p.preco === 0 ? "Preço sob consulta" : p.preco.toLocaleString('en-US') + " MT";
-            
-            document.getElementById('textBtnWA').innerText = p.isAluguer ? "Reservar" : "Comprar";
-            document.getElementById('modalBtnWA').onclick = () => buyNow(id);
-            document.getElementById('modalBtnCart').style.display = p.isAluguer ? 'none' : 'block';
-            document.getElementById('modalBtnCart').onclick = () => addToCart(id);
-            const track = document.getElementById('carouselTrack');
-            const dots = document.getElementById('carouselDots');
-            track.innerHTML = ''; dots.innerHTML = '';
-            totalSlides = p.imagens.length; currentSlide = 0;
-            p.imagens.forEach((img, i) => {
-                track.innerHTML += `<div class="carousel-slide"><img src="${img}"></div>`;
-                dots.innerHTML += `<div class="dot ${i===0?'active':''}" onclick="goToSlide(${i})"></div>`;
-            });
-            const btns = document.querySelectorAll('.carousel-btn');
-            btns.forEach(b => b.style.display = totalSlides > 1 ? 'block' : 'none');
-            updateCarousel();
-            document.getElementById('productModal').classList.add('active');
-        } 
-
-        function moveSlide(n) { currentSlide = (currentSlide + n + totalSlides) % totalSlides; updateCarousel(); }
-        function goToSlide(i) { currentSlide = i; updateCarousel(); }
-        function updateCarousel() {
-            const track = document.getElementById('carouselTrack');
-            if(track) track.style.transform = `translateX(-${currentSlide*100}%)`;
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-        }
-        
-        function closeModal(e) { if(e.target.id === 'productModal' || e.target.id === 'cartModal' || e.target.id === 'supportModal') { e.target.classList.remove('active'); } }
-        function toggleSubMenu(id) { document.getElementById(id).classList.toggle('active'); }
-
-        function openSupportModal() { document.getElementById('supportModal').classList.add('active'); }
-
-        function buyNow(id) {
-            const p = bancoDeDados.find(x => x.id === id);
-            let precoFormatado = p.preco === 0 ? "a combinar" : p.preco.toLocaleString('en-US') + " MT";
-            let msg = p.isAluguer ? 
-                `Olá! Vim do site da Casa Windows e gostaria de reservar o produto: ${p.nome} (Preço: ${precoFormatado})` : 
-                `Olá! Vim do site da Casa Windows e tenho interesse em comprar o produto: ${p.nome} (Preço: ${precoFormatado})`;
-            window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(msg)}`);
-        } 
-
-        function addToCart(id) {
-            const p = bancoDeDados.find(x => x.id === id);
-            cartItems.push(p); 
-            updateCartCount();
-            openCart();
-        } 
-
-        function updateCartCount() { document.getElementById('cartCount').innerText = cartItems.length; } 
-
-        function openCart() { renderCartList(); document.getElementById('cartModal').classList.add('active'); }
-
-        function renderCartList() {
-            const list = document.getElementById('cartItemsList');
-            let total = 0;
-            if(cartItems.length === 0) {
-                list.innerHTML = '<p style="opacity:0.6; text-align:center; padding: 20px 0;">O seu carrinho está vazio.</p>';
-            } else {
-                list.innerHTML = cartItems.map((item, index) => {
-                    total += item.preco;
-                    return `<div class="cart-item"><div><div class="cart-item-title">${item.nome}</div></div><div style="display:flex; align-items:center;"><span class="cart-item-price">${item.preco.toLocaleString('en-US')} MT</span><i class="fas fa-trash cart-remove" onclick="removeFromCart(${index})"></i></div></div>`;
-                }).join('');
-            }
-            document.getElementById('cartTotal').innerText = total.toLocaleString('en-US') + ' MT';
-        }
-
-        function removeFromCart(index) { cartItems.splice(index, 1); updateCartCount(); renderCartList(); }
-
-        function checkoutCart() {
-            if(cartItems.length === 0) return alert("O carrinho está vazio!");
-            let text = "Olá! Vim do site da Casa Windows e gostaria de finalizar esta compra:\n\n";
-            let total = 0;
-            cartItems.forEach(item => { text += `▪️ ${item.nome} - ${item.preco.toLocaleString('en-US')} MT\n`; total += item.preco; });
-            text += `\n*TOTAL: ${total.toLocaleString('en-US')} MT*`;
-            window.open(`https://wa.me/${SEU_WHATSAPP}?text=${encodeURIComponent(text)}`);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-            renderProducts(bancoDeDados);
-            const urlParams = new URLSearchParams(window.location.search);
-            const productId = urlParams.get('id');
-            if (productId) { setTimeout(() => openModal(parseInt(productId)), 300); }
-
-            // Lógica para Favicon Dinâmico
-            const favicon = document.getElementById('meu-favicon');
-            if (favicon) {
-                favicon.href = "cw_logo_blue.png";
-            }
-        });
-    </script>
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString('pt-MZ');
+const CATS=[
+  {key:'todos',label:'Ver Tudo',icon:'fa-border-all'},
+  {key:'audio',label:'Áudio',icon:'fa-waveform-lines'},
+  {key:'pc',label:'Computadores',icon:'fa-laptop'},
+  {key:'moda',label:'Moda',icon:'fa-shirt'},
+  {key:'acessorios',label:'Outros',icon:'fa-sparkles'},
+];
+const CAT_LABELS={
+  'todos':'Todos os Produtos','audio':'Áudio Profissional',
+  'audio-aluguer':'Aluguer de Som','audio-venda':'Equipamento à Venda',
+  'pc':'Computadores','pc-celeron':'Série Celeron','pc-corei3':'Core i3',
+  'pc-corei5':'Core i5','pc-desktop':'Desktops','pc-monitor':'Monitores',
+  'pc-projector':'Projectores','pc-hardware':'Hardware','pc-acessorios':'Acessórios PC',
+  'moda':'Moda e Estilo','acessorios':'Outros',
+};
+function buildCatStrip(){
+  const el=$('catStrip');if(!el)return;
+  el.innerHTML=CATS.map(c=>{
+    const cnt=c.key==='todos'?DB.length:DB.filter(p=>p.tag.startsWith(c.key)).length;
+    return`<div class="cat-card" id="cc-${c.key}" onclick="filterBy('${c.key}',this)"><div class="cc-icon"><i class="fas ${c.icon}"></i></div><div class="cc-name">${c.label}</div><div class="cc-cnt">${cnt} produtos</div></div>`;
+  }).join('');
+}
+function updateCounts(){
+  const c={todos:DB.length,audio:DB.filter(p=>p.tag.startsWith('audio')).length,pc:DB.filter(p=>p.tag.startsWith('pc')).length,moda:DB.filter(p=>p.tag.startsWith('moda')).length,acessorios:DB.filter(p=>p.tag.startsWith('acessorios')).length};
+  Object.entries(c).forEach(([k,v])=>{const e=$('cn-'+k);if(e)e.textContent=v;});
+}
+function getList(){
+  let list=activeFilter==='todos'?[...DB]:DB.filter(p=>p.tag.startsWith(activeFilter));
+  if(searchQ){const q=searchQ.toLowerCase();list=list.filter(p=>p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q));}
+  if(priceMin!==null)list=list.filter(p=>p.price>=priceMin||p.price===0);
+  if(priceMax!==null)list=list.filter(p=>p.price<=priceMax||p.price===0);
+  if(activeSort==='price-asc')list.sort((a,b)=>a.price-b.price);
+  if(activeSort==='price-desc')list.sort((a,b)=>b.price-a.price);
+  if(activeSort==='name')list.sort((a,b)=>a.name.localeCompare(b.name));
+  return list;
+}
+function filterBy(tag,el){
+  activeFilter=tag;searchQ='';
+  $('searchInput').value='';$('searchClr').style.display='none';
+  document.querySelectorAll('.tree-head,.tree-child,.chip,.cat-card').forEach(e=>e.classList.remove('on'));
+  if(el)el.classList.add('on');
+  const rootTag=tag.split('-')[0];
+  const th=$('th-'+rootTag);if(th&&th!==el)th.classList.add('on');
+  const cc=$('cc-'+(tag==='todos'?'todos':rootTag));if(cc)cc.classList.add('on');
+  document.querySelectorAll('.m-chips .chip').forEach(c=>{const oc=c.getAttribute('onclick')||'';if(oc.includes(`'${tag}'`))c.classList.add('on');});
+  if(tag.startsWith('pc')){const t=$('tc-pc');if(t)t.classList.add('open');const h=$('th-pc');if(h)h.classList.add('expanded');}
+  if(tag.startsWith('audio')){const t=$('tc-audio');if(t)t.classList.add('open');const h=$('th-audio');if(h)h.classList.add('expanded');}
+  $('bc-cur').textContent=CAT_LABELS[tag]||tag;
+  updateActiveFilters();render();
+  if(window.innerWidth<=960){setTimeout(()=>{const g=$('productGrid');if(g)g.scrollIntoView({behavior:'smooth',block:'start'});},100);}
+}
+function toggleTree(id,btn){
+  const el=$(id);if(!el)return;
+  const isOpen=el.classList.contains('open');
+  el.classList.toggle('open',!isOpen);btn.classList.toggle('expanded',!isOpen);
+}
+function onSearch(inp){searchQ=inp.value.trim();$('searchClr').style.display=searchQ?'block':'none';updateActiveFilters();render();}
+function clearSearch(){$('searchInput').value='';searchQ='';$('searchClr').style.display='none';updateActiveFilters();render();}
+function applyPrice(){
+  const min=parseFloat($('pMin').value),max=parseFloat($('pMax').value);
+  priceMin=isNaN(min)?null:min;priceMax=isNaN(max)?null:max;
+  updateActiveFilters();render();
+}
+function resetPrice(){priceMin=priceMax=null;$('pMin').value='';$('pMax').value='';updateActiveFilters();render();}
+function updateActiveFilters(){
+  const wrap=$('activeFilters');const chips=[];
+  if(searchQ)chips.push({label:`"${searchQ}"`,clear:clearSearch});
+  if(priceMin!==null||priceMax!==null){
+    const label=priceMin!==null&&priceMax!==null?`${fmt(priceMin)}–${fmt(priceMax)} MT`:priceMin!==null?`≥ ${fmt(priceMin)} MT`:`≤ ${fmt(priceMax)} MT`;
+    chips.push({label,clear:resetPrice});
+  }
+  wrap.innerHTML=chips.map((c,i)=>`<div class="af-chip">${c.label}<button class="af-rm" onclick="af_clear(${i})">×</button></div>`).join('');
+  wrap._clearFns=chips.map(c=>c.clear);
+}
+function af_clear(i){$('activeFilters')._clearFns[i]?.();}
+function setSort(el,val,label){
+  activeSort=val;$('sortLabel').textContent=label;
+  document.querySelectorAll('.dd-opt').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');closeDD('sortDD');render();
+}
+function setView(v){
+  viewMode=v;$('vt-grid').classList.toggle('on',v==='grid');$('vt-list').classList.toggle('on',v==='list');
+  $('productGrid').className=v==='grid'?'pgrid':'plist';render();
+}
+function toggleDD(id){
+  const btn=document.querySelector(`#${id} .dd-btn`);
+  const menu=document.querySelector(`#${id} .dd-menu`);
+  const isOpen=menu.classList.contains('open');
+  closeAllDDs();
+  if(!isOpen){menu.classList.add('open');btn&&btn.classList.add('open');}
+}
+function closeDD(id){
+  const btn=document.querySelector(`#${id} .dd-btn`);
+  const menu=document.querySelector(`#${id} .dd-menu`);
+  if(menu)menu.classList.remove('open');if(btn)btn.classList.remove('open');
+}
+function closeAllDDs(){document.querySelectorAll('.dd-menu').forEach(m=>m.classList.remove('open'));document.querySelectorAll('.dd-btn').forEach(b=>b.classList.remove('open'));}
+document.addEventListener('click',e=>{if(!e.target.closest('.dropdown'))closeAllDDs();});
+function renderSkel(){
+  const g=$('productGrid');g.className='pgrid';
+  g.innerHTML=Array(8).fill(0).map(()=>`<div class="skel-card skel"><div class="skel-img"></div><div class="skel-body"><div class="skel-line w80"></div><div class="skel-line w50"></div><div class="skel-line w80" style="height:30px;margin-top:4px"></div></div></div>`).join('');
+}
+function render(){
+  const list=getList();const g=$('productGrid');
+  g.className=viewMode==='grid'?'pgrid':'plist';
+  $('rCount').textContent=list.length;
+  if(!list.length){g.innerHTML=`<div class="empty"><i class="fas fa-box-open"></i><p>Nenhum produto encontrado</p></div>`;return;}
+  g.innerHTML=viewMode==='list'?list.map(p=>rowHTML(p)).join(''):list.map(p=>cardHTML(p)).join('');
+}
+function cardHTML(p){
+  const priceStr=p.price===0?'Sob Consulta':fmt(p.price)+' MT';
+  const oldStr=(!p.rent&&p.price>0)?fmt(Math.round(p.price*1.15))+' MT':'';
+  const disc=(!p.rent&&p.price>0)?'-13%':'';
+  return`<div class="pcard" onclick="openProd(${p.id})"><div class="pcard-img"><img src="${p.imgs[0]}" alt="${p.name}" loading="lazy"><button class="qbuy" onclick="event.stopPropagation();buyNow(${p.id})"><i class="fab fa-whatsapp"></i> ${p.rent?'Reservar':'Comprar agora'}</button></div><div class="pcard-badges">${p.rent?`<span class="pb pb-rent">Aluguer</span>`:`<span class="pb pb-sale">Venda</span>`}</div><div class="pcard-body"><div class="pcard-name">${p.name}</div><div class="pcard-prices"><span class="pn">${priceStr}</span>${oldStr?`<span class="po">${oldStr}</span>`:''}${disc?`<span class="pdiscount">${disc}</span>`:''}</div><div class="pcard-actions"><button class="btn-wa" onclick="event.stopPropagation();buyNow(${p.id})"><i class="fab fa-whatsapp"></i> ${p.rent?'Reservar':'Comprar'}</button>${!p.rent?`<button class="btn-ic" onclick="event.stopPropagation();addCart(${p.id})"><i class="fas fa-shopping-cart"></i></button>`:''}</div></div></div>`;
+}
+function rowHTML(p){
+  const priceStr=p.price===0?'Sob Consulta':fmt(p.price)+' MT';
+  const oldStr=(!p.rent&&p.price>0)?fmt(Math.round(p.price*1.15))+' MT':'';
+  return`<div class="prow" onclick="openProd(${p.id})"><div class="prow-img"><img src="${p.imgs[0]}" alt="${p.name}" loading="lazy"></div><div class="prow-body"><div class="prow-name">${p.name}</div><div class="prow-desc">${p.desc.replace(/\n/g,' ')}</div></div><div class="prow-end"><div>${oldStr?`<div class="prow-old">${oldStr}</div>`:''}<div class="prow-price">${priceStr}</div></div><div style="display:flex;gap:6px"><button class="btn-wa" onclick="event.stopPropagation();buyNow(${p.id})"><i class="fab fa-whatsapp"></i> ${p.rent?'Reservar':'Comprar'}</button>${!p.rent?`<button class="btn-ic" onclick="event.stopPropagation();addCart(${p.id})"><i class="fas fa-shopping-cart"></i></button>`:''}</div></div></div>`;
+}
+function openProd(id){
+  const p=DB.find(x=>x.id===id);if(!p)return;
+  curProdId=id;
+  $('mTags').innerHTML=(p.rent?`<span class="m-badge rent">Aluguer</span>`:'')+`<span class="m-badge cat">${CAT_LABELS[p.tag]||p.tag}</span>`;
+  $('mName').textContent=p.name;$('mDesc').textContent=p.desc;
+  if(!p.rent&&p.price>0){$('mOld').textContent=fmt(Math.round(p.price*1.15))+' MT';$('mOld').style.display='block';$('mSaving').innerHTML=`<i class="fas fa-tag"></i> Poupa ${fmt(Math.round(p.price*0.15))} MT`;$('mSaving').style.display='block';}
+  else{$('mOld').style.display='none';$('mSaving').style.display='none';}
+  $('mPrice').textContent=p.price===0?'Preço sob consulta':fmt(p.price)+' MT';
+  $('mAvail').innerHTML=p.rent?`<i class="fas fa-calendar-check"></i> Disponibilidade sujeita a confirmação`:`<i class="fas fa-circle-check"></i> Em stock · Entrega imediata`;
+  $('mBtnLbl').textContent=p.rent?'Reservar agora':'Comprar agora';
+  $('mBtnWA').onclick=()=>buyNow(id);
+  $('mBtnCart').style.display=p.rent?'none':'flex';$('mBtnCart').onclick=()=>addCart(id);
+  const track=$('carTrack'),dots=$('carDots');
+  track.innerHTML='';dots.innerHTML='';cTotal=p.imgs.length;cIdx=0;
+  p.imgs.forEach((img,i)=>{track.innerHTML+=`<div class="car-slide"><img src="${img}" alt="${p.name}"></div>`;dots.innerHTML+=`<div class="cdot${i===0?' on':''}" onclick="cGoto(${i})"></div>`;});
+  document.querySelectorAll('.car-btn').forEach(b=>b.style.display=cTotal>1?'flex':'none');
+  updateCar();openModal('prodModal');
+}
+function cSlide(n){cIdx=(cIdx+n+cTotal)%cTotal;updateCar();}
+function cGoto(i){cIdx=i;updateCar();}
+function updateCar(){
+  $('carTrack').style.transform=`translateX(-${cIdx*100}%)`;
+  document.querySelectorAll('.cdot').forEach((d,i)=>d.classList.toggle('on',i===cIdx));
+}
+function shareProd(){
+  const p=DB.find(x=>x.id===curProdId);if(!p)return;
+  const url=`${location.href.split('?')[0]}?id=${p.id}`;
+  if(navigator.share){navigator.share({title:'Casa Windows',text:`${p.name} — Casa Windows`,url}).catch(()=>copyLink(url));}
+  else copyLink(url);
+}
+function copyLink(url){navigator.clipboard.writeText(url).then(()=>toast('Link copiado!','fa-link')).catch(()=>toast('Erro ao copiar','fa-xmark'));}
+function addCart(id){
+  const p=DB.find(x=>x.id===id);cart.push(p);updateBadge();
+  toast('Adicionado ao carrinho','fa-shopping-cart');
+  const b=$('cartBadge');b.classList.remove('pop');void b.offsetWidth;b.classList.add('pop');
+}
+function updateBadge(){$('cartBadge').textContent=cart.length;$('cpCount').textContent=cart.length;}
+function openCart(){renderCart();openModal('cartModal');}
+function renderCart(){
+  const body=$('cpBody');
+  if(!cart.length){body.innerHTML=`<div class="cp-empty"><i class="fas fa-shopping-cart"></i><p>O seu carrinho está vazio</p></div>`;$('cpTotal').textContent='0 MT';return;}
+  let total=0;
+  body.innerHTML=cart.map((item,i)=>{total+=item.price;return`<div class="ci"><div class="ci-img"><img src="${item.imgs[0]}" alt="${item.name}"></div><div class="ci-info"><div class="ci-name">${item.name}</div><div class="ci-price">${fmt(item.price)} MT</div></div><button class="ci-rm" onclick="rmCart(${i})"><i class="fas fa-trash-can"></i></button></div>`;}).join('');
+  $('cpTotal').textContent=fmt(total)+' MT';
+}
+function rmCart(i){cart.splice(i,1);updateBadge();renderCart();}
+function checkout(){
+  if(!cart.length){toast('Carrinho vazio','fa-xmark');return;}
+  let msg="Olá! Vim do site da Casa Windows e gostaria de finalizar esta compra:\n\n";
+  let total=0;
+  cart.forEach(item=>{msg+=`▪️ ${item.name} — ${fmt(item.price)} MT\n`;total+=item.price;});
+  msg+=`\n*TOTAL: ${fmt(total)} MT*`;
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
+}
+function buyNow(id){
+  const p=DB.find(x=>x.id===id);
+  const pf=p.price===0?'a combinar':fmt(p.price)+' MT';
+  const msg=p.rent?`Olá! Vim do site da Casa Windows e gostaria de reservar: ${p.name} (Preço: ${pf})`:`Olá! Vim do site da Casa Windows e tenho interesse em comprar: ${p.name} (Preço: ${pf})`;
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`);
+}
+let _savedScroll=0;
+function openModal(id){_savedScroll=window.scrollY;$(id).classList.add('on');document.body.style.overflow='hidden';document.body.style.position='fixed';document.body.style.width='100%';document.body.style.top=`-${_savedScroll}px`;}
+function closeModal(id){$(id).classList.remove('on');document.body.style.overflow='';document.body.style.position='';document.body.style.width='';document.body.style.top='';window.scrollTo({top:_savedScroll,behavior:'instant'});}
+function overlayClose(e,id){if(e.target.id===id)closeModal(id);}
+function openSupport(){openModal('supModal');}
+function toast(msg,icon='fa-check'){
+  const t=$('toast');t.innerHTML=`<i class="fas ${icon}"></i> ${msg}`;t.classList.add('on');
+  clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2500);
+}
+window.addEventListener('scroll',()=>{$('btt').classList.toggle('on',window.scrollY>400);},{passive:true});
+const FOOTER_ICONS=[
+  {label:'Aluguer Som',icon:null,img:'kit_express.jpg',filter:'audio-aluguer'},
+  {label:'Kits Pro',icon:null,img:'kit_golden.jpg',filter:'audio-aluguer'},
+  {label:'Computadores',icon:'fa-laptop',img:null,filter:'pc'},
+  {label:'Laptops i5',icon:null,img:'SÉRIE CORE i5 35,000MT.png',filter:'pc-corei5'},
+  {label:'Monitores',icon:null,img:'MONITORES 4500MT.jpg',filter:'pc-monitor'},
+  {label:'Áudio Venda',icon:null,img:'BASS DUPLA 50,000MT.jpg',filter:'audio-venda'},
+  {label:'Acessórios',icon:'fa-sparkles',img:null,filter:'acessorios'},
+  {label:'Moda',icon:'fa-shirt',img:null,filter:'moda'},
+];
+function buildFooter(){
+  const wrap=$('footerIcons');if(!wrap)return;
+  wrap.innerHTML=FOOTER_ICONS.map((fi,i)=>{
+    const iconHtml=fi.img?`<div class="fi-icon"><img src="${fi.img}" alt="${fi.label}" loading="lazy"></div>`:`<div class="fi-icon ic"><i class="fas ${fi.icon}"></i></div>`;
+    const div=i===4?'<div class="footer-div"></div>':'';
+    return`${div}<div class="fi" onclick="footerGoTo('${fi.filter}')">${iconHtml}<span class="fi-label">${fi.label}</span></div>`;
+  }).join('');
+}
+function footerGoTo(filter){
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>filterBy(filter,$('th-'+filter.split('-')[0])),350);
+}
+function initFooterObserver(){
+  const footer=$('siteFooter');if(!footer)return;
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)footer.classList.add('visible');});},{threshold:0.05});
+  obs.observe(footer);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  buildCatStrip();updateCounts();buildFooter();initFooterObserver();
+  renderSkel();
+  setTimeout(()=>filterBy('todos',$('th-todos')),500);
+  const pid=new URLSearchParams(location.search).get('id');
+  if(pid)setTimeout(()=>openProd(parseInt(pid)),600);
+  let tsX=0;
+  const carWrap=$('carWrap');
+  if(carWrap){
+    carWrap.addEventListener('touchstart',e=>{tsX=e.touches[0].clientX;},{passive:true});
+    carWrap.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tsX;if(Math.abs(dx)>40)cSlide(dx<0?1:-1);},{passive:true});
+  }
+  ['prodModal','cartModal'].forEach(id=>{
+    const panel=id==='cartModal'?document.querySelector('#cartModal .cart-panel'):document.querySelector('#prodModal .prod-modal');
+    if(!panel)return;
+    let sy=0;
+    panel.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});
+    panel.addEventListener('touchend',e=>{if(window.innerWidth>640)return;const dy=e.changedTouches[0].clientY-sy;if(dy>80)closeModal(id);},{passive:true});
+  });
+});
+window.addEventListener('scroll',closeAllDDs,{passive:true});
+</script>
 </body>
 </html>
