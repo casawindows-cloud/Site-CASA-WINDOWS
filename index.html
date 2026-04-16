@@ -352,12 +352,12 @@ main{min-width:0}
 .footer-icons::-webkit-scrollbar{display:none}
 .fi{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 14px;border-radius:10px;cursor:pointer;flex-shrink:0;transition:background .15s;min-width:72px}
 .fi:hover{background:var(--bg3)}
-.fi-icon{width:52px;height:52px;border-radius:10px;overflow:hidden;background:transparent;flex-shrink:0}
+.fi-icon{width:38px;height:38px;border-radius:10px;overflow:hidden;background:#fff;flex-shrink:0}
 .fi-icon img{width:100%;height:100%;object-fit:cover}
 .fi-icon.ic{background:var(--bg3);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:var(--txt2)}
 .fi-label{font-size:.6rem;color:var(--txt3);text-align:center;line-height:1.3;font-weight:500;max-width:64px}
 .footer-div{width:1px;height:36px;background:var(--line);flex-shrink:0;margin:0 4px}
-.footer-copy{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;align-items:center;font-size:.65rem;color:var(--txt3);gap:8px;text-align:center}
+.footer-copy{margin-top:10px;padding-top:10px;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:.65rem;color:var(--txt3);flex-wrap:wrap;gap:6px}
 .footer-copy a{color:var(--txt3);text-decoration:none;transition:color .15s}
 .footer-copy a:hover{color:var(--txt)}
 
@@ -487,15 +487,12 @@ main{min-width:0}
 
 <div class="m-chips" id="mChips">
   <div class="chip on" onclick="filterBy('todos',this)">Tudo</div>
-  <div class="chip" onclick="filterBy('audio',this)">Som</div>
-  <div class="chip" onclick="filterBy('pc-acessorios',this)">Carregadores</div>
-  <div class="chip" onclick="filterBy('pc',this)">Laptops</div>
-  <div class="chip" onclick="filterBy('pc-desktop',this)">Desktop</div>
-  <div class="chip" onclick="filterBy('pc-hardware',this)">Processadores</div>
-  <div class="chip" onclick="filterBy('pc-monitor',this)">Monitores</div>
-  <div class="chip" onclick="filterBy('pc-projector',this)">Projectores</div>
-  <div class="chip" onclick="filterBy('acessorios',this)">Acessórios</div>
+  <div class="chip" onclick="filterBy('audio',this)">Áudio</div>
+  <div class="chip" onclick="filterBy('audio-aluguer',this)">Aluguer Som</div>
+  <div class="chip" onclick="filterBy('pc',this)">Computadores</div>
   <div class="chip" onclick="filterBy('moda',this)">Moda</div>
+  <div class="chip" onclick="filterBy('acessorios',this)">Outros</div>
+  <a href="talvez.html" class="chip" style="text-decoration:none"><i class="fas fa-circle-info"></i> Sobre</a>
 </div>
 
 <div class="cat-strip" id="catStrip"></div>
@@ -595,13 +592,12 @@ main{min-width:0}
 <footer id="siteFooter">
   <div class="footer-icons" id="footerIcons"></div>
   <div class="footer-copy">
-    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;width:100%">
+    <span>© 2025 CASA WINDOWS · Nampula, Moçambique</span>
+    <div style="display:flex;align-items:center;gap:14px">
       <a href="talvez.html"><i class="fas fa-circle-info"></i> Sobre Nós</a>
       <a href="https://www.facebook.com/profile.php?id=61562855252848" target="_blank" rel="noopener"><i class="fab fa-facebook"></i> Facebook</a>
-      <a href="https://wa.me/258842785290" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      <a href="tel:+258842785290"><i class="fas fa-phone"></i> Telefone</a>
+      <a href="https://wa.me/258842785290" target="_blank"><i class="fab fa-whatsapp"></i> +258 84 278 5290</a>
     </div>
-    <span style="width:100%;text-align:center">© 2025 CASA WINDOWS · Nampula, Moçambique</span>
   </div>
 </footer>
 
@@ -687,7 +683,7 @@ const DB=[
   {id:45,tag:'acessorios',rent:false,name:'Cabo/Adaptador Type-C',price:1500,imgs:['TYPE-C 1,500MT.png','TYPE-C 1,500MT4.png','TYPE-C 1,500MT6.webp'],desc:'Acessórios USB Type-C.'},
   {id:7,tag:'pc-celeron',rent:false,name:'Laptops Série Intel Celeron',price:15000,imgs:['CELERON.jpg','CELERON1.jpg','CELERON2.jpg','CELERON3.jpg','CELERON4.jpg'],desc:'■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente'},
   {id:9,tag:'pc-corei3',rent:false,name:'Laptop Série Core i3',price:25000,imgs:['CORE i3.jpg','CORE i3 4.webp','CORE i3 8.jpeg','CORE i3 9.jpg','CORE i3 222.jpeg'],desc:'■ Core i3\n■ 10ª - 13ª geração\n■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente'},
-  {id:43,tag:'pc-corei5',rent:false,name:'Laptop Série Core i5',price:35000,imgs:['SÉRIE CORE i5 35,000MT.png','SÉRIE CORE i5 35,000MT1.jpg','SÉRIE CORE i5 35,000MT4.jpeg','SÉRIE CORE i5 35,000MT7.jpg'],desc:'■ Core i5\n■ 10ª - 13ª geração\n■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente'},
+  {id:43,tag:'pc-corei5',rent:false,name:'Laptop Série Core i5',price:35000,imgs:['core_i5_35000MT.png','core_i5_35000MT1.jpg','core_i5_35000MT7.jpg','core_i5_35000MT4.jpg'],desc:'■ Core i5\n■ 10ª - 13ª geração\n■ 4GB - 8GB Ram\n■ 256GB - 512GB SSD/HDD\n■ Bateria Excelente'},
   {id:15,tag:'pc-projector',rent:false,name:'Projector Standard',price:10000,imgs:['PROJECTOR 10,000MT.jpg','PROJECTOR 10,000MT2.jpg','PROJECTOR 10,000MT4.jpg'],desc:'Projector de vídeo.'},
   {id:16,tag:'pc-projector',rent:false,name:'Projector Show Profissional',price:15000,imgs:['SHOW 15,000MT .jpeg','SHOW 15,000MT (7).jpeg','SHOW 15,000MT 2.webp','SHOW 15,000MT 5.jpeg'],desc:'Projector de alta luminosidade.'},
   {id:12,tag:'pc-desktop',rent:false,name:'Computador Desktop',price:12000,imgs:['DESKTOP_12,000MT.jpg'],desc:'Computador Desktop de excelente performance.\nIdeal para escritórios e uso doméstico.'},
@@ -774,10 +770,10 @@ const $=id=>document.getElementById(id);
 const fmt=n=>n.toLocaleString('pt-MZ');
 const CATS=[
   {key:'todos',label:'Ver Tudo',icon:'fa-border-all'},
-  {key:'audio',label:'Som',icon:'fa-music'},
+  {key:'audio',label:'Áudio',icon:'fa-music'},
   {key:'pc',label:'Computadores',icon:'fa-laptop'},
   {key:'moda',label:'Moda',icon:'fa-shirt'},
-  {key:'acessorios',label:'Acessórios',icon:'fa-box-open'},
+  {key:'acessorios',label:'Outros',icon:'fa-box-open'},
 ];
 const CAT_LABELS={
   'todos':'Todos os Produtos','audio':'Áudio Profissional',
@@ -964,14 +960,13 @@ function toast(msg,icon='fa-check'){
 }
 window.addEventListener('scroll',()=>{$('btt').classList.toggle('on',window.scrollY>400);},{passive:true});
 const FOOTER_ICONS=[
-  {label:'Som',icon:null,img:'Icone_aluguer.png',filter:'audio'},
-  {label:'Carregadores',icon:'fa-plug',img:null,filter:'pc-acessorios'},
-  {label:'Laptops',icon:'fa-laptop',img:null,filter:'pc'},
-  {label:'Desktop',icon:'fa-computer',img:null,filter:'pc-desktop'},
-  {label:'Processadores',icon:'fa-microchip',img:null,filter:'pc-hardware'},
+  {label:'Aluguer Som',icon:null,img:'Icone_aluguer.jpg',filter:'audio-aluguer'},
+  {label:'Computadores',icon:'fa-laptop',img:null,filter:'pc'},
+  {label:'Laptops i3',icon:'fa-computer',img:null,filter:'pc-corei3'},
+  {label:'Laptops i5',icon:'fa-microchip',img:null,filter:'pc-corei5'},
   {label:'Monitores',icon:'fa-desktop',img:null,filter:'pc-monitor'},
-  {label:'Projectores',icon:'fa-video',img:null,filter:'pc-projector'},
-  {label:'Acessórios',icon:'fa-box-open',img:null,filter:'acessorios'},
+  {label:'Audio Venda',icon:'fa-music',img:null,filter:'audio-venda'},
+  {label:'Acessorios',icon:'fa-box-open',img:null,filter:'acessorios'},
   {label:'Moda',icon:'fa-shirt',img:null,filter:'moda'},
 ];
 function buildFooter(){
