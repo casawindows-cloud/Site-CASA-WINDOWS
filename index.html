@@ -76,37 +76,132 @@ html{scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--txt);padding-top:var(--nav);min-height:100vh;overflow-x:hidden}
 ::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:99px}
 
-/* PROMO BANNER */
-#promoBanner{position:relative;overflow:hidden;background:#07080a;border-bottom:1px solid rgba(42,125,225,.2)}
-.pbn-bg{position:absolute;inset:0;background:linear-gradient(135deg,#050d1a 0%,#0a1628 40%,#061020 100%)}
-.pbn-glow1{position:absolute;top:-60px;left:-40px;width:300px;height:300px;background:radial-gradient(circle,rgba(42,125,225,.18) 0%,transparent 65%);pointer-events:none}
-.pbn-glow2{position:absolute;bottom:-80px;right:10%;width:250px;height:250px;background:radial-gradient(circle,rgba(29,185,84,.1) 0%,transparent 65%);pointer-events:none}
-.pbn-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.pbn-p{position:absolute;border-radius:50%;animation:pFloat linear infinite;opacity:.4}
-@keyframes pFloat{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.4}90%{opacity:.4}100%{transform:translateY(-120px) translateX(20px);opacity:0}}
-.pbn-inner{position:relative;z-index:2;display:flex;align-items:center;padding:18px 5%;gap:20px;flex-wrap:wrap}
-.pbn-badge{background:linear-gradient(135deg,#e8404a,#c0392b);color:#fff;font-size:.6rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:99px;white-space:nowrap;flex-shrink:0;box-shadow:0 0 16px rgba(232,64,74,.4)}
-.pbn-content{flex:1;min-width:200px}
-.pbn-title{font-family:'Familjen Grotesk',sans-serif;font-size:1.05rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:4px}
-.pbn-title em{color:#4a94f0;font-style:normal}
-.pbn-sub{font-size:.75rem;color:rgba(255,255,255,.55);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+/* ═══════════════════════════════════════════════════════
+   BANNER ALUGUER DE SOM
+   - Desktop: proporção Notion (wide + thin), imagem à direita
+   - Mobile: compacto, imagem escondida, texto em foco
+   Para mudar a imagem: edita src="kit_pro.jpg" abaixo no HTML
+   ═══════════════════════════════════════════════════════ */
+#promoBanner{
+  position:relative;overflow:hidden;
+  background:#07080a;
+  border-bottom:1px solid rgba(124,92,252,.25);
+  cursor:pointer;
+}
+/* Fundo escuro com gradiente roxo/azul para dar clima de evento/som */
+.pbn-bg{
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,#0a0514 0%,#0f0820 45%,#080614 100%);
+}
+/* Glow roxo à esquerda */
+.pbn-glow1{
+  position:absolute;top:-80px;left:-20px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(124,92,252,.22) 0%,transparent 60%);
+  pointer-events:none;
+}
+/* Glow azul à direita */
+.pbn-glow2{
+  position:absolute;bottom:-60px;right:30%;
+  width:300px;height:300px;
+  background:radial-gradient(circle,rgba(42,125,225,.14) 0%,transparent 65%);
+  pointer-events:none;
+}
+/* Container principal: text left, image right */
+.pbn-inner{
+  position:relative;z-index:2;
+  display:flex;align-items:center;
+  min-height:80px; /* altura fina estilo Notion no desktop */
+  max-height:120px;
+}
+/* IMAGEM DO BANNER — ocupa o lado direito, cobre altura total */
+.pbn-img{
+  position:absolute;right:0;top:0;bottom:0;
+  width:45%;
+  overflow:hidden;
+  pointer-events:none;
+}
+.pbn-img img{
+  width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  opacity:.55; /* semi-transparente para não dominar o texto */
+  display:block;
+}
+/* Gradiente sobre a imagem para fundir com o texto à esquerda */
+.pbn-img::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,#0a0514 0%,rgba(10,5,20,.6) 40%,transparent 100%);
+  z-index:1;
+}
+/* Conteúdo de texto — lado esquerdo */
+.pbn-text{
+  position:relative;z-index:2;
+  padding:16px 5%;
+  flex:1;
+  display:flex;align-items:center;gap:18px;
+  max-width:60%;
+}
+/* Badge "SOM AO VIVO" */
+.pbn-badge{
+  background:linear-gradient(135deg,#7c5cfc,#5a3fd4);
+  color:#fff;font-size:.58rem;font-weight:900;
+  letter-spacing:2px;text-transform:uppercase;
+  padding:4px 11px;border-radius:99px;
+  white-space:nowrap;flex-shrink:0;
+  box-shadow:0 0 14px rgba(124,92,252,.5);
+  display:none; /* esconde no mobile para poupar espaço */
+}
+/* Bloco central de texto */
+.pbn-content{flex:1;min-width:0}
+.pbn-title{
+  font-family:'Familjen Grotesk',sans-serif;
+  font-size:1rem;font-weight:700;
+  color:#fff;line-height:1.3;
+  margin-bottom:3px;
+}
+.pbn-title em{color:#b39dfc;font-style:normal} /* roxo claro no destaque */
+.pbn-sub{
+  font-size:.72rem;color:rgba(255,255,255,.5);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
 .pbn-sub span{display:flex;align-items:center;gap:4px}
-.pbn-sub i{color:#1db954;font-size:.7rem}
-.pbn-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
-.pbn-btn{display:inline-flex;align-items:center;gap:7px;background:var(--blue);color:#fff;padding:9px 18px;border-radius:8px;font-family:inherit;font-size:.78rem;font-weight:700;border:none;cursor:pointer;transition:all .15s;white-space:nowrap;box-shadow:0 4px 16px rgba(42,125,225,.35)}
-.pbn-btn:hover{background:var(--blue-l);transform:translateY(-1px);box-shadow:0 6px 20px rgba(42,125,225,.45)}
-.pbn-btn i{font-size:.8rem}
-.pbn-close{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.7rem;flex-shrink:0;transition:all .15s}
+.pbn-sub i{color:#7c5cfc;font-size:.65rem}
+/* Botão CTA */
+.pbn-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  background:linear-gradient(135deg,#7c5cfc,#5a3fd4);
+  color:#fff;padding:9px 18px;border-radius:8px;
+  font-family:inherit;font-size:.78rem;font-weight:700;
+  border:none;cursor:pointer;
+  transition:all .15s;white-space:nowrap;flex-shrink:0;
+  box-shadow:0 4px 16px rgba(124,92,252,.4);
+}
+.pbn-btn:hover{
+  background:linear-gradient(135deg,#9370ff,#6b4fe0);
+  transform:translateY(-1px);
+  box-shadow:0 6px 22px rgba(124,92,252,.55);
+}
+/* Botão fechar — discreto */
+.pbn-close{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.4);
+  width:26px;height:26px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:.65rem;flex-shrink:0;
+  transition:all .15s;
+  margin-right:16px;position:relative;z-index:3;
+}
 .pbn-close:hover{background:rgba(232,64,74,.3);color:#fff;border-color:rgba(232,64,74,.4)}
-.pbn-price{font-family:'Familjen Grotesk',sans-serif;font-size:1.5rem;font-weight:700;color:#fff;line-height:1;white-space:nowrap}
-.pbn-price small{font-size:.65rem;color:rgba(255,255,255,.4);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400;display:block;margin-bottom:2px}
-.pbn-price s{font-size:.85rem;color:rgba(255,255,255,.3);font-weight:400;margin-right:6px}
+/* ── MOBILE: mais compacto, sem imagem ── */
 @media(max-width:640px){
-  .pbn-inner{padding:14px 4%;gap:12px}
-  .pbn-title{font-size:.88rem}
-  .pbn-price{font-size:1.2rem}
-  .pbn-sub{font-size:.68rem;gap:8px}
-  .pbn-btn{font-size:.72rem;padding:8px 14px}
+  .pbn-inner{max-height:none;min-height:60px}
+  .pbn-img{display:none} /* esconde imagem no mobile */
+  .pbn-text{padding:12px 4%;max-width:100%;gap:10px}
+  .pbn-title{font-size:.82rem}
+  .pbn-sub{font-size:.65rem;gap:7px}
+  .pbn-btn{font-size:.7rem;padding:7px 13px}
+  .pbn-close{margin-right:10px}
 }
 
 #nav{position:fixed;top:0;left:0;right:0;height:var(--nav);z-index:900;background:rgba(7,8,10,.9);backdrop-filter:blur(24px) saturate(160%);border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 5%;gap:16px}
@@ -422,50 +517,55 @@ main{min-width:0}
 </head>
 <body>
 
-<!-- PROPAGANDA TEMPORÁRIA -->
-<div id="promoBanner">
+<!-- ═══════════════════════════════════════════════════════
+     BANNER ALUGUER DE SOM (PROPAGANDA TEMPORÁRIA)
+     Para mudar: edita .pbn-title, .pbn-sub e img src abaixo
+     Para desactivar: apaga este bloco inteiro
+     ═══════════════════════════════════════════════════════ -->
+<div id="promoBanner" onclick="goAluguer()">
   <div class="pbn-bg"></div>
   <div class="pbn-glow1"></div>
   <div class="pbn-glow2"></div>
-  <div class="pbn-particles" id="pbnParticles"></div>
-  <div class="pbn-inner">
-    <span class="pbn-badge">🔥 Destaque</span>
+
+  <!-- IMAGEM (lado direito, desktop apenas) -->
+  <!-- Para mudar a imagem: substitui "kit_pro.jpg" pelo nome do teu ficheiro -->
+  <div class="pbn-img">
+    <img src="kit_pro.jpg" alt="Aluguer de Som Profissional">
+  </div>
+
+  <!-- CONTEÚDO DE TEXTO -->
+  <div class="pbn-text">
+    <span class="pbn-badge">Som ao vivo</span>
     <div class="pbn-content">
-      <div class="pbn-title">Laptops <em>Core i5</em> — performance real para o teu dia a dia</div>
+      <!-- TÍTULO: curto e chamativo -->
+      <div class="pbn-title">Som profissional para o teu evento — <em>pequeno ou grande</em></div>
+      <!-- SUBTÍTULO: 3-4 pontos curtos -->
       <div class="pbn-sub">
-        <span><i class="fas fa-shield-check"></i> Garantia incluída</span>
-        <span><i class="fas fa-file-invoice"></i> Nota Fiscal</span>
-        <span><i class="fas fa-mobile-screen-button"></i> M-Pesa · E-Mola</span>
-        <span><i class="fas fa-clock"></i> Aberto 24h</span>
+        <span><i class="fas fa-bolt"></i> Kits a partir de 1.000 MT</span>
+        <span><i class="fas fa-users"></i> Para eventos de qualquer tamanho</span>
+        <span><i class="fas fa-calendar-check"></i> Reserva pelo WhatsApp</span>
       </div>
     </div>
-    <div class="pbn-price">
-      <small>A partir de</small>
-      <s>40.250 MT</s>35.000 MT
-    </div>
-    <div class="pbn-actions">
-      <button class="pbn-btn" onclick="document.getElementById('promoBanner').style.display='none';filterBy('pc-corei5',document.getElementById('th-pc'))">
-        <i class="fas fa-arrow-right"></i> Ver laptops
-      </button>
-      <button class="pbn-close" onclick="document.getElementById('promoBanner').style.display='none'" title="Fechar"><i class="fas fa-xmark"></i></button>
-    </div>
+    <!-- BOTÃO CTA -->
+    <button class="pbn-btn" onclick="event.stopPropagation();goAluguer()">
+      Ver kits <i class="fas fa-arrow-right"></i>
+    </button>
+    <!-- BOTÃO FECHAR -->
+    <button class="pbn-close" onclick="event.stopPropagation();document.getElementById('promoBanner').style.display='none'" title="Fechar">
+      <i class="fas fa-xmark"></i>
+    </button>
   </div>
 </div>
-<script>
-(function(){
-  const wrap=document.getElementById('pbnParticles');
-  if(!wrap)return;
-  const colors=['#2a7de1','#4a94f0','#1db954','#ffffff'];
-  for(let i=0;i<18;i++){
-    const p=document.createElement('div');
-    p.className='pbn-p';
-    const size=Math.random()*4+2;
-    p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*4+3}s;animation-delay:${Math.random()*4}s;`;
-    wrap.appendChild(p);
-  }
-})();
-</script>
 
+<script>
+/* Clique no banner leva ao aluguer de som */
+function goAluguer(){
+  document.getElementById('promoBanner').style.display='none';
+  setTimeout(()=>filterBy('audio-aluguer',document.getElementById('th-audio')),100);
+}
+</script></script>
+
+<!-- ═══ NAVBAR (barra de topo fixa) ═══ -->
 <nav id="nav">
   <a href="#" class="brand">
     <img src="cw_logo_blue.png" alt="CASA WINDOWS">
@@ -486,6 +586,7 @@ main{min-width:0}
   </div>
 </nav>
 
+<!-- ═══ BARRA DE CONFIANÇA (mobile) — Garantia, Nota Fiscal, M-Pesa, etc. ═══ -->
 <div class="m-trust">
   <div class="m-trust-item"><i class="fas fa-shield-check"></i> Garantia</div>
   <div class="m-trust-item"><i class="fas fa-file-invoice"></i> Nota Fiscal</div>
@@ -493,6 +594,7 @@ main{min-width:0}
   <div class="m-trust-item"><i class="fas fa-mobile-screen-button"></i> M-Pesa · E-Mola</div>
   <div class="m-trust-item"><i class="fab fa-whatsapp"></i> WhatsApp</div>
 </div>
+<!-- ═══ BARRA DE PROMOÇÃO (desktop) — barra azul com info de confiança ═══ -->
 <div class="promo-bar">
   <div class="pb-items">
     <div class="pb-item"><i class="fas fa-shield-check"></i> Garantia em todos os produtos</div>
@@ -503,6 +605,7 @@ main{min-width:0}
   <a href="https://wa.me/258842785290" target="_blank" class="pb-cta"><i class="fab fa-whatsapp"></i> Falar connosco</a>
 </div>
 
+<!-- ═══ CHIPS DE CATEGORIA (mobile) — filtros deslizáveis no topo em mobile ═══ -->
 <div class="m-chips" id="mChips">
   <div class="chip on" onclick="filterBy('todos',this)">Tudo</div>
   <div class="chip" onclick="filterBy('audio',this)">Som</div>
@@ -516,9 +619,12 @@ main{min-width:0}
   <div class="chip" onclick="filterBy('moda',this)">Moda</div>
 </div>
 
+<!-- ═══ FAIXA DE CATEGORIAS (desktop) — blocos de categoria gerados por JS ═══ -->
 <div class="cat-strip" id="catStrip"></div>
 
+<!-- ═══ LAYOUT PRINCIPAL — sidebar (escondida) + main com produtos ═══ -->
 <div class="layout">
+  <!-- ═══ SIDEBAR (escondida por CSS, mantida para referência futura) ═══ -->
   <aside class="sidebar">
     <div class="sb-section">
       <div class="sb-label">Categorias</div>
@@ -579,6 +685,7 @@ main{min-width:0}
       </div>
     </div>
   </aside>
+  <!-- ═══ MAIN — breadcrumb, toolbar, grid de produtos ═══ -->
   <main>
     <div class="breadcrumb" id="breadcrumb">
       <span onclick="filterBy('todos',document.getElementById('th-todos'))">Início</span>
@@ -604,6 +711,7 @@ main{min-width:0}
       </div>
     </div>
     <div class="active-filters" id="activeFilters"></div>
+    <!-- ═══ GRID DE PRODUTOS — preenchido por JavaScript ═══ -->
     <div class="pgrid" id="productGrid"></div>
   </main>
 </div>
@@ -692,6 +800,17 @@ const WA="258842785290";
 let cart=[],curProdId=null,cIdx=0,cTotal=0;
 let activeFilter='todos',activeSort='default',searchQ='',priceMin=null,priceMax=null,viewMode='grid';
 
+/* ═══════════════════════════════════════════════════════
+   BASE DE DADOS DE PRODUTOS (DB)
+   Cada produto tem: id, tag, rent, name, price, imgs[], desc
+   TAGS disponíveis:
+     pc-corei5 / pc-corei3 / pc-celeron / pc-desktop
+     pc-monitor / pc-projector / pc-hardware / pc-acessorios
+     audio-venda / audio-aluguer
+     moda / acessorios
+   Para adicionar produto: copia uma linha e edita
+   Para remover: apaga a linha do produto
+   ═══════════════════════════════════════════════════════ */
 const DB=[
   {id:11,tag:'pc-acessorios',rent:false,name:'Carregadores de Laptop Universais',price:1000,imgs:['CARREGADORES 1000MT .jpg','CARREGADORES 1000MT 66.jpg'],desc:'Carregadores para HP, DELL, ASUS, LENOVO, TOSHIBA.'},
   {id:42,tag:'pc-acessorios',rent:false,name:'Carregador Macbook / Acessórios Mac',price:2000,imgs:['MACBOOK 2,000MT.jpg','MACBOOK 2,000MT.jpeg','MACBOOK 2,000MT43.png'],desc:'Carregadores e acessórios para Macbook.'},
@@ -973,6 +1092,10 @@ function toast(msg,icon='fa-check'){
   clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2500);
 }
 window.addEventListener('scroll',()=>{$('btt').classList.toggle('on',window.scrollY>400);},{passive:true});
+/* ═══ FOOTER ICONS — ícones de categoria no rodapé
+   Para mudar ícone: edita icon (classe FontAwesome) ou img (nome do ficheiro)
+   Para mudar filtro: edita filter (deve corresponder a uma tag da DB)
+   ═══ */
 const FOOTER_ICONS=[
   {label:'Aluguer Som',icon:null,img:'icone_aluguer1.png',filter:'audio-aluguer'},
   {label:'Computadores',icon:'fa-laptop',img:null,filter:'pc'},
@@ -1011,6 +1134,7 @@ function closeLightbox(){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 window.addEventListener('scroll',closeAllDDs,{passive:true});
+/* ═══ INICIALIZAÇÃO — corre quando a página carrega ═══ */
 document.addEventListener('DOMContentLoaded',()=>{
   buildCatStrip();updateCounts();buildFooter();initFooterObserver();
   renderSkel();
